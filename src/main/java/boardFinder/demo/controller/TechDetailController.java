@@ -1,6 +1,3 @@
-/*
-
- */
 package boardFinder.demo.controller;
 
 import boardFinder.demo.domain.TechDetail;
@@ -17,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Erik
  */
 @RestController
-@RequestMapping("/techdetail")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/techdetails")
 public class TechDetailController {
     
      private TechDetailsService techDetailsService;

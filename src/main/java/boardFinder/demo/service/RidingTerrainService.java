@@ -30,12 +30,6 @@ public class RidingTerrainService {
         return rTRepository.findById(id);
     }
     
-    /*
-    public Brand getBrandByName(String name){
-        return brandRepository.findByName(name);
-    }
-*/
-    
     public RidingTerrain save(RidingTerrain rT){
         return rTRepository.save(rT);
     }
