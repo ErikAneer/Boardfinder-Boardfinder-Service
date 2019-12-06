@@ -45,17 +45,7 @@ public class Snowboard implements Serializable {
     @ManyToMany(cascade = {CascadeType.MERGE})
     private List<Terrain> ridingterrains = new ArrayList<>();
 
-    /*
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "bend_id")
-    private Bend boardBend;
-
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "shape_id")
-    private Shape boardShape;
-    */
     private double stanceSetBack;
-    
 
     private String imagePath;
     @Length(max = 1000)
@@ -63,22 +53,12 @@ public class Snowboard implements Serializable {
     @Length(max = 1000)
     private String description;
 
-    /*
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "flex_id")
-    private Flex boardFlex;
-
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "core_id")
-    private Core core;
-    */
-
     @ManyToMany(cascade = {CascadeType.MERGE})
     private Set<RiderLevel> riderLevels = new HashSet<>();
 
     @OneToMany(cascade = {CascadeType.MERGE})
     private List<SnowboardSizeSpecs> boardSizeSpecs = new ArrayList<>();
-    
+
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "board_id")
     private List<TechDetail> techDetails = new ArrayList<>();
@@ -95,16 +75,12 @@ public class Snowboard implements Serializable {
         description = null;
     }
 
-    public Snowboard(Brand boardBrand, String model, Gender boardGender, double stanceSetBack, 
+    public Snowboard(Brand boardBrand, String model, Gender boardGender, double stanceSetBack,
             int stiffness, String imagePath, String introDescription, String description) {
         this.boardBrand = boardBrand;
         this.name = model;
         this.boardGender = boardGender;
         this.stanceSetBack = stanceSetBack;
-       // this.boardBend = boardBend;
-        //this.boardShape = boardShape;
-        //this.boardFlex = boardFlex;
-        //this.core = core;
         this.stiffness = stiffness;
         this.imagePath = imagePath;
         this.introDescription = introDescription;
@@ -151,23 +127,6 @@ public class Snowboard implements Serializable {
         this.stanceSetBack = stanceSetBack;
     }
 
-    /*
-    public Bend getBoardBend() {
-        return boardBend;
-    }
-
-    public void setBoardBend(Bend boardBend) {
-        this.boardBend = boardBend;
-    }
-
-    public Shape getBoardShape() {
-        return boardShape;
-    }
-
-    public void setBoardShape(Shape boardShape) {
-        this.boardShape = boardShape;
-    } */
-
     public String getImagePath() {
         return imagePath;
     }
@@ -184,20 +143,9 @@ public class Snowboard implements Serializable {
         this.riderLevels = riderLevels;
     }
 
-    /*
-    public Flex getBoardFlex() {
-        return boardFlex;
-    }
-
-    public void setBoardFlex(Flex boardFlex) {
-        this.boardFlex = boardFlex;
-    }
-    */
-
     public String getIntroDescription() {
         return introDescription;
     }
-    
 
     public void setIntroDescription(String introDescription) {
         this.introDescription = introDescription;
@@ -218,16 +166,6 @@ public class Snowboard implements Serializable {
     public void setRidingterrains(List<Terrain> ridingterrains) {
         this.ridingterrains = ridingterrains;
     }
-
-    /*
-    public Core getCore() {
-        return core;
-    }
-
-    public void setCore(Core core) {
-        this.core = core;
-    }
-*/
 
     public List<SnowboardSizeSpecs> getBoardSizeSpecs() {
         return boardSizeSpecs;
@@ -252,14 +190,13 @@ public class Snowboard implements Serializable {
     public void setTechDetails(List<TechDetail> techDetails) {
         this.techDetails = techDetails;
     }
-    
+
     public Integer getRiderTerrainValueByName(String terrain) {
-        for (Terrain t : this.ridingterrains){
-                if (t.getRidingType().getRidingTypeName().equalsIgnoreCase(terrain))  {
-                       return  t.getValue();
-                }
+        for (Terrain t : this.ridingterrains) {
+            if (t.getRidingType().getRidingTypeName().equalsIgnoreCase(terrain)) {
+                return t.getValue();
+            }
         }
         return 0;
     }
-
 }

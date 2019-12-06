@@ -49,6 +49,4 @@ public class Brand implements Serializable{
     public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
-    
-    
 }

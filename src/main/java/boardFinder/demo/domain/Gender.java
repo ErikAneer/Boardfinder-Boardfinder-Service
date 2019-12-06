@@ -38,6 +38,4 @@ public class Gender implements Serializable{
     public void setSex(String sex) {
         this.sex = sex;
     }
-    
-    
 }
