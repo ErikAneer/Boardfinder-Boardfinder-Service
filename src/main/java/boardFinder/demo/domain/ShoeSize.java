@@ -115,5 +115,4 @@ public class ShoeSize implements Serializable {
     public void setWaistWidthIdeal(int waistWidthIdeal) {
         this.waistWidthIdeal = waistWidthIdeal;
     }
-
 }

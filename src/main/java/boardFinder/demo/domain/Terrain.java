@@ -57,5 +57,4 @@ public class Terrain implements Serializable {
     public void setValue(int value) {
         this.value = value;
     }
-
 }

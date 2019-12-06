@@ -30,12 +30,6 @@ public class GenderService {
         return genderRepository.findById(id);
     }
     
-    /*
-    public Brand getBrandByName(String name){
-        return brandRepository.findByName(name);
-    }
-*/
-    
     public Gender save(Gender gender){
         return genderRepository.save(gender);
     }

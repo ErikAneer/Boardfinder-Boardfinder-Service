@@ -49,7 +49,8 @@ public class SnowboardSizeSpecs implements Serializable {
         stanceWidth = 0;
     }
 
-    public SnowboardSizeSpecs(String boardLength, int riderWeightMin, int riderWeightMax, String bindingSize, double effectiveLength, double runningLength, double sidcutRadius, int waistWidth, double stanceWidth) {
+    public SnowboardSizeSpecs(String boardLength, int riderWeightMin, int riderWeightMax, String bindingSize, 
+            double effectiveLength, double runningLength, double sidcutRadius, int waistWidth, double stanceWidth) {
         this.boardLength = boardLength;
         this.riderWeightMin = riderWeightMin;
         this.riderWeightMax = riderWeightMax;
@@ -140,5 +141,4 @@ public class SnowboardSizeSpecs implements Serializable {
     public void setStanceWidth(double stanceWidth) {
         this.stanceWidth = stanceWidth;
     }
-
 }
