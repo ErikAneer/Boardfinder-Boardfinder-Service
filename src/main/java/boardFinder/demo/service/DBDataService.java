@@ -1140,7 +1140,387 @@ public class DBDataService {
             sb27.getRidingterrains().add(customXFVt3);
 
             sb27.getRiderLevels().add(pro);
+            
+            // Talent Scout
+            Snowboard sb28 = new Snowboard(brand1, "Talent Scout", female, 0, 7, "Talent_Scout.webp", "Bad-ass with a touch of sass in an action-packed board that'll have you falling in love with camber all over again.", "The Burton Talent Scout is on a mission to track down the best of park progression. A step up in pro-driven attitude from other twins, a camber profile gives riders the power, control, and finesse to thrive on all terrain. Designed to fit like a glove, the Talent Scout's Off-Axis design aligns the Squeezebox core profiling and Frostbite Edges with the typical park rider's stance, unlocking the board's natural flex and edge hold for buttery smooth control.");
+            sb28.getTechDetails().add(camberBend);
+            sb28.getTechDetails().add(twinShape);
+            sb28.getTechDetails().add(twinFlex);
+            sb28.getTechDetails().add(superFly2700G);
+            SnowboardSizeSpecs talentScout138 = new SnowboardSizeSpecs("138", 36, 54, "S/M", 101.5, 97, 6.5, 235, 48);
+            SnowboardSizeSpecs talentScout141 = new SnowboardSizeSpecs("141", 45, 68, "M", 104.5, 100, 6.7, 237, 48);
+            SnowboardSizeSpecs talentScout146 = new SnowboardSizeSpecs("146", 54, 82, "M/L", 109.5, 105, 7.0, 240, 50.5);
+            SnowboardSizeSpecs talentScout149 = new SnowboardSizeSpecs("149", 54, 82, "M/L", 112.5, 108, 7.2, 242, 53);
+            SnowboardSizeSpecs talentScout152 = new SnowboardSizeSpecs("152", 68, 91, "L", 115.5, 111, 7.4, 245, 53);
+            snowboardSizeSpecsRepository.save(talentScout138);
+            snowboardSizeSpecsRepository.save(talentScout141);
+            snowboardSizeSpecsRepository.save(talentScout146);
+            snowboardSizeSpecsRepository.save(talentScout149);
+            snowboardSizeSpecsRepository.save(talentScout152);
 
+            sb28.getBoardSizeSpecs().add(talentScout138);
+            sb28.getBoardSizeSpecs().add(talentScout141);
+            sb28.getBoardSizeSpecs().add(talentScout146);
+            sb28.getBoardSizeSpecs().add(talentScout149);
+            sb28.getBoardSizeSpecs().add(talentScout152);
+
+            Terrain talentScoutt1 = new Terrain(allMountain, 8);
+            Terrain talentScoutt2 = new Terrain(park, 8);
+            Terrain talentScoutt3 = new Terrain(powder, 6);
+
+            terrainRepository.save(talentScoutt1);
+            terrainRepository.save(talentScoutt2);
+            terrainRepository.save(talentScoutt3);
+
+            sb28.getRidingterrains().add(talentScoutt1);
+            sb28.getRidingterrains().add(talentScoutt2);
+            sb28.getRidingterrains().add(talentScoutt3);
+
+            sb28.getRiderLevels().add(intermediate);
+            sb28.getRiderLevels().add(pro);
+            
+            // Family Tree Story Board
+            Snowboard sb29 = new Snowboard(brand1, "Family Tree Story Board", female, -3.5, 7, "Family_Tree_Story_Board.webp", "Whether you're in deep or up in the air, spin tall tales on the ultimate freeride shape for women who seek to send it.", "When our designers saw women reaching for men's models like the Flight Attendant, they decided it was high time to create the ultimate women's freeride machine. The Burton Story Board is designed to create hard charging moments – the kind you'll be spinning yarns about for years to come. Control, versatility and confidence are key themes. A women's-specific core profile complements the directionally cambered shape and 10mm of taper with torsional flex that drives and floats through turns on groomers and deep days alike.");
+            sb29.getTechDetails().add(directionalCamberBend);
+            sb29.getTechDetails().add(freerideDirectionalShape);
+            sb29.getTechDetails().add(directionalFlex);
+            sb29.getTechDetails().add(superFly2700G);
+            SnowboardSizeSpecs familyTreeStoryBoard142 = new SnowboardSizeSpecs("142", 45, 68, "M", 105, 99, 6.6, 238, 48);
+            SnowboardSizeSpecs familyTreeStoryBoard147 = new SnowboardSizeSpecs("147", 54, 82, "M/L", 110, 104, 6.9, 242, 50.5);
+            SnowboardSizeSpecs familyTreeStoryBoard152 = new SnowboardSizeSpecs("152", 68, 91, "M/L", 115, 109, 7.2, 245, 53);
+            snowboardSizeSpecsRepository.save(familyTreeStoryBoard142);
+            snowboardSizeSpecsRepository.save(familyTreeStoryBoard147);
+            snowboardSizeSpecsRepository.save(familyTreeStoryBoard152);
+
+            sb29.getBoardSizeSpecs().add(familyTreeStoryBoard142);
+            sb29.getBoardSizeSpecs().add(familyTreeStoryBoard147);
+            sb29.getBoardSizeSpecs().add(familyTreeStoryBoard152);
+
+            Terrain familyTreeStoryBoardT1 = new Terrain(allMountain, 8);
+            Terrain familyTreeStoryBoardT2 = new Terrain(powder, 8);
+            Terrain familyTreeStoryBoardT3 = new Terrain(park, 3);
+
+            terrainRepository.save(familyTreeStoryBoardT1);
+            terrainRepository.save(familyTreeStoryBoardT2);
+            terrainRepository.save(familyTreeStoryBoardT3);
+
+            sb29.getRidingterrains().add(familyTreeStoryBoardT1);
+            sb29.getRidingterrains().add(familyTreeStoryBoardT2);
+            sb29.getRidingterrains().add(familyTreeStoryBoardT3);
+
+            sb29.getRiderLevels().add(pro);
+            
+            
+            // Stylus 
+            Snowboard sb30 = new Snowboard(brand1, "Stylus", female, 0, 2, "Stylus.webp", "Set the Stylus to snow and make your first mark on a blank slate, the best intro to snowboarding out there.", "Hands down the easiest women’s board in the line, the Burton Stylus is perfect for aspiring riders looking to build a foundation before moving on to a more performance-oriented option. Like setting a pen to a blank piece of paper, the Stylus silences your fears, teaching balance and board control from the first time you strap in. Easy Bevel combines a soft, mellow flex with a convex base for a virtually-catch free riding experience, while Flat Top™ and a true twin shape provide a stable platform that's effortlessly maneuverable no matter which way you point it. The Channel® mounting system gives you the easiest, most adjustable setup with bindings from all major brands (not just Burton’s).");
+            sb30.getTechDetails().add(flatTopBend);
+            sb30.getTechDetails().add(twinShape);
+            sb30.getTechDetails().add(twinFlex);
+            sb30.getTechDetails().add(fly900G);
+            SnowboardSizeSpecs stylus138 = new SnowboardSizeSpecs("138", 45, 68, "M/L", 101.5, 90, 5.9, 240, 48);
+            SnowboardSizeSpecs stylus142 = new SnowboardSizeSpecs("142", 45, 68, "M/L", 105, 93, 6.1, 241, 50.5);
+            SnowboardSizeSpecs stylus147 = new SnowboardSizeSpecs("147", 54, 82, "M/L", 110, 98, 6.4, 242, 53);
+            SnowboardSizeSpecs stylus152 = new SnowboardSizeSpecs("152", 68, 91, "L", 114.5, 102, 6.7, 244, 53);
+            snowboardSizeSpecsRepository.save(stylus138);
+            snowboardSizeSpecsRepository.save(stylus142);
+            snowboardSizeSpecsRepository.save(stylus147);
+            snowboardSizeSpecsRepository.save(stylus152);
+
+            sb30.getBoardSizeSpecs().add(stylus138);
+            sb30.getBoardSizeSpecs().add(stylus142);
+            sb30.getBoardSizeSpecs().add(stylus147);
+            sb30.getBoardSizeSpecs().add(stylus152);
+
+            Terrain stylusT1 = new Terrain(allMountain, 8);
+            Terrain stylusT2 = new Terrain(powder, 4);
+            Terrain stylusT3 = new Terrain(park, 2);
+
+
+            terrainRepository.save(stylusT1);
+            terrainRepository.save(stylusT2);
+            terrainRepository.save(stylusT3);
+
+            sb30.getRidingterrains().add(stylusT1);
+            sb30.getRidingterrains().add(stylusT2);
+            sb30.getRidingterrains().add(stylusT3);
+
+            sb30.getRiderLevels().add(beginner);
+            
+            // Family Tree Stick Shift
+            Snowboard sb31 = new Snowboard(brand1, "Family Tree Stick Shift", female, -2.5, 4, "Family_Tree_Stick_Shift.webp", "Pop the clutch, rally around and enjoy the ride with this surf-inspired short board.", "Quick and nimble, yet loose and playful – it's all about balance with the Family Tree's first super short pow surfer designed specifically for women. Shorter, wider, and boasting a mid-range flex, the Stick Shift is great for speeding around every inch of the mountain, and slashing up a storm in the backcountry. Directional Flat Top delivers a loose, yet stable feel, while an early rise in the nose combines with a unique directional shape to deliver effortless float in fresh snow.");
+            sb31.getTechDetails().add(directionalFlatTopBend);
+            sb31.getTechDetails().add(allMountainDirectionalShape);
+            sb31.getTechDetails().add(directionalFlex);
+            sb31.getTechDetails().add(superFly2700G);
+            SnowboardSizeSpecs familyTreeStickShift142 = new SnowboardSizeSpecs("142", 54, 82, "L", 110, 102, 6.8, 250, 48);
+            SnowboardSizeSpecs  familyTreeStickShift148 = new SnowboardSizeSpecs("148", 68, 91, "L", 116, 108, 7.2, 255, 53);
+            snowboardSizeSpecsRepository.save(familyTreeStickShift142);
+            snowboardSizeSpecsRepository.save(familyTreeStickShift148);
+
+            sb31.getBoardSizeSpecs().add(familyTreeStickShift142);
+            sb31.getBoardSizeSpecs().add(familyTreeStickShift148);
+
+            Terrain familyTreeStickShiftT1 = new Terrain(powder, 10);
+            Terrain familyTreeStickShiftT2 = new Terrain(allMountain, 6);
+            Terrain familyTreeStickShiftT3 = new Terrain(park, 2);
+
+
+            terrainRepository.save(familyTreeStickShiftT1);
+            terrainRepository.save(familyTreeStickShiftT2);
+            terrainRepository.save(familyTreeStickShiftT3);
+
+            sb31.getRidingterrains().add(familyTreeStickShiftT1);
+            sb31.getRidingterrains().add(familyTreeStickShiftT2);
+            sb31.getRidingterrains().add(familyTreeStickShiftT3);
+
+            sb31.getRiderLevels().add(intermediate);
+            sb31.getRiderLevels().add(pro);
+            
+            // Day Trader
+            Snowboard sb32 = new Snowboard(brand1, "Day Trader", female, -3.75, 4, "Day_Trader.webp", "Throw away the trail map and explore new stashes with the Burton team's favorite for effortless float and confidence-boosting control.", "From exploring the trail map to sneaking away in search of secret stashes, the Burton Day Trader boosts your abilities with a versatile and surfy shape that thrives on all terrain. Developed with freeride maven Kimmy Fasani, this tapered, directional board is designed to perform in fresh snow, yet is just as fun on groomers, too. Directional Flat Top profiling enhances stability and control, while the early rise in the nose adds the effortless float and feeling of rocker. Features like a sustainable FSC™ certified wood core and bio-based Super Sap® resin ensure the board is easy on both you and the environment.");
+            sb32.getTechDetails().add(directionalFlatTopBend);
+            sb32.getTechDetails().add(freerideDirectionalShape);
+            sb32.getTechDetails().add(twinFlex);
+            sb32.getTechDetails().add(superFly2700G);
+            SnowboardSizeSpecs dayTrader140 = new SnowboardSizeSpecs("140", 36, 54, "M", 102.5, 98, 6.4, 238, 48);
+            SnowboardSizeSpecs dayTrader145 = new SnowboardSizeSpecs("145", 45, 68, "M/L", 107.5, 103, 6.7, 241, 50.5);
+            SnowboardSizeSpecs dayTrader150 = new SnowboardSizeSpecs("150", 54, 82, "M/L", 112.5, 108, 7.0, 243, 53);
+            SnowboardSizeSpecs dayTrader154 = new SnowboardSizeSpecs("154", 68, 91, "L", 116.5, 1121, 7.3, 245, 53);
+            snowboardSizeSpecsRepository.save(dayTrader140);
+            snowboardSizeSpecsRepository.save(dayTrader145);
+            snowboardSizeSpecsRepository.save(dayTrader150);
+            snowboardSizeSpecsRepository.save(dayTrader154);
+
+            sb32.getBoardSizeSpecs().add(dayTrader140);
+            sb32.getBoardSizeSpecs().add(dayTrader145);
+            sb32.getBoardSizeSpecs().add(dayTrader150);
+            sb32.getBoardSizeSpecs().add(dayTrader154);
+
+            Terrain dayTraderT1 = new Terrain(allMountain, 8);
+            Terrain dayTraderT2 = new Terrain(powder, 8);
+            Terrain dayTraderT3 = new Terrain(park, 3);
+
+            terrainRepository.save(dayTraderT1);
+            terrainRepository.save(dayTraderT2);
+            terrainRepository.save(dayTraderT3);
+
+            sb32.getRidingterrains().add(dayTraderT1);
+            sb32.getRidingterrains().add(dayTraderT2);
+            sb32.getRidingterrains().add(dayTraderT3);
+
+            sb32.getRiderLevels().add(intermediate);
+            sb32.getRiderLevels().add(pro);
+            
+            // Feelgood
+            Snowboard sb33 = new Snowboard(brand1, "Feelgood", female, -1.25, 7, "Feelgood.webp", "The most confident and proven deck in women's snowboarding is ready to act its age.", "Backed by Kelly Clark, the Burton Feelgood has been the defining force in women's snowboarding for nearly two decades. Call it a coming of age, or maybe it was just time for a facelift – either way, the Feelgood has donned a whole new look, boasting a unique shape, matched with positively powerful pop for Ferrari-like handing. Directional shaping navigates easily through variable conditions, making this the number one board for conquering all terrain. Available with the stable suspension of camber or the rocker-infused freedom of Flying V™, the Feelgood is a perfect match for aspiring pros or just riders who demand every advantage.");
+            sb33.getTechDetails().add(camberBend);
+            sb33.getTechDetails().add(allMountainDirectionalShape);
+            sb33.getTechDetails().add(twinFlex);
+            sb33.getTechDetails().add(superFly2700G);
+            SnowboardSizeSpecs feelgood142 = new SnowboardSizeSpecs("142", 45, 68, "M", 106.5, 102, 6.8, 238, 50.5);
+            SnowboardSizeSpecs feelgood146 = new SnowboardSizeSpecs("146", 54, 82, "M/L", 110.5, 106, 7.1, 240, 53);
+            SnowboardSizeSpecs feelgood149 = new SnowboardSizeSpecs("149", 54, 82, "M/L", 113.5, 109, 7.3, 242, 53);
+            SnowboardSizeSpecs feelgood152 = new SnowboardSizeSpecs("152", 68, 91, "L", 116.5, 112, 7.5, 244, 53);
+            snowboardSizeSpecsRepository.save(feelgood142);
+            snowboardSizeSpecsRepository.save(feelgood146);
+            snowboardSizeSpecsRepository.save(feelgood149);
+            snowboardSizeSpecsRepository.save(feelgood152);
+
+            sb33.getBoardSizeSpecs().add(feelgood142);
+            sb33.getBoardSizeSpecs().add(feelgood146);
+            sb33.getBoardSizeSpecs().add(feelgood149);
+            sb33.getBoardSizeSpecs().add(feelgood152);
+
+            Terrain feelgoodT1 = new Terrain(allMountain, 10);
+            Terrain feelgoodT2 = new Terrain(park, 6);
+            Terrain feelgoodT3 = new Terrain(powder, 6);
+
+            terrainRepository.save(feelgoodT1);
+            terrainRepository.save(feelgoodT2);
+            terrainRepository.save(feelgoodT3);
+
+            sb33.getRidingterrains().add(feelgoodT1);
+            sb33.getRidingterrains().add(feelgoodT2);
+            sb33.getRidingterrains().add(feelgoodT3);
+
+            sb33.getRiderLevels().add(intermediate);
+            sb33.getRiderLevels().add(pro);
+            
+            // Rewind
+             Snowboard sb34 = new Snowboard(brand1, "Rewind", female, 0, 2, "Rewind.webp", "Step up your game with the hardest charging \"soft\" board on the mountain.", "With an extra poppy flex, the souped-up Burton Rewind is for riders who charge hard, and like to flaunt a freestyle attitude backed by steady park progression. The flat, ultra-thin, and skate-like profile improves the ride, thanks to Filet-O-Flex design, yet rips harder than any soft board out there. Ramped-up grip and a fast yet low-maintenance sintered base offer control and durability in variable conditions, while the Off-Axis construction perfectly aligns the board's design to your body's stance and positioning for board feel that fits like a glove.");
+            sb34.getTechDetails().add(purePopCamberBend);
+            sb34.getTechDetails().add(twinShape);
+            sb34.getTechDetails().add(twinFlex);
+            sb34.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs rewind141 = new SnowboardSizeSpecs("141", 45, 68, "M", 104.5, 100, 6.7, 237, 50.5);
+            SnowboardSizeSpecs rewind146 = new SnowboardSizeSpecs("146", 54, 82, "M/L", 109.5, 105, 7.0, 240, 53);
+            SnowboardSizeSpecs rewind149 = new SnowboardSizeSpecs("149", 54, 82, "M/L", 112.5, 108, 7.2, 242, 53);
+            SnowboardSizeSpecs rewind152 = new SnowboardSizeSpecs("152", 68, 91, "L", 115.5, 111, 7.4, 245, 53);
+            snowboardSizeSpecsRepository.save(rewind141);
+            snowboardSizeSpecsRepository.save(rewind146);
+            snowboardSizeSpecsRepository.save(rewind149);
+            snowboardSizeSpecsRepository.save(rewind152);
+
+            sb34.getBoardSizeSpecs().add(rewind141);
+            sb34.getBoardSizeSpecs().add(rewind146);
+            sb34.getBoardSizeSpecs().add(rewind149);
+            sb34.getBoardSizeSpecs().add(rewind152);
+
+            Terrain rewindT1 = new Terrain(allMountain, 7);
+            Terrain rewindT2 = new Terrain(park, 7);
+            Terrain rewindT3 = new Terrain(powder, 4);
+
+            terrainRepository.save(rewindT1);
+            terrainRepository.save(rewindT2);
+            terrainRepository.save(rewindT3);
+
+            sb34.getRidingterrains().add(rewindT1);
+            sb34.getRidingterrains().add(rewindT2);
+            sb34.getRidingterrains().add(rewindT3);
+
+            sb34.getRiderLevels().add(intermediate);
+            sb34.getRiderLevels().add(pro);
+            
+            // Hideaway
+            Snowboard sb35 = new Snowboard(brand1, "Hideaway", female, -2.5, 2, "Hideaway.webp", "Put a creative spin on all terrain with a playful and stable board that charges ahead and inspires confidence.", "A little fun with a lot of function, the Burton Hideaway is the perfect tool for taking a no-limits twin-tipped approach to the whole mountain. Plenty playful, a Flat Top™ Bend offers the forgiving freedom and stability to take on any terrain or condition. Its innovative true twin shape makes it really fun to ride in both directions, while a sintered base keeps it fast, even if you have no time to wax it.");
+            sb35.getTechDetails().add(flatTopBend);
+            sb35.getTechDetails().add(allMountainDirectionalShape);
+            sb35.getTechDetails().add(twinFlex);
+            sb35.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs hideaway140 = new SnowboardSizeSpecs("140", 36, 54, "S/M", 107.2, 103, 6.7, 235, 48);
+            SnowboardSizeSpecs hideaway144 = new SnowboardSizeSpecs("144", 45, 68, "M", 111.5, 107, 7.0, 237, 50.5);
+            SnowboardSizeSpecs hideaway149 = new SnowboardSizeSpecs("149", 54, 82, "M/L", 114.5, 110, 7.2, 240, 53);
+            SnowboardSizeSpecs hideaway152 = new SnowboardSizeSpecs("152", 68, 91, "M/L", 118.5, 114, 7.4, 242, 53);
+            SnowboardSizeSpecs hideaway155 = new SnowboardSizeSpecs("155", 68, 91, "L", 121.5, 117, 7.6, 245, 56);
+            snowboardSizeSpecsRepository.save(hideaway140);
+            snowboardSizeSpecsRepository.save(hideaway144);
+            snowboardSizeSpecsRepository.save(hideaway149);
+            snowboardSizeSpecsRepository.save(hideaway152);
+            snowboardSizeSpecsRepository.save(hideaway155);
+
+            sb35.getBoardSizeSpecs().add(hideaway140);
+            sb35.getBoardSizeSpecs().add(hideaway144);
+            sb35.getBoardSizeSpecs().add(hideaway149);
+            sb35.getBoardSizeSpecs().add(hideaway152);
+            sb35.getBoardSizeSpecs().add(hideaway155);
+
+            Terrain hideawayT1 = new Terrain(allMountain, 9);
+            Terrain hideawayT2 = new Terrain(powder, 4);
+            Terrain hideawayT3 = new Terrain(park, 3);
+
+            terrainRepository.save(hideawayT1);
+            terrainRepository.save(hideawayT2);
+            terrainRepository.save(hideawayT3);
+
+            sb35.getRidingterrains().add(hideawayT1);
+            sb35.getRidingterrains().add(hideawayT2);
+            sb35.getRidingterrains().add(hideawayT3);
+
+            sb35.getRiderLevels().add(beginner);
+            
+            // Feelgood FV
+            Snowboard sb36 = new Snowboard(brand1, "Feelgood Flying V", female, -1.25, 4, "Feelgood_Flying_V.webp", "The most confident and proven deck in women's snowboarding is ready to act its age.", "Backed by Kelly Clark, the Burton Feelgood has been the defining force in women's snowboarding for nearly two decades. Call it a coming of age, or maybe it was just time for a facelift – either way, the Feelgood has donned a whole new look, boasting a unique shape, matched with positively powerful pop for Ferrari-like handing. Directional shaping navigates easily through variable conditions, making this the number one board for conquering all terrain. Available with the stable suspension of camber or the rocker-infused freedom of Flying V™, the Feelgood is a perfect match for aspiring pros or just riders who demand every advantage.");
+            sb36.getTechDetails().add(flyingVBend);
+            sb36.getTechDetails().add(allMountainDirectionalShape);
+            sb36.getTechDetails().add(twinFlex);
+            sb36.getTechDetails().add(superFly2700G);
+            SnowboardSizeSpecs feelgoodFV142 = new SnowboardSizeSpecs("142", 45, 68, "M", 106.5, 102, 6.8, 238, 50.5);
+            SnowboardSizeSpecs feelgoodFV146 = new SnowboardSizeSpecs("146", 54, 82, "M/L", 110.5, 106, 7.1, 240, 53);
+            SnowboardSizeSpecs feelgoodFV149 = new SnowboardSizeSpecs("149", 54, 82, "M/L", 113.5, 109, 7.3, 242, 53);
+            SnowboardSizeSpecs feelgoodFV152 = new SnowboardSizeSpecs("152", 68, 91, "L", 116.5, 112, 7.5, 244, 53);
+            snowboardSizeSpecsRepository.save(feelgoodFV142);
+            snowboardSizeSpecsRepository.save(feelgoodFV146);
+            snowboardSizeSpecsRepository.save(feelgoodFV149);
+            snowboardSizeSpecsRepository.save(feelgoodFV152);
+
+            sb36.getBoardSizeSpecs().add(feelgoodFV142);
+            sb36.getBoardSizeSpecs().add(feelgoodFV146);
+            sb36.getBoardSizeSpecs().add(feelgoodFV149);
+            sb36.getBoardSizeSpecs().add(feelgoodFV152);
+
+            Terrain feelgoodFVT1 = new Terrain(allMountain, 10);
+            Terrain feelgoodFVT2 = new Terrain(powder, 6);
+            Terrain feelgoodFVT3 = new Terrain(park, 5);
+
+            terrainRepository.save(feelgoodFVT1);
+            terrainRepository.save(feelgoodFVT2);
+            terrainRepository.save(feelgoodFVT3);
+
+            sb36.getRidingterrains().add(feelgoodFVT1);
+            sb36.getRidingterrains().add(feelgoodFVT2);
+            sb36.getRidingterrains().add(feelgoodFVT3);
+
+            sb36.getRiderLevels().add(intermediate);
+            sb36.getRiderLevels().add(pro);
+            
+             // Yeasayer
+            Snowboard sb37 = new Snowboard(brand1, "Yeasayer", female, 0, 3, "Yeasayer.webp", "Make every turn a metaphorical thumbs up with the versatility and catch-free control of a board that's built to expand your horizons.", "From unexplored peaks to your favorite parks, the Burton Yeasayer tames anything that stands in your way. The board's Flat Top profile surfs through deep powder while keeping things stable underfoot, and a true twin design keeps you in control no matter which way you point it. Available in two versions, choose the relaxed and floaty Flying V™ or catch-free control of Flat Top. A laundry list of features all work together to ensure that the ride is as friendly as it is fun, with an energetic FSC™ Certified core, and Scoop tip and tail, which turn up the edges for a catch-free feel whether you're surfing through knee deep pow or sliding a box in the park.");
+            sb37.getTechDetails().add(flatTopBend);
+            sb37.getTechDetails().add(twinShape);
+            sb37.getTechDetails().add(twinFlex);
+            sb37.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs yeasayer140 = new SnowboardSizeSpecs("140", 36, 54, "M/L", 106, 102, 6.6, 240, 48);
+            SnowboardSizeSpecs yeasayer144 = new SnowboardSizeSpecs("144", 45, 68, "M/L", 109, 105, 6.8, 242, 50.5);
+            SnowboardSizeSpecs yeasayer148 = new SnowboardSizeSpecs("149", 54, 82, "L", 113, 109, 7.1, 244, 53);
+            SnowboardSizeSpecs yeasayer152 = new SnowboardSizeSpecs("152", 68, 91, "L", 117, 113, 7.4, 247, 53);
+            snowboardSizeSpecsRepository.save(yeasayer140);
+            snowboardSizeSpecsRepository.save(yeasayer144);
+            snowboardSizeSpecsRepository.save(yeasayer148);
+            snowboardSizeSpecsRepository.save(yeasayer152);
+
+            sb37.getBoardSizeSpecs().add(yeasayer140);
+            sb37.getBoardSizeSpecs().add(yeasayer144);
+            sb37.getBoardSizeSpecs().add(yeasayer148);
+            sb37.getBoardSizeSpecs().add(yeasayer152);
+
+            Terrain yeasayerT1 = new Terrain(allMountain, 10);
+            Terrain yeasayerT2 = new Terrain(powder, 6);
+            Terrain yeasayerT3 = new Terrain(park, 4);
+
+            terrainRepository.save(yeasayerT1);
+            terrainRepository.save(yeasayerT2);
+            terrainRepository.save(yeasayerT3);
+
+            sb37.getRidingterrains().add(yeasayerT1);
+            sb37.getRidingterrains().add(yeasayerT2);
+            sb37.getRidingterrains().add(yeasayerT3);
+
+            sb37.getRiderLevels().add(intermediate);
+
+             // Yeasayer FV
+            Snowboard sb38 = new Snowboard(brand1, "Yeasayer Flying V", female, 0, 3, "Yeasayer_Flying_V.webp", "Make every turn a metaphorical thumbs up with the versatility and catch-free control of a board that's built to expand your horizons.", "From unexplored peaks to your favorite parks, the Burton Yeasayer tames anything that stands in your way. The board's Flat Top profile surfs through deep powder while keeping things stable underfoot, and a true twin design keeps you in control no matter which way you point it. Available in two versions, choose the relaxed and floaty Flying V™ or catch-free control of Flat Top. A laundry list of features all work together to ensure that the ride is as friendly as it is fun, with an energetic FSC™ Certified core, and Scoop tip and tail, which turn up the edges for a catch-free feel whether you're surfing through knee deep pow or sliding a box in the park.");
+            sb38.getTechDetails().add(flyingVBend);
+            sb38.getTechDetails().add(twinShape);
+            sb38.getTechDetails().add(twinFlex);
+            sb38.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs yeasayerFV140 = new SnowboardSizeSpecs("140", 36, 54, "M/L", 106, 102, 6.6, 240, 48);
+            SnowboardSizeSpecs yeasayerFV144 = new SnowboardSizeSpecs("144", 45, 68, "M/L", 109, 105, 6.8, 242, 50.5);
+            SnowboardSizeSpecs yeasayerFV148 = new SnowboardSizeSpecs("149", 54, 82, "L", 113, 109, 7.1, 244, 53);
+            SnowboardSizeSpecs yeasayerFV152 = new SnowboardSizeSpecs("152", 68, 91, "L", 117, 113, 7.4, 247, 53);
+            snowboardSizeSpecsRepository.save(yeasayerFV140);
+            snowboardSizeSpecsRepository.save(yeasayerFV144);
+            snowboardSizeSpecsRepository.save(yeasayerFV148);
+            snowboardSizeSpecsRepository.save(yeasayerFV152);
+
+            sb38.getBoardSizeSpecs().add(yeasayerFV140);
+            sb38.getBoardSizeSpecs().add(yeasayerFV144);
+            sb38.getBoardSizeSpecs().add(yeasayerFV148);
+            sb38.getBoardSizeSpecs().add(yeasayerFV152);
+
+            Terrain yeasayerFVT1 = new Terrain(allMountain, 10);
+            Terrain yeasayerFVT2 = new Terrain(powder, 6);
+            Terrain yeasayerFVT3 = new Terrain(park, 2);
+
+            terrainRepository.save(yeasayerFVT1);
+            terrainRepository.save(yeasayerFVT2);
+            terrainRepository.save(yeasayerFVT3);
+
+            sb38.getRidingterrains().add(yeasayerFVT1);
+            sb38.getRidingterrains().add(yeasayerFVT2);
+            sb38.getRidingterrains().add(yeasayerFVT3); 
+
+            sb38.getRiderLevels().add(intermediate);
+            
             //Save all boards to DB
             snowboardRepository.save(sb1);
             snowboardRepository.save(sb2);
@@ -1168,6 +1548,17 @@ public class DBDataService {
             snowboardRepository.save(sb25);
             snowboardRepository.save(sb26);
             snowboardRepository.save(sb27);
+            snowboardRepository.save(sb28);
+            snowboardRepository.save(sb29);
+            snowboardRepository.save(sb30);
+            snowboardRepository.save(sb31);
+            snowboardRepository.save(sb32);
+            snowboardRepository.save(sb33);
+            snowboardRepository.save(sb34);
+            snowboardRepository.save(sb35);
+            snowboardRepository.save(sb36);
+            snowboardRepository.save(sb37);
+            snowboardRepository.save(sb38);
         }
     }
 }
