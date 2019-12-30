@@ -63,12 +63,13 @@ public class DBDataService {
             //TechDetails
             //Bends
             TechDetail camberBend = new TechDetail("bend", "Camber", "An advocate of powerful turns and poppy precision, camber speaks to the core values of board design. Offering a snappy suspension, camber distributes weight evenly over the entire length of the board for smooth, continuous edge control from tip to tail. .", "benddetail-camber.svg");
-            TechDetail flatTopBend = new TechDetail("bend", "Flat Top", "These boards run perfectly flat for the running length of the board, with a few millimeters of early rise rocker in the tip and tail. This shape is the perfect blend of the stability and precision camber offers, as well as the catch-free and playful personality of rocker. With no camber to press out of the board, turning takes very little energy to initiate. Flat boards perform well in all conditions, from powder conditions to hard-packed and groomers. It is great board shape for any rider.", "benddetail-flat-top.svg");
+            TechDetail flatTopBend = new TechDetail("bend", "Flat Top™", "These boards run perfectly flat for the running length of the board, with a few millimeters of early rise rocker in the tip and tail. This shape is the perfect blend of the stability and precision camber offers, as well as the catch-free and playful personality of rocker. With no camber to press out of the board, turning takes very little energy to initiate. Flat boards perform well in all conditions, from powder conditions to hard-packed and groomers. It is great board shape for any rider.", "benddetail-flat-top.svg");
             TechDetail purePopCamberBend = new TechDetail("bend", "Pure-Pop Camber", "We call this “Diet Camber” featuring about 70% of the camber profile length that a typical camber board has. The camber zone ends just outside each channel, and a flat zone continues for a few centimeters of length until the board transitions into a small amount of early rise near the nose and tail.  This board bend lies somewhere between the playful flat bend and the precise camber bend. It also offers increased pop as the flat zones before the nose and tail kicks provide additional load and rebound.", "benddetail-purepop.svg");
             TechDetail flyingVBend = new TechDetail("bend", "Flying V / Camber/Rocker", "This bend is a hybrid of both camber and rocker, where rocker is the opposite curvature of camber. It has camber underneath both feet and rocker in between the feet, as well as outside the feet. The nose and the tail are lifted off of the snow which makes for a super-playful, floaty ride by reducing the ability to catch your edge and allowing the board to plane better in deep snow. The camber underfoot gives you edge control and pop where you want it, without sacrificing that playfulness where you need it. Flying V can make a board feel softer than its Camber counterpart. For example the Process Flying V vs. Process Camber; Flying V will feel softer even though they have the same materials. Geared towards beginner to intermediate and freestyle riders but provides a versatile platform for progression and exploration.", "benddetail-flying-v.svg");
             TechDetail directionalCamberBend = new TechDetail("bend", "Directional Camber", "This board bend has entry rocker that adds lift to the nose while a camber section under both feet maintains momentum and stability through deep-driving turns and variable conditions. This bend caters to those who like the attributes of traditional camber but want something that will get up to speed and float easier in powder.", "benddetail-directional-camber.svg");
             TechDetail directionalFlatTopBend = new TechDetail("bend", "Directional Flat Top", "This features a longer entry rocker in the nose that transitions into a flat section just before your front foot for the remainder of the board. This will be the most powder specific board bend as it promotes lift and float for deeper days while not lacking stability and control.", "benddetail-directional-flat-top.svg");
-
+            TechDetail flatTopEasyBevelBend = new TechDetail("bend", "Flat Top™ with Easy Bevel", "Rising rider or seasoned pro, keep your game high and tight with Flat Top. A flat profile between the feet means stability, better balance, and continuous edge control. The tip and tail kick up with an early rise outside the feet for the catch-free, loose feeling you’d expect from rocker.", "benddetail-flat-top.svg");
+            
             TechDetail allMountainDirectionalShape = new TechDetail("shape", "All Mountain Directional Shape", "The classic snowboard shape, designed to be ridden with a slightly longer nose than tail to concentrate pop in the tail while still giving you plenty of float, flow, and control to rip any terrain or condition.", "shape-directional.svg");
             TechDetail twinShape = new TechDetail("shape", "Twin Shape", "Perfectly symmetrical for a balanced ride that’s equally versatile when ridden regular or switch. Jib, spin, stomp, and butter with a greater balance of freestyle mobility and cat-like stability no matter which way you point it.", "shape-twin.svg");
             //TechDetail shape3 = new TechDetail("Directional Twin", "", ""); //Not in use
@@ -82,13 +83,14 @@ public class DBDataService {
             TechDetail superFly2700G = new TechDetail("core", "FSC™ Certified Super Fly II™ 700G Core", "Stronger and lighter woods target specific areas of the core to provide pop, strength, and reduced weight.", "core-fsc-certified-super-fly-ii-700g-core-with-dualzone-egd.svg");
             TechDetail dragonfly600G = new TechDetail("core", "FSC™ Certified Dragonfly™ 600G Core", "Use of end-grain woods in impact zones allows us to swap heavier woods for lighter weight species without sacrificing strength.", "core-fsc-certified-dragonfly-600g-core-with-multizone-egd.svg");
             TechDetail dragonfly2500G = new TechDetail("core", "FSC™ Certified Dragonfly II™ 500G Core", "Our lightest core ever, the DragonFly II™ integrates carbon laminations inside the core to provide absolute pop and performance with far less material.", "core-fsc-certified-dragonfly-ii-500g-core.svg");
-
+           
             techDetailRepository.save(camberBend);
             techDetailRepository.save(flatTopBend);
             techDetailRepository.save(purePopCamberBend);
             techDetailRepository.save(flyingVBend);
             techDetailRepository.save(directionalCamberBend);
             techDetailRepository.save(directionalFlatTopBend);
+            techDetailRepository.save(flatTopEasyBevelBend);
             techDetailRepository.save(allMountainDirectionalShape);
             techDetailRepository.save(twinShape);
             techDetailRepository.save(freerideDirectionalShape);
@@ -101,20 +103,21 @@ public class DBDataService {
             techDetailRepository.save(dragonfly2500G);
 
             //Gender
-            Gender female = new Gender("Female");
-            Gender male = new Gender("Male");
+            Gender female = new Gender("Women");
+            Gender male = new Gender("Men");
+            Gender kids = new Gender("Kids");
 
             genderRepository.save(female);
             genderRepository.save(male);
+            genderRepository.save(kids);
 
             //RiderLevel
-            RiderLevel beginner = new RiderLevel("Beginner", "I'm doing my best in the kids area.");
-            RiderLevel intermediate = new RiderLevel("Intermediate", "I ride well in slopes and the park, doing jumps and so.");
-            RiderLevel pro = new RiderLevel("Expert", "I can beat Shaun White!");
+            RiderLevel beginner = new RiderLevel("Beginner", "I'm doing my best in the kids area. (Beginner level)");
+            RiderLevel intermediate = new RiderLevel("Intermediate", "I ride well in slopes and the park, doing jumps and so. (Intermediate level)");
+            RiderLevel pro = new RiderLevel("Expert", "I can beat Shaun White! (Expert level)");
 
             riderLevelRepository.save(beginner);
             riderLevelRepository.save(intermediate);
-            //riderLevelRepository.save(good);
             riderLevelRepository.save(pro);
 
             //RidingTypes
@@ -128,23 +131,30 @@ public class DBDataService {
 
             //ShoeSize - not needed for boards but for filtering
             // euSize, jpSize, ukSize, usMensSize, usWomensSize;
-            /*
-              //Womens sizes
-            ShoeSize ss1 = new ShoeSize(32, 19, 0, 0.5, 2);
-            ShoeSize ss2 = new ShoeSize(32.5, 19.5, 0.5, 1, 2.5); //
-            ShoeSize ss3 = new ShoeSize(33, 20, 1, 1.5, 3);
-            ShoeSize ss4 = new ShoeSize(33.5, 20.5, 1.5, 2, 3.5);
-            ShoeSize ss5 = new ShoeSize(34, 21, 2, 2.5, 4);
-            ShoeSize ss6 = new ShoeSize(34.5, 21.5, 2.5, 3, 4.5);
-            ShoeSize ss7 = new ShoeSize(35, 22, 3, 3.5, 5);
-            ShoeSize ss8 = new ShoeSize(35.5, 22.5, 3.5, 4, 5.5);
-           //ShoeSize ss9 = new ShoeSize(36, 23, 4, 4.5, 6);
-            ShoeSize ss10 = new ShoeSize(36.5, 23, 4, 4.5, 6);
-            ShoeSize ss11 = new ShoeSize(37, 23.5, 4.5, 5, 6.5);
-            ShoeSize ss12 = new ShoeSize(37.5, 24, 5, 5.5, 7);
-            ShoeSize ss13 = new ShoeSize(38, 24.5, 5.5, 6, 7.5);
-            ShoeSize ss14 = new ShoeSize(39, 25, 6, 6.5, 8);
-             */
+          
+              //Kids sizes
+              // from EU18-31
+             ShoeSize kids24 = new ShoeSize(24, 13.5, 0, 0.5, 2, 173, 179, 175);
+              ShoeSize kids25 = new ShoeSize(25, 14.5, 0, 0.5, 2, 173, 179, 175);
+              ShoeSize kids26 = new ShoeSize(26, 15.5, 0, 0.5, 2, 173, 179, 175);
+              ShoeSize kids27 = new ShoeSize(27, 16.5, 0, 0.5, 2, 173, 179, 175);
+              ShoeSize kids28 = new ShoeSize(28, 17.5, 0, 0.5, 2, 175, 181, 177);
+              ShoeSize kids29 = new ShoeSize(29, 18.5, 0, 0.5, 2, 175, 181, 177);
+              ShoeSize kids305 = new ShoeSize(30.5, 19.5, 0, 0.5, 2, 185, 195, 190);
+              ShoeSize kids31 = new ShoeSize(31.5, 20, 0, 0.5, 2, 195, 205, 200);
+            ShoeSize kids33 = new ShoeSize(33, 20.5, 1, 1.5, 3, 195, 215, 205);
+             //Womens sizes
+            ShoeSize ss5 = new ShoeSize(34, 21, 2, 2.5, 4, 227, 233, 230);
+            ShoeSize ss6 = new ShoeSize(34.5, 21.5, 2.5, 3, 4.5, 228, 234, 231);
+            ShoeSize ss7 = new ShoeSize(35, 22, 3, 3.5, 5, 229, 235, 232);
+            ShoeSize ss8 = new ShoeSize(35.5, 22.5, 3.5, 4, 5.5, 230, 236, 233);
+            //ShoeSize ss9 = new ShoeSize(36, 23, 4, 4.5, 6);
+            ShoeSize ss10 = new ShoeSize(36.5, 23, 4, 4.5, 6, 232, 238, 235);
+            ShoeSize ss11 = new ShoeSize(37, 23.5, 4.5, 5, 6.5, 233, 239, 236);
+            ShoeSize ss12 = new ShoeSize(37.5, 24, 5, 5.5, 7, 235, 241, 238);
+            ShoeSize ss13 = new ShoeSize(38, 24.5, 5.5, 6, 7.5, 237, 243, 240);
+            ShoeSize ss14 = new ShoeSize(39, 25, 6, 6.5, 8, 239, 245, 242);
+           
             // euSize, jpSize, ukSize, usMensSize, usWomensSize
             ShoeSize ss15 = new ShoeSize(39.5, 25.5, 6.5, 7, 8.5, 238, 244, 242);
             ShoeSize ss16 = new ShoeSize(40, 26, 7, 7.5, 9, 240, 246, 243);
@@ -165,11 +175,17 @@ public class DBDataService {
             ShoeSize ss31 = new ShoeSize(49.5, 33.5, 14.5, 15, 16.5, 275, 280, 277);
             ShoeSize ss32 = new ShoeSize(50, 34, 15, 15.5, 17, 277, 283, 279);
 
-            /*
-            shoeSizeRepository.save(ss1);
-            shoeSizeRepository.save(ss2);
-            shoeSizeRepository.save(ss3);
-            shoeSizeRepository.save(ss4);
+
+            shoeSizeRepository.save(kids24);
+            shoeSizeRepository.save(kids25);
+            shoeSizeRepository.save(kids26);
+            shoeSizeRepository.save(kids27);
+            shoeSizeRepository.save(kids28);
+            shoeSizeRepository.save(kids29);
+            shoeSizeRepository.save(kids305);
+            shoeSizeRepository.save(kids31);
+            shoeSizeRepository.save(kids33);
+
             shoeSizeRepository.save(ss5);
             shoeSizeRepository.save(ss6);
             shoeSizeRepository.save(ss7);
@@ -179,7 +195,7 @@ public class DBDataService {
             shoeSizeRepository.save(ss12);
             shoeSizeRepository.save(ss13);
             shoeSizeRepository.save(ss14);
-             */
+        
             shoeSizeRepository.save(ss15);
             shoeSizeRepository.save(ss16);
             shoeSizeRepository.save(ss17);
@@ -1521,6 +1537,331 @@ public class DBDataService {
 
             sb38.getRiderLevels().add(intermediate);
             
+            //After School Special
+            Snowboard sb39 = new Snowboard(brand1, "After School Special Package", kids, 0, 2, "After_School_Special.webp", "One-stop shopping. Just plug your kid in and go with a setup that's easier than a tricycle with training wheels.", "Even the kids know this is the best deal going. Better than watching hours of cartoons, the Burton After School Special makes learning a cinch with super soft, parent-friendly bindings and a saucer-like snowboard that teaches balance and board control. With the fully adjustable bindings pre-mounted in a beginner-friendly stance, simply grab the package and go. It doesn't get any easier than this.");
+            sb39.getTechDetails().add(flatTopBend);
+            sb39.getTechDetails().add(twinShape);
+            sb39.getTechDetails().add(twinFlex);
+            sb39.getTechDetails().add(fly900G);
+            SnowboardSizeSpecs afterSchool80 = new SnowboardSizeSpecs("80", 11, 23, "GROM XS", 48, 44, 2.9, 178, 30.5);
+            SnowboardSizeSpecs afterSchool90 = new SnowboardSizeSpecs("90", 11, 23, "GROM XS", 58, 54, 3.6, 179, 33);
+            SnowboardSizeSpecs afterSchool100 = new SnowboardSizeSpecs("100", 18, 25, "GROM XS", 68.5, 64.5, 4.2, 188, 35.5);
+            
+            snowboardSizeSpecsRepository.save(afterSchool80);
+            snowboardSizeSpecsRepository.save(afterSchool90);
+            snowboardSizeSpecsRepository.save(afterSchool100);
+
+            sb39.getBoardSizeSpecs().add(afterSchool80);
+            sb39.getBoardSizeSpecs().add(afterSchool90);
+            sb39.getBoardSizeSpecs().add(afterSchool100);
+
+            Terrain afterSchoolT1 = new Terrain(allMountain, 3);
+            Terrain afterSchoolT2 = new Terrain(park, 1);
+            Terrain afterSchoolT3 = new Terrain(powder, 1);
+
+            terrainRepository.save(afterSchoolT1);
+            terrainRepository.save(afterSchoolT2);
+            terrainRepository.save(afterSchoolT3);
+
+            sb39.getRidingterrains().add(afterSchoolT1);
+            sb39.getRidingterrains().add(afterSchoolT2);
+            sb39.getRidingterrains().add(afterSchoolT3); 
+
+            sb39.getRiderLevels().add(beginner);
+            
+            // Chopper
+            Snowboard sb40 = new Snowboard(brand1, "Chopper", kids, 0, 2, "Chopper.webp", "The ultimate tot-friendly deck makes learning to link turns easier than finishing your lima beans.", "The Burton Chopper® is the ticket for boys who want to start snowboarding and quickly learn the basics. What makes it so perfect is the beginner-friendly combo of a convex base with upturned edges and the softest flex possible so that even the lightest weight riders can master turning and stopping. The catch-free feeling continues with a flat profile from nose to tail that’s extra stable for better balance and board control. Attach the Riglet accessory to the nose or tail of the 80-120cm sizes to tow him around and get him comfortable until he's ready to add bindings.");
+            sb40.getTechDetails().add(flatTopBend);
+            sb40.getTechDetails().add(twinShape);
+            sb40.getTechDetails().add(twinFlex);
+            sb40.getTechDetails().add(fly900G);
+            SnowboardSizeSpecs chopper80 = new SnowboardSizeSpecs("80", 11, 23, "GROM XS", 48, 44, 2.9, 178, 30.5);
+            SnowboardSizeSpecs chopper90 = new SnowboardSizeSpecs("90", 11, 23, "GROM XS", 58, 54, 3.6, 179, 33);
+            SnowboardSizeSpecs chopper100 = new SnowboardSizeSpecs("100", 18, 25, "GROM XS", 68.5, 64.5, 4.2, 188, 35.5);
+            SnowboardSizeSpecs chopper110 = new SnowboardSizeSpecs("110", 18, 25, "GROM S", 78.5, 74.5, 4.9, 203, 38);
+            SnowboardSizeSpecs chopper115 = new SnowboardSizeSpecs("115", 23, 36, "GROM S", 83.5, 79.5, 5.2, 213, 38);
+            SnowboardSizeSpecs chopper120 = new SnowboardSizeSpecs("120", 23, 36, "GROM S, SMLLS 1SZ", 88.5, 84.5, 5.6, 222, 40.5);
+            SnowboardSizeSpecs chopper125 = new SnowboardSizeSpecs("125", 32, 45, "GROM S, SMLLS 1SZ", 93.5, 89.5, 6.0, 230,43);
+            SnowboardSizeSpecs chopper130 = new SnowboardSizeSpecs("130", 32, 45, "GROM S, SMLLS 1SZ", 96, 92, 6.2, 232, 45);
+            
+            snowboardSizeSpecsRepository.save(chopper80);
+            snowboardSizeSpecsRepository.save(chopper90);
+            snowboardSizeSpecsRepository.save(chopper100);
+            snowboardSizeSpecsRepository.save(chopper110);
+            snowboardSizeSpecsRepository.save(chopper115);
+            snowboardSizeSpecsRepository.save(chopper120);
+            snowboardSizeSpecsRepository.save(chopper125);
+            snowboardSizeSpecsRepository.save(chopper130);
+
+            sb40.getBoardSizeSpecs().add(chopper80);
+            sb40.getBoardSizeSpecs().add(chopper90);
+            sb40.getBoardSizeSpecs().add(chopper100);
+            sb40.getBoardSizeSpecs().add(chopper110);
+            sb40.getBoardSizeSpecs().add(chopper115);
+            sb40.getBoardSizeSpecs().add(chopper120);
+            sb40.getBoardSizeSpecs().add(chopper125);
+            sb40.getBoardSizeSpecs().add(chopper130);
+
+            Terrain chopperT1 = new Terrain(allMountain, 5);
+            Terrain chopperT2 = new Terrain(park, 3);
+            Terrain chopperT3 = new Terrain(powder, 1);
+
+            terrainRepository.save(chopperT1);
+            terrainRepository.save(chopperT2);
+            terrainRepository.save(chopperT3);
+
+            sb40.getRidingterrains().add(chopperT1);
+            sb40.getRidingterrains().add(chopperT2);
+            sb40.getRidingterrains().add(chopperT3); 
+
+            sb40.getRiderLevels().add(beginner);
+            
+            // Kilroy Twin
+            Snowboard sb41 = new Snowboard(brand1, "Kilroy Twin", kids, 0, 3, "Kilroy_Twin.webp", "The workingman's classic: a traditional camber twin, designed to thrive on all terrain.", "The rippers on ground level are looking for a board that can hang without worrying about the cost. The Burton Kilroy Twin is here to give the people what they want with a classic twin shape inspired by the Process, but with a refined construction that focuses on strength, speed, and pop.");
+            sb41.getTechDetails().add(camberBend);
+            sb41.getTechDetails().add(twinShape);
+            sb41.getTechDetails().add(twinFlex);
+            sb41.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs kilroyTwin135 = new SnowboardSizeSpecs("135", 36, 54, "Kids/S", 98.5, 94, 6.4, 235, 45.5);
+            SnowboardSizeSpecs kilroyTwin140 = new SnowboardSizeSpecs("140", 45, 68, "S/M", 108.5, 104, 7.1, 245, 50.5);
+   
+            snowboardSizeSpecsRepository.save(kilroyTwin135);
+            snowboardSizeSpecsRepository.save(kilroyTwin140);
+
+            sb41.getBoardSizeSpecs().add(kilroyTwin135);
+            sb41.getBoardSizeSpecs().add(kilroyTwin140);
+
+            Terrain kilroyTwinT1 = new Terrain(park, 10);
+            Terrain kilroyTwinT2 = new Terrain(allMountain, 7);
+            Terrain kilroyTwinT3 = new Terrain(powder, 3);
+
+            terrainRepository.save(kilroyTwinT1);
+            terrainRepository.save(kilroyTwinT2);
+            terrainRepository.save(kilroyTwinT3);
+
+            sb41.getRidingterrains().add(kilroyTwinT1);
+            sb41.getRidingterrains().add(kilroyTwinT2);
+            sb41.getRidingterrains().add(kilroyTwinT3); 
+
+            sb41.getRiderLevels().add(beginner);
+            
+            // Family Tree Role Model
+            Snowboard sb42 = new Snowboard(brand1, "Family Tree Role Model", kids, -5, 6, "Family_Tree_Role_Model.webp", "The ultimate all-terrain board for kids, with a slightly tapered shape that's equally at home flying through powder or the air.", "Because kids are the future. The newest Family Tree addition is here to guide the youngest riders towards the freedom of freeriding, providing directional all-terrain prowess with a heavy list of pro-caliber features to boot. Directional Camber provides snappy power and response, and matches with 15mm of taper for a board that loves to turn both in deep snow and across the whole mountain.");
+            sb42.getTechDetails().add(directionalCamberBend);
+            sb42.getTechDetails().add(allMountainDirectionalShape);
+            sb42.getTechDetails().add(twinFlex);
+            sb42.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs familyTreeRoleModel130 = new SnowboardSizeSpecs("135", 36, 54, "SMLLS 1SZ/ MEN'S S", 96, 91, 6.0, 238, 45.5);
+            SnowboardSizeSpecs familyTreeRoleModel140 = new SnowboardSizeSpecs("140", 45, 68, "SMLLS 1SZ, MEN'S S/M RE:FLEX", 106, 101, 6.7, 243, 48);
+   
+            snowboardSizeSpecsRepository.save(familyTreeRoleModel130);
+            snowboardSizeSpecsRepository.save(familyTreeRoleModel140);
+
+            sb42.getBoardSizeSpecs().add(familyTreeRoleModel130);
+            sb42.getBoardSizeSpecs().add(familyTreeRoleModel140);
+
+            Terrain familyTreeRoleModelT1 = new Terrain(allMountain, 8);
+            Terrain familyTreeRoleModelT2 = new Terrain(powder, 8);
+            Terrain familyTreeRoleModelT3 = new Terrain(park, 5);
+
+            terrainRepository.save(familyTreeRoleModelT1);
+            terrainRepository.save(familyTreeRoleModelT2);
+            terrainRepository.save(familyTreeRoleModelT3);
+
+            sb42.getRidingterrains().add(familyTreeRoleModelT1);
+            sb42.getRidingterrains().add(familyTreeRoleModelT2);
+            sb42.getRidingterrains().add(familyTreeRoleModelT3); 
+
+            sb42.getRiderLevels().add(pro);
+            
+            // Yeasayer Smalls
+            Snowboard sb43 = new Snowboard(brand1, "Yeasayer Smalls", female, 0, 4, "Yeasayer_Smalls.webp", "The playful pint-sized sister to the board that opens new doors to all-mountain progression.", "The Burton Yeasayer Smalls is the logical next step for girls who have mastered the basics and are ready to explore the entire mountain. Soft and playful, it features the forgiving performance of our Flat Top™ bend to create the stability and snap you'd expect from camber, but with a floaty, catch-free tip and tail. Filet-O-Flex core profiling makes for a super soft flex that doesn't sacrifice stability – just the thing to make you feel like you've done it all before, only not this awesome.");
+            sb43.getTechDetails().add(flatTopBend);
+            sb43.getTechDetails().add(twinShape);
+            sb43.getTechDetails().add(twinFlex);
+            sb43.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs yeasayerSmalls125 = new SnowboardSizeSpecs("125", 32, 45, "SMLLS 1SZ", 91, 87, 5.8, 230, 43);
+            SnowboardSizeSpecs yeasayerSmalls130 = new SnowboardSizeSpecs("130", 32, 45, "GROM S, SMLLS 1SZ", 95, 91, 6.1, 231, 45.5);
+            SnowboardSizeSpecs yeasayerSmalls134 = new SnowboardSizeSpecs("134", 36, 50, "SMLLS 1SZ", 99, 95, 6.4, 233, 45.5);
+            SnowboardSizeSpecs yeasayerSmalls138 = new SnowboardSizeSpecs("138", 41, 54, "SMLLS 1SZ", 102, 99, 6.6, 235, 45.5);
+            snowboardSizeSpecsRepository.save(yeasayerSmalls125);
+            snowboardSizeSpecsRepository.save(yeasayerSmalls130);
+            snowboardSizeSpecsRepository.save(yeasayerSmalls134);
+            snowboardSizeSpecsRepository.save(yeasayerSmalls138);
+
+            sb43.getBoardSizeSpecs().add(yeasayerSmalls125);
+            sb43.getBoardSizeSpecs().add(yeasayerSmalls130);
+            sb43.getBoardSizeSpecs().add(yeasayerSmalls134);
+            sb43.getBoardSizeSpecs().add(yeasayerSmalls138);
+
+            Terrain yeasayerSmallsT1 = new Terrain(allMountain, 7);
+            Terrain yeasayerSmallsT2 = new Terrain(park, 4);
+            Terrain yeasayerSmallsT3 = new Terrain(powder, 3);
+
+            terrainRepository.save(yeasayerSmallsT1);
+            terrainRepository.save(yeasayerSmallsT2);
+            terrainRepository.save(yeasayerSmallsT3);
+
+            sb43.getRidingterrains().add(yeasayerSmallsT1);
+            sb43.getRidingterrains().add(yeasayerSmallsT2);
+            sb43.getRidingterrains().add(yeasayerSmallsT3);
+
+            sb43.getRiderLevels().add(intermediate); 
+            
+             // Chicklet
+            Snowboard sb44 = new Snowboard(brand1, "Chicklet", kids, 0, 2, "Chicklet.webp", "When you want to see her succeed, put her on the softest, most stable girl's beginner board in snowboarding.", "The Burton Chicklet™ is the ticket for girls who want to start snowboarding and quickly learn the basics. What makes it so perfect is the beginner-friendly combo of a convex base with upturned edges and the softest flex possible so that even the lightest weight riders can master turning and stopping. The catch-free feeling continues with a flat profile from nose to tail that’s extra stable for better balance and board control. Attach the Riglet accessory to the nose or tail of the 80-120cm sizes to tow her around and get her comfortable until she's ready to add bindings.");
+            sb44.getTechDetails().add(flatTopEasyBevelBend);
+            sb44.getTechDetails().add(twinShape);
+            sb44.getTechDetails().add(twinFlex);
+            sb44.getTechDetails().add(fly900G);
+            SnowboardSizeSpecs chicklet80 = new SnowboardSizeSpecs("80", 11, 23, "GROM XS", 48, 44, 2.9, 178, 30.5);
+            SnowboardSizeSpecs chicklet90 = new SnowboardSizeSpecs("90", 11, 23, "GROM XS", 58, 54, 3.6, 179, 33);
+            SnowboardSizeSpecs chicklet100 = new SnowboardSizeSpecs("100", 18, 25, "GROM XS", 68.5, 64.5, 4.2, 188, 35.5);
+            SnowboardSizeSpecs chicklet110 = new SnowboardSizeSpecs("110", 18, 25, "GROM S", 78.5, 74.5, 4.9, 203, 38);
+            SnowboardSizeSpecs chicklet115 = new SnowboardSizeSpecs("115", 23, 36, "GROM S", 83.5, 79.5, 5.2, 213, 38);
+            SnowboardSizeSpecs chicklet120 = new SnowboardSizeSpecs("120", 23, 36, "GROM S, SMLLS 1SZ", 88.5, 84.5, 5.6, 222, 40.5);
+            SnowboardSizeSpecs chicklet125 = new SnowboardSizeSpecs("125", 32, 45, "GROM S, SMLLS 1SZ", 93.5, 89.5, 6.0, 230,43);
+            SnowboardSizeSpecs chicklet130 = new SnowboardSizeSpecs("130", 32, 45, "GROM S, SMLLS 1SZ", 96, 92, 6.2, 232, 45);
+            
+            snowboardSizeSpecsRepository.save(chicklet80);
+            snowboardSizeSpecsRepository.save(chicklet90);
+            snowboardSizeSpecsRepository.save(chicklet100);
+            snowboardSizeSpecsRepository.save(chicklet110);
+            snowboardSizeSpecsRepository.save(chicklet115);
+            snowboardSizeSpecsRepository.save(chicklet120);
+            snowboardSizeSpecsRepository.save(chicklet125);
+            snowboardSizeSpecsRepository.save(chicklet130);
+
+            sb44.getBoardSizeSpecs().add(chicklet80);
+            sb44.getBoardSizeSpecs().add(chicklet90);
+            sb44.getBoardSizeSpecs().add(chicklet100);
+            sb44.getBoardSizeSpecs().add(chicklet110);
+            sb44.getBoardSizeSpecs().add(chicklet115);
+            sb44.getBoardSizeSpecs().add(chicklet120);
+            sb44.getBoardSizeSpecs().add(chicklet125);
+            sb44.getBoardSizeSpecs().add(chicklet130);
+
+            Terrain chickletT1 = new Terrain(allMountain, 5);
+            Terrain chickletT2 = new Terrain(park, 3);
+            Terrain chickletT3 = new Terrain(powder, 1);
+
+            terrainRepository.save(chickletT1);
+            terrainRepository.save(chickletT2);
+            terrainRepository.save(chickletT3);
+
+            sb44.getRidingterrains().add(chickletT1);
+            sb44.getRidingterrains().add(chickletT2);
+            sb44.getRidingterrains().add(chickletT3); 
+
+            sb44.getRiderLevels().add(beginner);
+            
+            // Process Smalls
+            Snowboard sb45 = new Snowboard(brand1, "Process Smalls", female, 0, 4, "Process_Smalls.webp", "Soft flexing and ultra-stable – a pro-caliber ride for young rippers looking to take the next step in freestyle progression.", "Whether they're tooling around the mini park or taking skills to bigger features, groms on the move will love the Burton Process Smalls. Flat Top™ blends the effortless feel of rocker with the quick-thinking control required for launching airs and landing with confidence. Filet-O-Flex creates a super soft board that still rips with maximum stability, durability, and grip. For the rider who has outgrown the Chopper® but isn't quite ready to go big, the Process Smalls hits the sweet spot on freestyle fun. Features The Channel® mounting system to give you the easiest, most adjustable setup with bindings from all major brands (not just Burton's).");
+            sb45.getTechDetails().add(flatTopBend);
+            sb45.getTechDetails().add(twinShape);
+            sb45.getTechDetails().add(twinFlex);
+            sb45.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs processSmalls125 = new SnowboardSizeSpecs("125", 32, 45, "SMLLS 1SZ", 91, 87, 5.8, 230, 43);
+            SnowboardSizeSpecs processSmalls130 = new SnowboardSizeSpecs("130", 32, 45, "SMLLS 1SZ", 95, 91, 6.1, 231, 45.5);
+            SnowboardSizeSpecs processSmalls134 = new SnowboardSizeSpecs("134", 36, 50, "SMLLS 1SZ", 99, 95, 6.4, 233, 45.5);
+            SnowboardSizeSpecs processSmalls138 = new SnowboardSizeSpecs("138", 41, 54, "SMLLS 1SZ", 102, 99, 6.6, 235, 45.5);
+            SnowboardSizeSpecs processSmalls142 = new SnowboardSizeSpecs("142", 45, 68, "SMLLS 1SZ, MEN'S S/M RE:FLEX", 107, 103, 7.0, 243, 48);
+            snowboardSizeSpecsRepository.save(processSmalls125);
+            snowboardSizeSpecsRepository.save(processSmalls130);
+            snowboardSizeSpecsRepository.save(processSmalls134);
+            snowboardSizeSpecsRepository.save(processSmalls138);
+            snowboardSizeSpecsRepository.save(processSmalls142);
+
+            sb45.getBoardSizeSpecs().add(processSmalls125);
+            sb45.getBoardSizeSpecs().add(processSmalls130);
+            sb45.getBoardSizeSpecs().add(processSmalls134);
+            sb45.getBoardSizeSpecs().add(processSmalls138);
+            sb45.getBoardSizeSpecs().add(processSmalls142);
+
+            Terrain processSmallsT1 = new Terrain(allMountain, 7);
+            Terrain processSmallsT2 = new Terrain(park, 4);
+            Terrain processSmallsT3 = new Terrain(powder, 3);
+
+            terrainRepository.save(processSmallsT1);
+            terrainRepository.save(processSmallsT2);
+            terrainRepository.save(processSmallsT3);
+
+            sb45.getRidingterrains().add(processSmallsT1);
+            sb45.getRidingterrains().add(processSmallsT2);
+            sb45.getRidingterrains().add(processSmallsT3);
+
+            sb45.getRiderLevels().add(intermediate); 
+            
+            // Custom Smalls
+            Snowboard sb46 = new Snowboard(brand1, "Custom Smalls", female, 0, 5, "Custom_Smalls.webp", "Rule it all from park laps to pow days in a kid's version of Burton's most versatile board.", "The Burton Custom Smalls has been a highly maneuverable, skill-accelerating ride since its inception, but recent updates make it an even harder charging option for snowboarding's youngest rippers. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands. The Custom Smalls is a step up in performance over the Burton Process Smalls and is designed for kids who shred it all from park to pow and everything in between.");   
+            sb46.getTechDetails().add(purePopCamberBend);
+            sb46.getTechDetails().add(twinShape);
+            sb46.getTechDetails().add(twinFlex);
+            sb46.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs customSmalls125 = new SnowboardSizeSpecs("125", 32, 45, "SMLLS 1SZ", 91, 87, 5.8, 235, 43);
+            SnowboardSizeSpecs customSmalls130 = new SnowboardSizeSpecs("130", 32, 45, "SMLLS 1SZ", 94, 90, 6.1, 238, 45.5);
+            SnowboardSizeSpecs customSmalls135 = new SnowboardSizeSpecs("135", 36, 50, "SMLLS 1SZ, MEN'S S RE:FLEX", 99, 95, 6.4, 240, 45.5);
+            SnowboardSizeSpecs customSmalls140 = new SnowboardSizeSpecs("140", 41, 54, "SMLLS 1SZ, MEN'S S RE:FLEX", 104, 100, 6.6, 242, 45.5);
+            SnowboardSizeSpecs customSmalls145 = new SnowboardSizeSpecs("145", 45, 68, "SMLLS 1SZ, MEN'S S/M RE:FLEX", 109, 105, 7.0, 245, 48);
+            snowboardSizeSpecsRepository.save(customSmalls125);
+            snowboardSizeSpecsRepository.save(customSmalls130);
+            snowboardSizeSpecsRepository.save(customSmalls135);
+            snowboardSizeSpecsRepository.save(customSmalls140);
+            snowboardSizeSpecsRepository.save(customSmalls145);
+
+            sb46.getBoardSizeSpecs().add(customSmalls125);
+            sb46.getBoardSizeSpecs().add(customSmalls130);
+            sb46.getBoardSizeSpecs().add(customSmalls135);
+            sb46.getBoardSizeSpecs().add(customSmalls140);
+            sb46.getBoardSizeSpecs().add(customSmalls145);
+
+            Terrain customSmallsT1 = new Terrain(allMountain, 8);
+            Terrain customSmallsT2 = new Terrain(powder, 5);
+            Terrain customSmallsT3 = new Terrain(park, 5);
+
+            terrainRepository.save(customSmallsT1);
+            terrainRepository.save(customSmallsT2);
+            terrainRepository.save(customSmallsT3);
+
+            sb46.getRidingterrains().add(customSmallsT1);
+            sb46.getRidingterrains().add(customSmallsT2);
+            sb46.getRidingterrains().add(customSmallsT3);
+
+            sb46.getRiderLevels().add(intermediate); 
+            sb46.getRiderLevels().add(pro);
+            
+            // Feelgood Smalls
+            Snowboard sb47 = new Snowboard(brand1, "Feelgood Smalls", female, 0, 5, "Feelgood_Smalls.webp", "Experience it all in a girl's version of Burton's most versatile and time-honored board.", "We give the girls their due with a kid-friendly version of the Burton Feelgood™ that heroes like Kelly Clark ride. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. Perfect for the little lady who's ready to charge, this hybrid design gives her the fun twin shape, speed, and weight-savings to support her steady appetite for improvement. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands.");
+            sb47.getTechDetails().add(purePopCamberBend);
+            sb47.getTechDetails().add(twinShape);
+            sb47.getTechDetails().add(twinFlex);
+            sb47.getTechDetails().add(superFly800G);
+            SnowboardSizeSpecs feelgoodSmalls130 = new SnowboardSizeSpecs("130", 32, 45, "SMLLS 1SZ", 94, 90, 6.1, 238, 45.5);
+            SnowboardSizeSpecs feelgoodSmalls135 = new SnowboardSizeSpecs("135", 36, 50, "SMLLS 1SZ, MEN'S S RE:FLEX", 99, 95, 6.4, 240, 45.5);
+            SnowboardSizeSpecs feelgoodSmalls140 = new SnowboardSizeSpecs("140", 41, 54, "SMLLS 1SZ, MEN'S S RE:FLEX", 104, 100, 6.6, 242, 45.5);
+            snowboardSizeSpecsRepository.save(feelgoodSmalls130);
+            snowboardSizeSpecsRepository.save(feelgoodSmalls135);
+            snowboardSizeSpecsRepository.save(feelgoodSmalls140);
+            
+            sb47.getBoardSizeSpecs().add(feelgoodSmalls130);
+            sb47.getBoardSizeSpecs().add(feelgoodSmalls135);
+            sb47.getBoardSizeSpecs().add(feelgoodSmalls140);
+
+            Terrain feelgoodSmallsT1 = new Terrain(allMountain, 8);
+            Terrain feelgoodSmallsT2 = new Terrain(powder, 5);
+            Terrain feelgoodSmallsT3 = new Terrain(park, 5);
+
+            terrainRepository.save(feelgoodSmallsT1);
+            terrainRepository.save(feelgoodSmallsT2);
+            terrainRepository.save(feelgoodSmallsT3);
+
+            sb47.getRidingterrains().add(feelgoodSmallsT1);
+            sb47.getRidingterrains().add(feelgoodSmallsT2);
+            sb47.getRidingterrains().add(feelgoodSmallsT3);
+
+            sb47.getRiderLevels().add(intermediate); 
+            sb47.getRiderLevels().add(pro);
+            
             //Save all boards to DB
             snowboardRepository.save(sb1);
             snowboardRepository.save(sb2);
@@ -1559,6 +1900,15 @@ public class DBDataService {
             snowboardRepository.save(sb36);
             snowboardRepository.save(sb37);
             snowboardRepository.save(sb38);
+            snowboardRepository.save(sb39);
+            snowboardRepository.save(sb40);
+            snowboardRepository.save(sb41);
+            snowboardRepository.save(sb42);
+            snowboardRepository.save(sb43);
+            snowboardRepository.save(sb44);
+            snowboardRepository.save(sb45);
+            snowboardRepository.save(sb46);
+            snowboardRepository.save(sb47);
         }
     }
 }
