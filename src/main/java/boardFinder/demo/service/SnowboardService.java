@@ -84,8 +84,11 @@ public class SnowboardService {
     //This medthod is used for displaying boards in UI client
     @Transactional
     public Snowboard findBoardById(long id) {
-        displayedBoardEventDispatcher.sendBoardDisplayedEvent(new BoardDisplayedEvent(id));  
-        return snowboardRepo.findById(id);
+        Snowboard board = snowboardRepo.findById(id);
+        String bend = board.getTechDetails().stream().filter(td -> "bend".equalsIgnoreCase(td.getTechDetailType())).collect(Collectors.toList()).get(0).getName();
+        displayedBoardEventDispatcher.sendBoardDisplayedEvent(
+                new BoardDisplayedEvent(id, board.getName(), board.getBoardBrand().getBrandName(), board.getBoardGender().getSex(), bend));  
+        return board;
     }
     
         public List<Snowboard> filterByIds(String[] ids) {
