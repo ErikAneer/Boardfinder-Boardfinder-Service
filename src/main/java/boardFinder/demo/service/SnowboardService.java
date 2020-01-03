@@ -130,7 +130,14 @@ public class SnowboardService {
         return snowboardList;
     }
 
-    List<Snowboard> filterByRidingTerrain(List<Snowboard> snowboardList, String ridingType) {
+    List<Snowboard> filterByRidingTerrain(List<Snowboard> snowboardList, String ridingType, String gender) {
+        
+        if (gender.equalsIgnoreCase("kids")) {
+             snowboardList = snowboardList.stream()
+                .filter((b) -> b.getRidingterrains().stream().anyMatch(rt -> rt.getRidingType().getRidingTypeName().equalsIgnoreCase(ridingType) && rt.getValue() > 3)).collect(Collectors.toList());
+        return snowboardList;
+        }
+        
         snowboardList = snowboardList.stream()
                 .filter((b) -> b.getRidingterrains().stream().anyMatch(rt -> rt.getRidingType().getRidingTypeName().equalsIgnoreCase(ridingType) && rt.getValue() > 5)).collect(Collectors.toList());
         return snowboardList;
@@ -154,7 +161,14 @@ public class SnowboardService {
         return snowboardList;
     }
 
-    List<Snowboard> filterByBend(List<Snowboard> snowboardList, String bend) {
+    List<Snowboard> filterByBend(List<Snowboard> snowboardList, String bend, String gender) {
+       
+        if(gender.equalsIgnoreCase("kids") && bend.equalsIgnoreCase("Flat Top™")) {
+            snowboardList = snowboardList.stream()
+                .filter(s -> s.getTechDetails().stream().anyMatch(td -> td.getName() .equalsIgnoreCase("Flat Top™ with Easy Bevel") || td.getName() .equalsIgnoreCase("Flat Top™"))).collect(Collectors.toList());
+            return snowboardList;
+        }
+        
         snowboardList = snowboardList.stream()
                 .filter(s -> s.getTechDetails().stream().anyMatch(td -> td.getName() .equalsIgnoreCase(bend))).collect(Collectors.toList());
         return snowboardList;
@@ -232,7 +246,7 @@ public class SnowboardService {
         currentList = snowboardRepo.getAllSnowboards();
         filteredList = new ArrayList<>(currentList);
         resetFilteredList();
-        
+        System.out.println("Map: " + map);
         if (map.get("gender") != null) {
             filteredList = filterByGender(filteredList, map.get("gender").toString());
         }
@@ -246,7 +260,7 @@ public class SnowboardService {
             filteredList = filterByRiderLevel(filteredList, map.get("riderLevel").toString());
         }
         if (map.get("preferredTerrain") != null) {
-            filteredList = filterByRidingTerrain(filteredList, map.get("preferredTerrain").toString());
+            filteredList = filterByRidingTerrain(filteredList, map.get("preferredTerrain").toString(), map.get("gender").toString());
         }
         if (map.get("shape") != null && !map.get("shape").toString().equalsIgnoreCase("Any")) {
             filteredList = filterByShape(filteredList, map.get("shape").toString());
@@ -255,11 +269,9 @@ public class SnowboardService {
             filteredList = filterByFlex(filteredList, map.get("flex").toString());
         }
         if (map.get("bend") != null && !map.get("bend").toString().equalsIgnoreCase("Any")) {
-            filteredList = filterByBend(filteredList, map.get("bend").toString());
+            filteredList = filterByBend(filteredList, map.get("bend").toString(), map.get("gender").toString());
         }
-
         filteredList = sortFilteredBoardsafterTerrainValue(filteredList, map);
-        
         //Cummunicates the searchedEvent via RabbitMQ to the Stats Microservice
         eventDispatcher.sendBoardSearchedEvent(
                 new BoardSearchedEvent(map.get("gender").toString(),  Integer.parseInt(map.get("riderWeight").toString()),Double.parseDouble(map.get("shoeSize").toString()), 
@@ -301,7 +313,7 @@ public class SnowboardService {
             alternativeFilteredList = filterByRiderLevel(alternativeFilteredList, map.get("riderLevel").toString());
         }
         if (map.get("preferredTerrain") != null) {
-            alternativeFilteredList = filterByRidingTerrain(alternativeFilteredList, map.get("preferredTerrain").toString());
+            alternativeFilteredList = filterByRidingTerrain(alternativeFilteredList, map.get("preferredTerrain").toString(), map.get("gender").toString());
         }
         alternativeFilteredList = sortFilteredBoardsafterTerrainValue(alternativeFilteredList, map);
 

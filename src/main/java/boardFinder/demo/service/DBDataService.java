@@ -1539,7 +1539,7 @@ public class DBDataService {
             
             //After School Special
             Snowboard sb39 = new Snowboard(brand1, "After School Special Package", kids, 0, 2, "After_School_Special.webp", "One-stop shopping. Just plug your kid in and go with a setup that's easier than a tricycle with training wheels.", "Even the kids know this is the best deal going. Better than watching hours of cartoons, the Burton After School Special makes learning a cinch with super soft, parent-friendly bindings and a saucer-like snowboard that teaches balance and board control. With the fully adjustable bindings pre-mounted in a beginner-friendly stance, simply grab the package and go. It doesn't get any easier than this.");
-            sb39.getTechDetails().add(flatTopBend);
+            sb39.getTechDetails().add(flatTopEasyBevelBend);
             sb39.getTechDetails().add(twinShape);
             sb39.getTechDetails().add(twinFlex);
             sb39.getTechDetails().add(fly900G);
@@ -1571,7 +1571,7 @@ public class DBDataService {
             
             // Chopper
             Snowboard sb40 = new Snowboard(brand1, "Chopper", kids, 0, 2, "Chopper.webp", "The ultimate tot-friendly deck makes learning to link turns easier than finishing your lima beans.", "The Burton Chopper® is the ticket for boys who want to start snowboarding and quickly learn the basics. What makes it so perfect is the beginner-friendly combo of a convex base with upturned edges and the softest flex possible so that even the lightest weight riders can master turning and stopping. The catch-free feeling continues with a flat profile from nose to tail that’s extra stable for better balance and board control. Attach the Riglet accessory to the nose or tail of the 80-120cm sizes to tow him around and get him comfortable until he's ready to add bindings.");
-            sb40.getTechDetails().add(flatTopBend);
+            sb40.getTechDetails().add(flatTopEasyBevelBend);
             sb40.getTechDetails().add(twinShape);
             sb40.getTechDetails().add(twinFlex);
             sb40.getTechDetails().add(fly900G);
@@ -1675,7 +1675,7 @@ public class DBDataService {
             sb42.getRiderLevels().add(pro);
             
             // Yeasayer Smalls
-            Snowboard sb43 = new Snowboard(brand1, "Yeasayer Smalls", female, 0, 4, "Yeasayer_Smalls.webp", "The playful pint-sized sister to the board that opens new doors to all-mountain progression.", "The Burton Yeasayer Smalls is the logical next step for girls who have mastered the basics and are ready to explore the entire mountain. Soft and playful, it features the forgiving performance of our Flat Top™ bend to create the stability and snap you'd expect from camber, but with a floaty, catch-free tip and tail. Filet-O-Flex core profiling makes for a super soft flex that doesn't sacrifice stability – just the thing to make you feel like you've done it all before, only not this awesome.");
+            Snowboard sb43 = new Snowboard(brand1, "Yeasayer Smalls", kids, 0, 4, "Yeasayer_Smalls.webp", "The playful pint-sized sister to the board that opens new doors to all-mountain progression.", "The Burton Yeasayer Smalls is the logical next step for girls who have mastered the basics and are ready to explore the entire mountain. Soft and playful, it features the forgiving performance of our Flat Top™ bend to create the stability and snap you'd expect from camber, but with a floaty, catch-free tip and tail. Filet-O-Flex core profiling makes for a super soft flex that doesn't sacrifice stability – just the thing to make you feel like you've done it all before, only not this awesome.");
             sb43.getTechDetails().add(flatTopBend);
             sb43.getTechDetails().add(twinShape);
             sb43.getTechDetails().add(twinFlex);
@@ -1756,7 +1756,7 @@ public class DBDataService {
             sb44.getRiderLevels().add(beginner);
             
             // Process Smalls
-            Snowboard sb45 = new Snowboard(brand1, "Process Smalls", female, 0, 4, "Process_Smalls.webp", "Soft flexing and ultra-stable – a pro-caliber ride for young rippers looking to take the next step in freestyle progression.", "Whether they're tooling around the mini park or taking skills to bigger features, groms on the move will love the Burton Process Smalls. Flat Top™ blends the effortless feel of rocker with the quick-thinking control required for launching airs and landing with confidence. Filet-O-Flex creates a super soft board that still rips with maximum stability, durability, and grip. For the rider who has outgrown the Chopper® but isn't quite ready to go big, the Process Smalls hits the sweet spot on freestyle fun. Features The Channel® mounting system to give you the easiest, most adjustable setup with bindings from all major brands (not just Burton's).");
+            Snowboard sb45 = new Snowboard(brand1, "Process Smalls", kids, 0, 4, "Process_Smalls.webp", "Soft flexing and ultra-stable – a pro-caliber ride for young rippers looking to take the next step in freestyle progression.", "Whether they're tooling around the mini park or taking skills to bigger features, groms on the move will love the Burton Process Smalls. Flat Top™ blends the effortless feel of rocker with the quick-thinking control required for launching airs and landing with confidence. Filet-O-Flex creates a super soft board that still rips with maximum stability, durability, and grip. For the rider who has outgrown the Chopper® but isn't quite ready to go big, the Process Smalls hits the sweet spot on freestyle fun. Features The Channel® mounting system to give you the easiest, most adjustable setup with bindings from all major brands (not just Burton's).");
             sb45.getTechDetails().add(flatTopBend);
             sb45.getTechDetails().add(twinShape);
             sb45.getTechDetails().add(twinFlex);
@@ -1793,7 +1793,7 @@ public class DBDataService {
             sb45.getRiderLevels().add(intermediate); 
             
             // Custom Smalls
-            Snowboard sb46 = new Snowboard(brand1, "Custom Smalls", female, 0, 5, "Custom_Smalls.webp", "Rule it all from park laps to pow days in a kid's version of Burton's most versatile board.", "The Burton Custom Smalls has been a highly maneuverable, skill-accelerating ride since its inception, but recent updates make it an even harder charging option for snowboarding's youngest rippers. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands. The Custom Smalls is a step up in performance over the Burton Process Smalls and is designed for kids who shred it all from park to pow and everything in between.");   
+            Snowboard sb46 = new Snowboard(brand1, "Custom Smalls", kids, 0, 5, "Custom_Smalls.webp", "Rule it all from park laps to pow days in a kid's version of Burton's most versatile board.", "The Burton Custom Smalls has been a highly maneuverable, skill-accelerating ride since its inception, but recent updates make it an even harder charging option for snowboarding's youngest rippers. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands. The Custom Smalls is a step up in performance over the Burton Process Smalls and is designed for kids who shred it all from park to pow and everything in between.");   
             sb46.getTechDetails().add(purePopCamberBend);
             sb46.getTechDetails().add(twinShape);
             sb46.getTechDetails().add(twinFlex);
@@ -1831,14 +1831,14 @@ public class DBDataService {
             sb46.getRiderLevels().add(pro);
             
             // Feelgood Smalls
-            Snowboard sb47 = new Snowboard(brand1, "Feelgood Smalls", female, 0, 5, "Feelgood_Smalls.webp", "Experience it all in a girl's version of Burton's most versatile and time-honored board.", "We give the girls their due with a kid-friendly version of the Burton Feelgood™ that heroes like Kelly Clark ride. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. Perfect for the little lady who's ready to charge, this hybrid design gives her the fun twin shape, speed, and weight-savings to support her steady appetite for improvement. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands.");
+            Snowboard sb47 = new Snowboard(brand1, "Feelgood Smalls", kids, 0, 5, "Feelgood_Smalls.webp", "Experience it all in a girl's version of Burton's most versatile and time-honored board.", "We give the girls their due with a kid-friendly version of the Burton Feelgood™ that heroes like Kelly Clark ride. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. Perfect for the little lady who's ready to charge, this hybrid design gives her the fun twin shape, speed, and weight-savings to support her steady appetite for improvement. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands.");
             sb47.getTechDetails().add(purePopCamberBend);
             sb47.getTechDetails().add(twinShape);
             sb47.getTechDetails().add(twinFlex);
             sb47.getTechDetails().add(superFly800G);
             SnowboardSizeSpecs feelgoodSmalls130 = new SnowboardSizeSpecs("130", 32, 45, "SMLLS 1SZ", 94, 90, 6.1, 238, 45.5);
-            SnowboardSizeSpecs feelgoodSmalls135 = new SnowboardSizeSpecs("135", 36, 50, "SMLLS 1SZ, MEN'S S RE:FLEX", 99, 95, 6.4, 240, 45.5);
-            SnowboardSizeSpecs feelgoodSmalls140 = new SnowboardSizeSpecs("140", 41, 54, "SMLLS 1SZ, MEN'S S RE:FLEX", 104, 100, 6.6, 242, 45.5);
+            SnowboardSizeSpecs feelgoodSmalls135 = new SnowboardSizeSpecs("135", 36, 50, "SMLLS 1SZ, WMNS S RE:FLEX", 99, 95, 6.4, 240, 45.5);
+            SnowboardSizeSpecs feelgoodSmalls140 = new SnowboardSizeSpecs("140", 41, 54, "SMLLS 1SZ, WMNS S/M RE:FLEX", 104, 100, 6.6, 242, 45.5);
             snowboardSizeSpecsRepository.save(feelgoodSmalls130);
             snowboardSizeSpecsRepository.save(feelgoodSmalls135);
             snowboardSizeSpecsRepository.save(feelgoodSmalls140);
