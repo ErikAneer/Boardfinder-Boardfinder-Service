@@ -17,7 +17,7 @@ public interface SnowboardRepository extends JpaRepository<Snowboard, Long> {
     List<Snowboard> getAllSnowboards();
 
     Snowboard findByName(String name);
-
+   
     Snowboard findById(long id);
 
 }

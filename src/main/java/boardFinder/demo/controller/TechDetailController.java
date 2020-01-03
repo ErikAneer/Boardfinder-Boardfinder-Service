@@ -1,11 +1,16 @@
 package boardFinder.demo.controller;
 
+import boardFinder.demo.domain.Snowboard;
 import boardFinder.demo.domain.TechDetail;
+import boardFinder.demo.repository.SnowboardRepository;
 import boardFinder.demo.service.TechDetailsService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TechDetailController {
     
      private TechDetailsService techDetailsService;
-
+      
     @Autowired
     public TechDetailController(TechDetailsService techDetailsService) {
         this.techDetailsService = techDetailsService;
@@ -27,6 +32,21 @@ public class TechDetailController {
     @GetMapping("/flex")
     public List<TechDetail> getAllFlexes(){
         return techDetailsService.getAllFlexes();
+    }
+    
+     @PostMapping("/bend")
+    public List<TechDetail> getAllBendsByGender(@RequestBody Map<String, Object> map){
+        return techDetailsService.getAllTechDetailsByType(map, "bend");   
+    }
+    
+    @PostMapping("/flex")
+    public List<TechDetail> getAllFlexesByGender(@RequestBody Map<String, Object> map){
+        return techDetailsService.getAllTechDetailsByType(map, "flex");   
+    }
+    
+    @PostMapping("/shape")
+    public List<TechDetail> getAllShapesByGender(@RequestBody Map<String, Object> map){
+        return techDetailsService.getAllTechDetailsByType(map, "shape");   
     }
     
      @GetMapping("/bend")
