@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 /**
- *
+ * Entity class that represents the size, length, width and other measurements for a certain length of a snowboard. 
  * @author Erik
  */
 
@@ -21,9 +21,9 @@ public class SnowboardSizeSpecs implements Serializable {
         private final static long serialVersionUID = 1L;
     
     @Id
-    @SequenceGenerator(name="conference_room_s_generator", sequenceName = "conference_room_s",
+    @SequenceGenerator(name="snowboardsizespecs_s_generator", sequenceName = "snowboardsizespecs_s",
             initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conference_room_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "snowboardsizespecs_s_generator")
     private long id;
     
     private String boardLength;

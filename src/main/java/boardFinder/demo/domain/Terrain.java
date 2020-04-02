@@ -11,16 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 /**
- *
+ * Entity class that represents a snowboard's riding terrain and how well the snowboard perform in that terrain. 
  * @author Erik
  */
 @Entity
 public class Terrain implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "bend_s_generator", sequenceName = "bend_s",
+    @SequenceGenerator(name = "terrain_s_generator", sequenceName = "terrain_s",
             initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bend_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "terrain_s_generator")
     private long id;
 
     private RidingTerrain ridingType;

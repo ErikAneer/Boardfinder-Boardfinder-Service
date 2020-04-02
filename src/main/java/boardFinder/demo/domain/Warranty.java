@@ -1,6 +1,4 @@
-/*
 
- */
 package boardFinder.demo.domain;
 
 import java.io.Serializable;
@@ -12,19 +10,20 @@ import javax.persistence.SequenceGenerator;
 import org.hibernate.validator.constraints.Length;
 
 /**
- *
+ * Entity class of a product's warranty 
  * @author Erik
  */
 @Entity
 public class Warranty implements Serializable {
     
     @Id
-    @SequenceGenerator(name = "bend_s_generator", sequenceName = "bend_s",
+    @SequenceGenerator(name = "warranty_s_generator", sequenceName = "warranty_s",
             initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bend_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "warranty_s_generator")
     private long id;
+    
     private String header;
-    @Length(max = 1000)
+    @Length(max = 1500)
     private String description;
     private int years;
 
@@ -32,6 +31,9 @@ public class Warranty implements Serializable {
         this.header = header;
         this.description = description;
         this.years = years;
+    }
+    
+    public Warranty() {
     }
 
     public long getId() {

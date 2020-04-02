@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * Controller class for riding terrains.
  * @author Erik
  */
 @RestController
@@ -23,6 +23,10 @@ public class RidingTypeController {
         this.rTService = rTService;
     }
 
+    /**
+     * Gets all the riding terrains.
+     * @return list with all the RidingTerrains.
+     */
     @GetMapping
     public List<RidingTerrain> getAllRidingTypes() {
         return rTService.getAllRidingTypes();
