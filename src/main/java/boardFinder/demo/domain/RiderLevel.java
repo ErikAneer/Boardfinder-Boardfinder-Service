@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 /**
- *
+ * Entity class that represents a rider level. 
  * @author Erik
  */
 @Entity

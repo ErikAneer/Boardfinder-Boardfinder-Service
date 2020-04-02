@@ -9,6 +9,7 @@ import boardFinder.demo.domain.SnowboardSizeSpecs;
 import boardFinder.demo.domain.Snowboard;
 import boardFinder.demo.domain.TechDetail;
 import boardFinder.demo.domain.Terrain;
+import boardFinder.demo.domain.Warranty;
 import boardFinder.demo.repository.BrandRepository;
 import boardFinder.demo.repository.GenderRepository;
 import boardFinder.demo.repository.RiderLevelRepository;
@@ -20,9 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import boardFinder.demo.repository.RidingTerrainRepository;
 import boardFinder.demo.repository.TechDetailRepository;
+import boardFinder.demo.repository.WarrantyRepository;
 
 /**
- *
+ * Class to fill the database with all available Snowboard objects instead of using a SQL file if the database is empty. 
+ * This class is not to be used in a production environment, only here in a school / self learning task. 
  * @author Erik
  */
 @Service
@@ -37,11 +40,13 @@ public class DBDataService {
     private SnowboardSizeSpecsRepository snowboardSizeSpecsRepository;
     private TerrainRepository terrainRepository;
     private TechDetailRepository techDetailRepository;
+    private WarrantyRepository warrantyRepository;
 
     @Autowired
     public DBDataService(BrandRepository brandRepository, GenderRepository genderRepository, RiderLevelRepository riderLevelRepository,
             RidingTerrainRepository ridingTypeRepository, ShoeSizeRepository shoeSizeRepository, SnowboardRepository snowboardRepository,
-            SnowboardSizeSpecsRepository snowboardSizeSpecsRepository, TerrainRepository terrainRepository, TechDetailRepository techDetailRepository) {
+            SnowboardSizeSpecsRepository snowboardSizeSpecsRepository, TerrainRepository terrainRepository, TechDetailRepository techDetailRepository,
+            WarrantyRepository warrantyRepository) {
         this.brandRepository = brandRepository;
         this.genderRepository = genderRepository;
         this.riderLevelRepository = riderLevelRepository;
@@ -51,9 +56,14 @@ public class DBDataService {
         this.snowboardSizeSpecsRepository = snowboardSizeSpecsRepository;
         this.terrainRepository = terrainRepository;
         this.techDetailRepository = techDetailRepository;
+        this.warrantyRepository = warrantyRepository;
     }
 
-    public void createTestData() {
+        /** 
+     * Fills the database with all the snowboards if database is empty.
+     * Not to be used in a real production environment.
+     */
+    public void fillDatabaseWithSnowboards() {
         if (snowboardRepository.findAll().isEmpty()) {
 
             //Brands
@@ -214,16 +224,22 @@ public class DBDataService {
             shoeSizeRepository.save(ss30);
             shoeSizeRepository.save(ss31);
             shoeSizeRepository.save(ss32);
-
+            
+            // Warranty - header, description, years
+            Warranty twoYears = new Warranty("2-YEAR WARRANTY - BOARDS", "All Burton snowboards with traditional mounting inserts (such as the one you are looking at here) are backed by a two-year warranty from date of purchase. Our W48 Warranty Program ensures that should you have a problem, we'll have your claim repaired or replaced and on its way back to you within two business days of receiving it.", 2);
+            Warranty threeYears = new Warranty("3-YEAR WARRANTY - SNOWBOARDS", "All 2014 and newer Burton snowboards with The Channel mounting system (such as the one you are looking at here) are backed by a three-year warranty from date of purchase.", 3);
+            
+            warrantyRepository.save(twoYears);
+            warrantyRepository.save(threeYears);
+             
             //Snowboards
             // TWC Pro
-            Snowboard sb1 = new Snowboard(brand1, "TWC Pro", male, -1.25, 6, "TWCPro.webp", "Backed by gold, and designed by Shaun White - get the snap, control, and response to propel your skills to the highest level.", "One look under the hood tells you Shaun White's TWC Pro is revved up and ready to perform alchemy on all-terrain. In superpipes and slopestyle courses around the world, and every condition in between, camber delivers the snappy and stable suspension that White's riding demands. Frostbite Edges eat up bulletproof ice, while the WFO base accelerates past the competition. Similar to the Custom but with a more responsive shape, the TWC Pro is the logical next step for riders ready to upgrade their game.");
+            Snowboard sb1 = new Snowboard(brand1, "TWC Pro", male, -1.25, 6, "TWCPro.webp", threeYears, "Backed by gold, and designed by Shaun White - get the snap, control, and response to propel your skills to the highest level.", "One look under the hood tells you Shaun White's TWC Pro is revved up and ready to perform alchemy on all-terrain. In superpipes and slopestyle courses around the world, and every condition in between, camber delivers the snappy and stable suspension that White's riding demands. Frostbite Edges eat up bulletproof ice, while the WFO base accelerates past the competition. Similar to the Custom but with a more responsive shape, the TWC Pro is the logical next step for riders ready to upgrade their game.");
             sb1.getTechDetails().add(camberBend);
             sb1.getTechDetails().add(allMountainDirectionalShape);
             sb1.getTechDetails().add(directionalFlex);
             sb1.getTechDetails().add(superFly2700G);
 
-            //Specs (String boardLength, int riderWeightMin, int riderWeightMax, String bindingSize, double effectiveLength, double runningLength, double sidcutRadius, int waistWidth, double stanceWidth
             SnowboardSizeSpecs twc156 = new SnowboardSizeSpecs("156", 62, 79, "M", 120.2, 120.2, 7.9, 246, 52);
             snowboardSizeSpecsRepository.save(twc156);
             Terrain twc156t1 = new Terrain(park, 10);
@@ -244,7 +260,7 @@ public class DBDataService {
             sb1.getRiderLevels().add(intermediate);
 
             // Kilroy Custom
-            Snowboard sb2 = new Snowboard(brand1, "Kilroy Custom", male, 0, 5, "Kilroy_Custom.webp", "A twisted evolution of the most trusted board in the game.", "Built for riding any and all terrain, the Burton Kilroy Custom takes the attitude and approach of the most trusted board ever and gives it a new unique shape and construction. Better yet, it’s a board that can be thrashed without worries thanks to a recipe that’s high-performance without the price.");
+            Snowboard sb2 = new Snowboard(brand1, "Kilroy Custom", male, 0, 5, "Kilroy_Custom.webp", threeYears, "A twisted evolution of the most trusted board in the game.", "Built for riding any and all terrain, the Burton Kilroy Custom takes the attitude and approach of the most trusted board ever and gives it a new unique shape and construction. Better yet, it’s a board that can be thrashed without worries thanks to a recipe that’s high-performance without the price.");
             sb2.getTechDetails().add(camberBend);
             sb2.getTechDetails().add(allMountainDirectionalShape);
             sb2.getTechDetails().add(twinFlex);
@@ -274,7 +290,7 @@ public class DBDataService {
             sb2.getRiderLevels().add(intermediate);
 
             // Instigator
-            Snowboard sb3 = new Snowboard(brand1, "Instigator", male, -2.5, 2, "Instigator.webp", "Shortcut the learning curve with an all-around board that’s catch-free and easy for boosting confidence anywhere you take it.", "Some riders just want to get straight to the fun part. Enjoy a no-fuss feel with the Burton Instigator, a board designed to help accelerate the learning curve and instigate a good time from your first moment on the mountain. The combination of a Flat Top™ bend and convex base keeps things friendly underfoot, creating a catch-free feel that maintains stability and control. The Channel® mounting system gives you the easiest, most adjustable setup with bindings from all major brands (not just Burton’s).");
+            Snowboard sb3 = new Snowboard(brand1, "Instigator", male, -2.5, 2, "Instigator.webp", threeYears, "Shortcut the learning curve with an all-around board that’s catch-free and easy for boosting confidence anywhere you take it.", "Some riders just want to get straight to the fun part. Enjoy a no-fuss feel with the Burton Instigator, a board designed to help accelerate the learning curve and instigate a good time from your first moment on the mountain. The combination of a Flat Top™ bend and convex base keeps things friendly underfoot, creating a catch-free feel that maintains stability and control. The Channel® mounting system gives you the easiest, most adjustable setup with bindings from all major brands (not just Burton’s).");
             sb3.getTechDetails().add(flatTopBend);
             sb3.getTechDetails().add(allMountainDirectionalShape);
             sb3.getTechDetails().add(twinFlex);
@@ -324,7 +340,7 @@ public class DBDataService {
             sb3.getRiderLevels().add(beginner);
 
             // Process
-            Snowboard sb4 = new Snowboard(brand1, "Process", male, -1.25, 3, "Process.webp", "Lightweight true twin performance tuned to the ride-everything style of top pros like Mark McMorris.", "Constantly evolved to drop ounces and amplify pop, the Burton Process is Mark McMorris’ pick for its twin freestyle playfulness and all-terrain prowess. Now featuring PurePop camber for a forgiving yet snappy feel, the Process is suited to the freestyle rider, but still capable of ripping the entire mountain as proven by the pros who push it. The FSC™ Certified Super Fly II core creates a lighter, lift-off-ready deck, while Squeezebox core profiling transfers energy towards the tip and tail for snappier ollies and effortless stability. Available in two versions, choose the relaxed and floaty Flying V™ or precise control of PurePop camber.");
+            Snowboard sb4 = new Snowboard(brand1, "Process", male, -1.25, 3, "Process.webp", threeYears, "Lightweight true twin performance tuned to the ride-everything style of top pros like Mark McMorris.", "Constantly evolved to drop ounces and amplify pop, the Burton Process is Mark McMorris’ pick for its twin freestyle playfulness and all-terrain prowess. Now featuring PurePop camber for a forgiving yet snappy feel, the Process is suited to the freestyle rider, but still capable of ripping the entire mountain as proven by the pros who push it. The FSC™ Certified Super Fly II core creates a lighter, lift-off-ready deck, while Squeezebox core profiling transfers energy towards the tip and tail for snappier ollies and effortless stability. Available in two versions, choose the relaxed and floaty Flying V™ or precise control of PurePop camber.");
             sb4.getTechDetails().add(camberBend);
             sb4.getTechDetails().add(twinShape);
             sb4.getTechDetails().add(twinFlex);
@@ -362,7 +378,7 @@ public class DBDataService {
             sb4.getRiderLevels().add(intermediate);
 
             // Process Flying V
-            Snowboard sb5 = new Snowboard(brand1, "Process Flying V", male, -1.25, 2, "Process_Flying_V.webp", "Lightweight true twin performance tuned to the ride-everything style of top pros like Mark McMorris.", "Constantly evolved to drop ounces and amplify pop, the Burton Process is Mark McMorris’ pick for its twin freestyle playfulness and all-terrain prowess. The FSC™ Certified Super Fly II core creates a lighter, lift-off-ready deck, while Squeezebox core profiling transfers energy towards the tip and tail for snappier ollies and effortless stability. Available in two versions, choose the relaxed and floaty Flying V or precise control of PurePop camber. Process is suited to the freestyle rider, but still capable of ripping the entire mountain as proven by the pros who push it.");
+            Snowboard sb5 = new Snowboard(brand1, "Process Flying V", male, -1.25, 2, "Process_Flying_V.webp", threeYears, "Lightweight true twin performance tuned to the ride-everything style of top pros like Mark McMorris.", "Constantly evolved to drop ounces and amplify pop, the Burton Process is Mark McMorris’ pick for its twin freestyle playfulness and all-terrain prowess. The FSC™ Certified Super Fly II core creates a lighter, lift-off-ready deck, while Squeezebox core profiling transfers energy towards the tip and tail for snappier ollies and effortless stability. Available in two versions, choose the relaxed and floaty Flying V or precise control of PurePop camber. Process is suited to the freestyle rider, but still capable of ripping the entire mountain as proven by the pros who push it.");
             sb5.getTechDetails().add(flyingVBend);
             sb5.getTechDetails().add(twinShape);
             sb5.getTechDetails().add(twinFlex);
@@ -410,7 +426,7 @@ public class DBDataService {
             sb5.getRiderLevels().add(intermediate);
 
             // Family Tree Speed Date
-            Snowboard sb6 = new Snowboard(brand1, "Family Tree Speed Date", male, -2.5, 8, "Family_Tree_Speed_Date .webp", "Go hard in the trench on the Family Tree’s fastest new addition, inspired by snowboarding’s signature event: the banked slalom.", "Our designers called it “the banked slalom board” from day one, so you know it’s built to turn. The Speed Date features a special blend of Balanced Freeride Geometry that thrives on all terrain. Directional Camber combines with a unique shape, aggressive sidecut and just the right amount of taper to burn turns and eat berms for breakfast.");
+            Snowboard sb6 = new Snowboard(brand1, "Family Tree Speed Date", male, -2.5, 8, "Family_Tree_Speed_Date .webp", threeYears, "Go hard in the trench on the Family Tree’s fastest new addition, inspired by snowboarding’s signature event: the banked slalom.", "Our designers called it “the banked slalom board” from day one, so you know it’s built to turn. The Speed Date features a special blend of Balanced Freeride Geometry that thrives on all terrain. Directional Camber combines with a unique shape, aggressive sidecut and just the right amount of taper to burn turns and eat berms for breakfast.");
             sb6.getTechDetails().add(camberBend);
             sb6.getTechDetails().add(freerideDirectionalShape);
             sb6.getTechDetails().add(directionalFlex);
@@ -444,7 +460,7 @@ public class DBDataService {
             sb6.getRiderLevels().add(pro);
 
             // Family Tree Speed Date Wide
-            Snowboard sb7 = new Snowboard(brand1, "Family Tree Speed Date Wide", male, -2.5, 8, "Family_Tree_Speed_Date .webp", "Go hard in the trench on the Family Tree’s fastest new addition, inspired by snowboarding’s signature event: the banked slalom.", "Our designers called it “the banked slalom board” from day one, so you know it’s built to turn. The Speed Date features a special blend of Balanced Freeride Geometry that thrives on all terrain. Directional Camber combines with a unique shape, aggressive sidecut and just the right amount of taper to burn turns and eat berms for breakfast.");
+            Snowboard sb7 = new Snowboard(brand1, "Family Tree Speed Date Wide", male, -2.5, 8, "Family_Tree_Speed_Date .webp", threeYears, "Go hard in the trench on the Family Tree’s fastest new addition, inspired by snowboarding’s signature event: the banked slalom.", "Our designers called it “the banked slalom board” from day one, so you know it’s built to turn. The Speed Date features a special blend of Balanced Freeride Geometry that thrives on all terrain. Directional Camber combines with a unique shape, aggressive sidecut and just the right amount of taper to burn turns and eat berms for breakfast.");
             sb7.getTechDetails().add(camberBend);
             sb7.getTechDetails().add(freerideDirectionalShape);
             sb7.getTechDetails().add(directionalFlex);
@@ -471,7 +487,7 @@ public class DBDataService {
             sb7.getRiderLevels().add(pro);
 
             // Free Thinker
-            Snowboard sb8 = new Snowboard(brand1, "Free Thinker", male, 0, 7, "Free_Thinker.webp", "Expand your perspective with Danny Davis’ new take on poppy and pow-friendly ride-anything performance.", "The Burton Free Thinker is a true twin spin on Danny Davis’ go-to, built for hot laps in the park, pipe, or mobbing side hits across the mountain. The unique true twin shape opens up the possibilities for creative expression in any direction, while the control of camber keeps it quick and poppy. 45° Carbon Highlights deliver snap without the stiff side effects. Throwback graphics top it off, adding a touch of Burton’s early 90’s roots to an already iconic model.");
+            Snowboard sb8 = new Snowboard(brand1, "Free Thinker", male, 0, 7, "Free_Thinker.webp", threeYears, "Expand your perspective with Danny Davis’ new take on poppy and pow-friendly ride-anything performance.", "The Burton Free Thinker is a true twin spin on Danny Davis’ go-to, built for hot laps in the park, pipe, or mobbing side hits across the mountain. The unique true twin shape opens up the possibilities for creative expression in any direction, while the control of camber keeps it quick and poppy. 45° Carbon Highlights deliver snap without the stiff side effects. Throwback graphics top it off, adding a touch of Burton’s early 90’s roots to an already iconic model.");
             sb8.getTechDetails().add(camberBend);
             sb8.getTechDetails().add(twinShape);
             sb8.getTechDetails().add(twinFlex);
@@ -514,7 +530,7 @@ public class DBDataService {
             sb8.getRiderLevels().add(pro);
 
             // Paramount
-            Snowboard sb9 = new Snowboard(brand1, "Paramount", male, 0, 4, "Paramount.webp", "The pinnacle formula for high-caliber park performance: twin tip shape with the pop and raw power of camber.", "Launching to the moon or sliding down a rail, the NEW Burton Paramount is the vehicle that will get you there and back again. The precision and response of Camber combines with a classic twin tip shape for a freestyle formula that’s served riders since the birth of the terrain park. A medium flex provides stability and support for stomped landings, while still ensuring enough wiggle room to crank out a press on boxes, rails, and anything else in your path.");
+            Snowboard sb9 = new Snowboard(brand1, "Paramount", male, 0, 4, "Paramount.webp", threeYears, "The pinnacle formula for high-caliber park performance: twin tip shape with the pop and raw power of camber.", "Launching to the moon or sliding down a rail, the NEW Burton Paramount is the vehicle that will get you there and back again. The precision and response of Camber combines with a classic twin tip shape for a freestyle formula that’s served riders since the birth of the terrain park. A medium flex provides stability and support for stomped landings, while still ensuring enough wiggle room to crank out a press on boxes, rails, and anything else in your path.");
             sb9.getTechDetails().add(camberBend);
             sb9.getTechDetails().add(twinShape);
             sb9.getTechDetails().add(twinFlex);
@@ -549,7 +565,7 @@ public class DBDataService {
             sb9.getRiderLevels().add(pro);
 
             // Custom X
-            Snowboard sb10 = new Snowboard(brand1, "Custom X", male, -1.25, 9, "Custom_X.webp", "Get pro-caliber speed and precision with the most aggressive board in Burton’s lineup.", "Pro-caliber is a strong statement for any board, but the Burton Custom X has repeatedly delivered for snowboarding’s most demanding riders due to precise design and powerful drive. The confidence is in the tech, which includes the carbon-fueled snap of Squeezebox High core profiling, a competition-grade base, and 45° Carbon Highlights High-Voltage for the ultimate in lightweight responsiveness. The hardest charging board we make, the Custom X is available in two versions: choose the power of camber or the float and catch-free feel of Flying V™.");
+            Snowboard sb10 = new Snowboard(brand1, "Custom X", male, -1.25, 9, "Custom_X.webp", threeYears, "Get pro-caliber speed and precision with the most aggressive board in Burton’s lineup.", "Pro-caliber is a strong statement for any board, but the Burton Custom X has repeatedly delivered for snowboarding’s most demanding riders due to precise design and powerful drive. The confidence is in the tech, which includes the carbon-fueled snap of Squeezebox High core profiling, a competition-grade base, and 45° Carbon Highlights High-Voltage for the ultimate in lightweight responsiveness. The hardest charging board we make, the Custom X is available in two versions: choose the power of camber or the float and catch-free feel of Flying V™.");
             sb10.getTechDetails().add(camberBend);
             sb10.getTechDetails().add(allMountainDirectionalShape);
             sb10.getTechDetails().add(twinFlex);
@@ -595,7 +611,7 @@ public class DBDataService {
             sb10.getRiderLevels().add(pro);
 
             // Custom
-            Snowboard sb11 = new Snowboard(brand1, "Custom", male, -1.25, 6, "Custom.webp", "The most trusted board ever, backed by a cult following as snowboarding’s one-answer to all terrain.", "Since its humble beginnings, innovation has defined the Burton Custom series and set it apart as the most popular, versatile, and mimicked board in snowboarding. Since 1996, this icon has reigned supreme and constantly evolved with a proven formula that combines time-honored design with envelope-pushing ingredients to create a lightweight, poppy, and highly versatile board. Offered in two versions, the precision and stability of the Custom camber is the top choice for many pro riders, while the Custom Flying V™ combines camber’s power with the relaxed float of rocker for the best of both worlds.");
+            Snowboard sb11 = new Snowboard(brand1, "Custom", male, -1.25, 6, "Custom.webp", threeYears, "The most trusted board ever, backed by a cult following as snowboarding’s one-answer to all terrain.", "Since its humble beginnings, innovation has defined the Burton Custom series and set it apart as the most popular, versatile, and mimicked board in snowboarding. Since 1996, this icon has reigned supreme and constantly evolved with a proven formula that combines time-honored design with envelope-pushing ingredients to create a lightweight, poppy, and highly versatile board. Offered in two versions, the precision and stability of the Custom camber is the top choice for many pro riders, while the Custom Flying V™ combines camber’s power with the relaxed float of rocker for the best of both worlds.");
             sb11.getTechDetails().add(camberBend);
             sb11.getTechDetails().add(allMountainDirectionalShape);
             sb11.getTechDetails().add(twinFlex);
@@ -648,7 +664,7 @@ public class DBDataService {
             sb11.getRiderLevels().add(pro);
 
             //Kilroy
-            Snowboard sb12 = new Snowboard(brand1, "Kilroy", male, -1.25, 5, "Kilroy.webp", "A twisted evolution of the most trusted board in the game.", "Built for riding any and all terrain, the Men's Burton Kilroy Directional Camber Snowboard takes the attitude and approach of the most trusted board ever and gives it a new unique shape and construction. Better yet, it's a board that can be thrashed without worries thanks to a recipe that's high-performance without the price.");
+            Snowboard sb12 = new Snowboard(brand1, "Kilroy", male, -1.25, 5, "Kilroy.webp", threeYears, "A twisted evolution of the most trusted board in the game.", "Built for riding any and all terrain, the Men's Burton Kilroy Directional Camber Snowboard takes the attitude and approach of the most trusted board ever and gives it a new unique shape and construction. Better yet, it's a board that can be thrashed without worries thanks to a recipe that's high-performance without the price.");
             sb12.getTechDetails().add(directionalCamberBend);
             sb12.getTechDetails().add(allMountainDirectionalShape);
             sb12.getTechDetails().add(twinFlex);
@@ -676,7 +692,7 @@ public class DBDataService {
             sb12.getRiderLevels().add(pro);
 
             // Family Tree Hometown Hero
-            Snowboard sb13 = new Snowboard(brand1, "Family Tree Hometown Hero", male, -4, 6, "Family_Tree_Hometown.webp", "Designed to thrive in Burton's back yard, this chunder buster loves to go fast, blast, and dodge through the tightest trees.", "Our board designers spend a lot of time poking around in the woods of Vermont, our home state. Tight trees, steep lines, and sudden drops are to be expected, and the Burton Hometown Hero is custom tailored to power through it all. Blast past the tourists and cut straight to the goods. Strategically placed glass stiffens up the nose and tail, allowing the center to flex while retaining snap and response where you need it most. Directional Camber blends with Balanced Freeride Geometry to maintain stability, while an FSC™ Certified Super Fly II™ core pairs with bio-based Super Sap® Epoxy for a low carbon footprint.");
+            Snowboard sb13 = new Snowboard(brand1, "Family Tree Hometown Hero", male, -4, 6, "Family_Tree_Hometown.webp", threeYears, "Designed to thrive in Burton's back yard, this chunder buster loves to go fast, blast, and dodge through the tightest trees.", "Our board designers spend a lot of time poking around in the woods of Vermont, our home state. Tight trees, steep lines, and sudden drops are to be expected, and the Burton Hometown Hero is custom tailored to power through it all. Blast past the tourists and cut straight to the goods. Strategically placed glass stiffens up the nose and tail, allowing the center to flex while retaining snap and response where you need it most. Directional Camber blends with Balanced Freeride Geometry to maintain stability, while an FSC™ Certified Super Fly II™ core pairs with bio-based Super Sap® Epoxy for a low carbon footprint.");
             sb13.getTechDetails().add(flyingVBend);
             sb13.getTechDetails().add(freerideDirectionalShape);
             sb13.getTechDetails().add(twinFlex);
@@ -707,7 +723,7 @@ public class DBDataService {
             sb13.getRiderLevels().add(pro);
 
             //Kiroy Twin
-            Snowboard sb14 = new Snowboard(brand1, "Kilroy Twin", male, 0, 3, "Kilroy_Twin.jfif", "The workingman's classic: a traditional camber twin, designed to thrive on all terrain.", "The rippers on ground level are looking for a board that can hang without worrying about the cost. The Men's Burton Kilroy Twin Camber Snowboard is here to give the people what they want with a classic twin shape inspired by the Process, but with a refined construction that focuses on strength, speed, and pop.");
+            Snowboard sb14 = new Snowboard(brand1, "Kilroy Twin", male, 0, 3, "Kilroy_Twin.jfif", threeYears, "The workingman's classic: a traditional camber twin, designed to thrive on all terrain.", "The rippers on ground level are looking for a board that can hang without worrying about the cost. The Men's Burton Kilroy Twin Camber Snowboard is here to give the people what they want with a classic twin shape inspired by the Process, but with a refined construction that focuses on strength, speed, and pop.");
             sb14.getTechDetails().add(camberBend);
             sb14.getTechDetails().add(twinShape);
             sb14.getTechDetails().add(twinFlex);
@@ -741,7 +757,7 @@ public class DBDataService {
             sb14.getRiderLevels().add(intermediate);
 
             // Family Tree Moon Buggy
-            Snowboard sb15 = new Snowboard(brand1, "Family Tree Moon Buggy", male, -1.7, 5, "Family_Tree_Moon_Buggy.webp", "Wider, shorter, surfier, heck, we might as well just say funner in all conditions", "Float in a surf-like state over interstellar landscapes on this playfully plus-sized rig. The Moon Buggy takes a big-kahuna approach to playful pow riding. The spaceship vibes stem from swallow-inspired 3-D construction in the tail, which complements the big nose for effortless float no matter how deep the swell gets.");
+            Snowboard sb15 = new Snowboard(brand1, "Family Tree Moon Buggy", male, -1.7, 5, "Family_Tree_Moon_Buggy.webp", threeYears, "Wider, shorter, surfier, heck, we might as well just say funner in all conditions", "Float in a surf-like state over interstellar landscapes on this playfully plus-sized rig. The Moon Buggy takes a big-kahuna approach to playful pow riding. The spaceship vibes stem from swallow-inspired 3-D construction in the tail, which complements the big nose for effortless float no matter how deep the swell gets.");
             sb15.getTechDetails().add(directionalCamberBend);
             sb15.getTechDetails().add(allMountainDirectionalShape);
             sb15.getTechDetails().add(directionalFlex);
@@ -768,7 +784,7 @@ public class DBDataService {
             sb15.getRiderLevels().add(pro);
 
             //Deep Thinker
-            Snowboard sb16 = new Snowboard(brand1, "Deep Thinker", male, -2.5, 6, "Deep_Thinker.jfif", "Open your mind with Danny Davis' new take on extra-poppy, pow-friendly performance.", "The Burton Deep Thinker is a directional spin on Danny Davis' go-to for hot laps in the park, pipe, or mobbing side hits across the mountain. Adding the float and responsiveness of Directional Camber to a unique shape designed with Balanced Freeride Geometry and just a touch of taper ups the all-mountain abilities while keeping the freestyle performance on full blast. 45° Carbon Highlights deliver snappy pop without the stiff side effects. Throwback graphics top it off, adding a touch of Burton's early 90's roots to an already iconic model.");
+            Snowboard sb16 = new Snowboard(brand1, "Deep Thinker", male, -2.5, 6, "Deep_Thinker.jfif", threeYears, "Open your mind with Danny Davis' new take on extra-poppy, pow-friendly performance.", "The Burton Deep Thinker is a directional spin on Danny Davis' go-to for hot laps in the park, pipe, or mobbing side hits across the mountain. Adding the float and responsiveness of Directional Camber to a unique shape designed with Balanced Freeride Geometry and just a touch of taper ups the all-mountain abilities while keeping the freestyle performance on full blast. 45° Carbon Highlights deliver snappy pop without the stiff side effects. Throwback graphics top it off, adding a touch of Burton's early 90's roots to an already iconic model.");
             sb16.getTechDetails().add(directionalCamberBend);
             sb16.getTechDetails().add(allMountainDirectionalShape);
             sb16.getTechDetails().add(directionalFlex);
@@ -808,7 +824,7 @@ public class DBDataService {
             sb16.getRiderLevels().add(pro);
 
             // Flight Attendant
-            Snowboard sb17 = new Snowboard(brand1, "Flight Attendant", male, -3.5, 6, "Flight_Attendant.webp", "Prepare for take-off with a board that makes waves for its abilities to carve and catch air.", "Designed to be a terrain-slaying alternative to more traditional twin shapes, the Burton Flight Attendant is a free spirit that dissects both pow and hard-pack with equal precision. Balanced Freeride Geometry is the secret with setback camber and sidecut that are centered on your stance to create a twin freestyle feel when riding flat base. On edge the board turns tight and quick, with Directional Camber and taper for added float and flow. A blend of big mountain attributes and all-terrain aggression, the Flight Attendant finds the sweet spot for everything from steep lines and spontaneous slashes to wind-lips, pillows, and side hits.");
+            Snowboard sb17 = new Snowboard(brand1, "Flight Attendant", male, -3.5, 6, "Flight_Attendant.webp", threeYears, "Prepare for take-off with a board that makes waves for its abilities to carve and catch air.", "Designed to be a terrain-slaying alternative to more traditional twin shapes, the Burton Flight Attendant is a free spirit that dissects both pow and hard-pack with equal precision. Balanced Freeride Geometry is the secret with setback camber and sidecut that are centered on your stance to create a twin freestyle feel when riding flat base. On edge the board turns tight and quick, with Directional Camber and taper for added float and flow. A blend of big mountain attributes and all-terrain aggression, the Flight Attendant finds the sweet spot for everything from steep lines and spontaneous slashes to wind-lips, pillows, and side hits.");
             sb17.getTechDetails().add(directionalCamberBend);
             sb17.getTechDetails().add(freerideDirectionalShape);
             sb17.getTechDetails().add(directionalFlex);
@@ -851,7 +867,7 @@ public class DBDataService {
             sb17.getRiderLevels().add(pro);
 
             // Family Tree One Hitter 
-            Snowboard sb18 = new Snowboard(brand1, "Family Tree One Hitter", male, -2.5, 4, "Family_Tree_One_Hitter.webp", "Spark up the groomers, slash the stashes, and put your signature on every side hit along the way.", "Neck deep pow is always a treat, but nothing beats a day spent hot lapping your favorite runs, smashing side hits, and treating the whole mountain like a terrain park. We baked this mentality into the Burton One Hitter to make it the one board that's hungrier for deep carves and natty airs than you are. With the snappy combo of a rad new shape and Directional Camber, it's built like a missile, but still soft enough to keep things buttery and playful. For good measure, an FSC™ Certified Super Fly II™ core pairs with bio-based Super Sap® Epoxy to cut the carbon footprint.");
+            Snowboard sb18 = new Snowboard(brand1, "Family Tree One Hitter", male, -2.5, 4, "Family_Tree_One_Hitter.webp", threeYears, "Spark up the groomers, slash the stashes, and put your signature on every side hit along the way.", "Neck deep pow is always a treat, but nothing beats a day spent hot lapping your favorite runs, smashing side hits, and treating the whole mountain like a terrain park. We baked this mentality into the Burton One Hitter to make it the one board that's hungrier for deep carves and natty airs than you are. With the snappy combo of a rad new shape and Directional Camber, it's built like a missile, but still soft enough to keep things buttery and playful. For good measure, an FSC™ Certified Super Fly II™ core pairs with bio-based Super Sap® Epoxy to cut the carbon footprint.");
             sb18.getTechDetails().add(directionalCamberBend);
             sb18.getTechDetails().add(freerideDirectionalShape);
             sb18.getTechDetails().add(directionalFlex);
@@ -882,7 +898,7 @@ public class DBDataService {
             sb18.getRiderLevels().add(pro);
 
             // Family Tree Leader Board 
-            Snowboard sb19 = new Snowboard(brand1, "Family Tree Leader Board", male, -2.5, 8, "Family_Tree_Leader_Board.webp", "A big mountain burner, designed in collaboration with 5-time Xtreme Verbier Champion, Steve Klassen.", "Freeride champions and big mountain billy goats, take note. The Burton Leader Board puts control and response right beneath your feet. Directional Camber blends with Balanced Freeride Geometry to maintain stability through hair-raising lines, while a reduced sidecut and spooned 3-D contours in the nose nix any catchy contact points. An FSC™ Certified Super Fly II™ core reinforced by a carbon I-Beam™ pairs with bio-based Super Sap® Epoxy for a low carbon footprint.");
+            Snowboard sb19 = new Snowboard(brand1, "Family Tree Leader Board", male, -2.5, 8, "Family_Tree_Leader_Board.webp", threeYears, "A big mountain burner, designed in collaboration with 5-time Xtreme Verbier Champion, Steve Klassen.", "Freeride champions and big mountain billy goats, take note. The Burton Leader Board puts control and response right beneath your feet. Directional Camber blends with Balanced Freeride Geometry to maintain stability through hair-raising lines, while a reduced sidecut and spooned 3-D contours in the nose nix any catchy contact points. An FSC™ Certified Super Fly II™ core reinforced by a carbon I-Beam™ pairs with bio-based Super Sap® Epoxy for a low carbon footprint.");
             sb19.getTechDetails().add(directionalCamberBend);
             sb19.getTechDetails().add(allMountainDirectionalShape);
             sb19.getTechDetails().add(directionalFlex);
@@ -913,7 +929,7 @@ public class DBDataService {
             sb19.getRiderLevels().add(pro);
 
             // Skeleton Key
-            Snowboard sb20 = new Snowboard(brand1, "Skeleton Key", male, -5, 4, "Skeleton_Key.webp", "A directional utility tool designed to unlock the full spectrum of freeride terrain.", "The offspring of a one-night stand between two of Burton's most revered all-terrain boards, the Burton Skeleton Key has quickly become a staple in the quivers of our testers and team riders. From Japan-deep pow to Mount Baker's legendary banks, this uniquely hard-charging directional shape fuses camber with a slightly increased waist width that carves like a knife.");
+            Snowboard sb20 = new Snowboard(brand1, "Skeleton Key", male, -5, 4, "Skeleton_Key.webp", threeYears, "A directional utility tool designed to unlock the full spectrum of freeride terrain.", "The offspring of a one-night stand between two of Burton's most revered all-terrain boards, the Burton Skeleton Key has quickly become a staple in the quivers of our testers and team riders. From Japan-deep pow to Mount Baker's legendary banks, this uniquely hard-charging directional shape fuses camber with a slightly increased waist width that carves like a knife.");
             sb20.getTechDetails().add(directionalCamberBend);
             sb20.getTechDetails().add(freerideDirectionalShape);
             sb20.getTechDetails().add(directionalFlex);
@@ -948,7 +964,7 @@ public class DBDataService {
             // Throwback
             //Snowboard sb21 = new Snowboard(brand1, "Flight Attendant",  male, -1.25, camber, allMountainDirectionalShape, twinFlex, superFly2700G, 6,  "Flight_Attendant.webp", "", ""); 
             // Descendant
-            Snowboard sb22 = new Snowboard(brand1, "Descendant", male, 0, 2, "Descendant.webp", "A soft and poppy deck that's perfect for taking what you learn in the park to the entire mountain.", "Dominate the park while getting maximum bang for your buck with the feature-packed Burton Descendant. True twin shaping gives it a freestyle punch, allowing you to ride in either direction with equal control. Soft and playful, it also steps up stability and edge control with the catch-free, park-tuned feel of PurePop Camber. Squeezebox Low provides a softer flex that maintains snappiness and ollie power. The Channel® gives you ultimate control of your stance and the fastest setup possible in a system compatible with bindings from all major brands.");
+            Snowboard sb22 = new Snowboard(brand1, "Descendant", male, 0, 2, "Descendant.webp", threeYears, "A soft and poppy deck that's perfect for taking what you learn in the park to the entire mountain.", "Dominate the park while getting maximum bang for your buck with the feature-packed Burton Descendant. True twin shaping gives it a freestyle punch, allowing you to ride in either direction with equal control. Soft and playful, it also steps up stability and edge control with the catch-free, park-tuned feel of PurePop Camber. Squeezebox Low provides a softer flex that maintains snappiness and ollie power. The Channel® gives you ultimate control of your stance and the fastest setup possible in a system compatible with bindings from all major brands.");
             sb22.getTechDetails().add(purePopCamberBend);
             sb22.getTechDetails().add(twinShape);
             sb22.getTechDetails().add(twinFlex);
@@ -990,7 +1006,7 @@ public class DBDataService {
             sb22.getRiderLevels().add(intermediate);
 
             // Family Tree Backseat Driver
-            Snowboard sb23 = new Snowboard(brand1, "Family Tree Backseat Driver", male, 0, 8, "Family_Tree_Backseat_Driver.webp", "Free your feet, free you mind – true snowboard construction built to surf on snow.", "Surf-inspired design meets traditional snowboard construction in the Burton Backseat Driver. If you're wondering, \"where do the bindings go?\" They don't. This pow surfer is designed to surf sans-straps everywhere from your backyard to the backcountry. A spoon nose provides float and flow, working in conjunction with a V-hull in the tail that maintains a loose feeling, but transitions into a strong, powerful turn when engaged. This board is built to push boundaries, and spread the joy of surfing on snow.");
+            Snowboard sb23 = new Snowboard(brand1, "Family Tree Backseat Driver", male, 0, 8, "Family_Tree_Backseat_Driver.webp", threeYears, "Free your feet, free you mind – true snowboard construction built to surf on snow.", "Surf-inspired design meets traditional snowboard construction in the Burton Backseat Driver. If you're wondering, \"where do the bindings go?\" They don't. This pow surfer is designed to surf sans-straps everywhere from your backyard to the backcountry. A spoon nose provides float and flow, working in conjunction with a V-hull in the tail that maintains a loose feeling, but transitions into a strong, powerful turn when engaged. This board is built to push boundaries, and spread the joy of surfing on snow.");
             sb23.getTechDetails().add(directionalFlatTopBend);
             sb23.getTechDetails().add(allMountainDirectionalShape);
             sb23.getTechDetails().add(directionalFlex);
@@ -1015,7 +1031,7 @@ public class DBDataService {
             sb23.getRiderLevels().add(pro);
 
             //Name Dropper
-            Snowboard sb24 = new Snowboard(brand1, "Name Dropper", male, 0, 2, "Name_Dropper.webp", "People will be dropping your name in no time when you unleash the fury on this park-tuned powerhouse.", "Let your riding speak for itself with the Name Dropper's next-generation, park-tuned performance. Off-Axis means all of its key ingredients, from the edges to the poppy core profile, match the angles of your stance for enhanced grip, smoother takeoffs, and stomped landings. PurePop Camber amplifies ollies and loosens up the overall feel for a more playful take on traditional camber, while the addition of effortlessly flexing Off-Axis Squeezebox Low enhances the overall soft freestyle feel.");
+            Snowboard sb24 = new Snowboard(brand1, "Name Dropper", male, 0, 2, "Name_Dropper.webp", threeYears, "People will be dropping your name in no time when you unleash the fury on this park-tuned powerhouse.", "Let your riding speak for itself with the Name Dropper's next-generation, park-tuned performance. Off-Axis means all of its key ingredients, from the edges to the poppy core profile, match the angles of your stance for enhanced grip, smoother takeoffs, and stomped landings. PurePop Camber amplifies ollies and loosens up the overall feel for a more playful take on traditional camber, while the addition of effortlessly flexing Off-Axis Squeezebox Low enhances the overall soft freestyle feel.");
             sb24.getTechDetails().add(purePopCamberBend);
             sb24.getTechDetails().add(twinShape);
             sb24.getTechDetails().add(twinFlex);
@@ -1048,7 +1064,7 @@ public class DBDataService {
             sb24.getRiderLevels().add(intermediate);
 
             // Kilroy 3D 
-            Snowboard sb25 = new Snowboard(brand1, "Kilroy 3D", male, 0, 3, "Kilroy_3D.webp", "Introducing the park board's next evolution: 3D construction for an even butterier ride.", "The perfect press is still out there, and the Burton Kilroy 3D is hell bent on finding it. 3D contours in the nose and tail remove material where it's least needed, putting a new focus on flex, and opening doors to catch-free buttery exploration. Heck, if the Kilroys are backing it, we're all in.");
+            Snowboard sb25 = new Snowboard(brand1, "Kilroy 3D", male, 0, 3, "Kilroy_3D.webp", threeYears, "Introducing the park board's next evolution: 3D construction for an even butterier ride.", "The perfect press is still out there, and the Burton Kilroy 3D is hell bent on finding it. 3D contours in the nose and tail remove material where it's least needed, putting a new focus on flex, and opening doors to catch-free buttery exploration. Heck, if the Kilroys are backing it, we're all in.");
             sb25.getTechDetails().add(purePopCamberBend);
             sb25.getTechDetails().add(twinShape);
             sb25.getTechDetails().add(twinFlex);
@@ -1079,7 +1095,7 @@ public class DBDataService {
             sb25.getRiderLevels().add(pro);
 
             // Ripcord
-            Snowboard sb26 = new Snowboard(brand1, "Ripcord", male, -2.5, 2, "Ripcord.webp", "Blast past the learning curve with the easiest, most progression-friendly men's board we make.", "Blast past the learning curve with the easiest, most progression-friendly men's board we make.");
+            Snowboard sb26 = new Snowboard(brand1, "Ripcord", male, -2.5, 2, "Ripcord.webp", threeYears, "Blast past the learning curve with the easiest, most progression-friendly men's board we make.", "Blast past the learning curve with the easiest, most progression-friendly men's board we make.");
             sb26.getTechDetails().add(flatTopBend);
             sb26.getTechDetails().add(allMountainDirectionalShape);
             sb26.getTechDetails().add(directionalFlex);
@@ -1124,7 +1140,7 @@ public class DBDataService {
             sb26.getRiderLevels().add(beginner);
 
             // Custom X Flying V
-            Snowboard sb27 = new Snowboard(brand1, "Custom X Flying V", male, -1.25, 6, "Custom_X_FV.webp", "Get pro-caliber speed and precision with the most aggressive board in Burton's lineup.", "Pro-caliber is a strong statement for any board, but the Burton Custom X has repeatedly delivered for snowboarding's most demanding riders due to precise design and powerful drive. The confidence is in the tech, which includes the carbon-fueled snap of Squeezebox High core profiling, a competition-grade base, and 45° Carbon Highlights High-Voltage for the ultimate in lightweight responsiveness. The hardest charging board we make, the Custom X is available in two versions: choose the power of camber or the float and catch-free feel of Flying V.");
+            Snowboard sb27 = new Snowboard(brand1, "Custom X Flying V", male, -1.25, 6, "Custom_X_FV.webp", threeYears, "Get pro-caliber speed and precision with the most aggressive board in Burton's lineup.", "Pro-caliber is a strong statement for any board, but the Burton Custom X has repeatedly delivered for snowboarding's most demanding riders due to precise design and powerful drive. The confidence is in the tech, which includes the carbon-fueled snap of Squeezebox High core profiling, a competition-grade base, and 45° Carbon Highlights High-Voltage for the ultimate in lightweight responsiveness. The hardest charging board we make, the Custom X is available in two versions: choose the power of camber or the float and catch-free feel of Flying V.");
             sb27.getTechDetails().add(flyingVBend);
             sb27.getTechDetails().add(allMountainDirectionalShape);
             sb27.getTechDetails().add(twinFlex);
@@ -1158,7 +1174,7 @@ public class DBDataService {
             sb27.getRiderLevels().add(pro);
             
             // Talent Scout
-            Snowboard sb28 = new Snowboard(brand1, "Talent Scout", female, 0, 7, "Talent_Scout.webp", "Bad-ass with a touch of sass in an action-packed board that'll have you falling in love with camber all over again.", "The Burton Talent Scout is on a mission to track down the best of park progression. A step up in pro-driven attitude from other twins, a camber profile gives riders the power, control, and finesse to thrive on all terrain. Designed to fit like a glove, the Talent Scout's Off-Axis design aligns the Squeezebox core profiling and Frostbite Edges with the typical park rider's stance, unlocking the board's natural flex and edge hold for buttery smooth control.");
+            Snowboard sb28 = new Snowboard(brand1, "Talent Scout", female, 0, 7, "Talent_Scout.webp", threeYears, "Bad-ass with a touch of sass in an action-packed board that'll have you falling in love with camber all over again.", "The Burton Talent Scout is on a mission to track down the best of park progression. A step up in pro-driven attitude from other twins, a camber profile gives riders the power, control, and finesse to thrive on all terrain. Designed to fit like a glove, the Talent Scout's Off-Axis design aligns the Squeezebox core profiling and Frostbite Edges with the typical park rider's stance, unlocking the board's natural flex and edge hold for buttery smooth control.");
             sb28.getTechDetails().add(camberBend);
             sb28.getTechDetails().add(twinShape);
             sb28.getTechDetails().add(twinFlex);
@@ -1196,7 +1212,7 @@ public class DBDataService {
             sb28.getRiderLevels().add(pro);
             
             // Family Tree Story Board
-            Snowboard sb29 = new Snowboard(brand1, "Family Tree Story Board", female, -3.5, 7, "Family_Tree_Story_Board.webp", "Whether you're in deep or up in the air, spin tall tales on the ultimate freeride shape for women who seek to send it.", "When our designers saw women reaching for men's models like the Flight Attendant, they decided it was high time to create the ultimate women's freeride machine. The Burton Story Board is designed to create hard charging moments – the kind you'll be spinning yarns about for years to come. Control, versatility and confidence are key themes. A women's-specific core profile complements the directionally cambered shape and 10mm of taper with torsional flex that drives and floats through turns on groomers and deep days alike.");
+            Snowboard sb29 = new Snowboard(brand1, "Family Tree Story Board", female, -3.5, 7, "Family_Tree_Story_Board.webp", threeYears, "Whether you're in deep or up in the air, spin tall tales on the ultimate freeride shape for women who seek to send it.", "When our designers saw women reaching for men's models like the Flight Attendant, they decided it was high time to create the ultimate women's freeride machine. The Burton Story Board is designed to create hard charging moments – the kind you'll be spinning yarns about for years to come. Control, versatility and confidence are key themes. A women's-specific core profile complements the directionally cambered shape and 10mm of taper with torsional flex that drives and floats through turns on groomers and deep days alike.");
             sb29.getTechDetails().add(directionalCamberBend);
             sb29.getTechDetails().add(freerideDirectionalShape);
             sb29.getTechDetails().add(directionalFlex);
@@ -1228,7 +1244,7 @@ public class DBDataService {
             
             
             // Stylus 
-            Snowboard sb30 = new Snowboard(brand1, "Stylus", female, 0, 2, "Stylus.webp", "Set the Stylus to snow and make your first mark on a blank slate, the best intro to snowboarding out there.", "Hands down the easiest women’s board in the line, the Burton Stylus is perfect for aspiring riders looking to build a foundation before moving on to a more performance-oriented option. Like setting a pen to a blank piece of paper, the Stylus silences your fears, teaching balance and board control from the first time you strap in. Easy Bevel combines a soft, mellow flex with a convex base for a virtually-catch free riding experience, while Flat Top™ and a true twin shape provide a stable platform that's effortlessly maneuverable no matter which way you point it. The Channel® mounting system gives you the easiest, most adjustable setup with bindings from all major brands (not just Burton’s).");
+            Snowboard sb30 = new Snowboard(brand1, "Stylus", female, 0, 2, "Stylus.webp", threeYears, "Set the Stylus to snow and make your first mark on a blank slate, the best intro to snowboarding out there.", "Hands down the easiest women’s board in the line, the Burton Stylus is perfect for aspiring riders looking to build a foundation before moving on to a more performance-oriented option. Like setting a pen to a blank piece of paper, the Stylus silences your fears, teaching balance and board control from the first time you strap in. Easy Bevel combines a soft, mellow flex with a convex base for a virtually-catch free riding experience, while Flat Top™ and a true twin shape provide a stable platform that's effortlessly maneuverable no matter which way you point it. The Channel® mounting system gives you the easiest, most adjustable setup with bindings from all major brands (not just Burton’s).");
             sb30.getTechDetails().add(flatTopBend);
             sb30.getTechDetails().add(twinShape);
             sb30.getTechDetails().add(twinFlex);
@@ -1263,7 +1279,7 @@ public class DBDataService {
             sb30.getRiderLevels().add(beginner);
             
             // Family Tree Stick Shift
-            Snowboard sb31 = new Snowboard(brand1, "Family Tree Stick Shift", female, -2.5, 4, "Family_Tree_Stick_Shift.webp", "Pop the clutch, rally around and enjoy the ride with this surf-inspired short board.", "Quick and nimble, yet loose and playful – it's all about balance with the Family Tree's first super short pow surfer designed specifically for women. Shorter, wider, and boasting a mid-range flex, the Stick Shift is great for speeding around every inch of the mountain, and slashing up a storm in the backcountry. Directional Flat Top delivers a loose, yet stable feel, while an early rise in the nose combines with a unique directional shape to deliver effortless float in fresh snow.");
+            Snowboard sb31 = new Snowboard(brand1, "Family Tree Stick Shift", female, -2.5, 4, "Family_Tree_Stick_Shift.webp", threeYears, "Pop the clutch, rally around and enjoy the ride with this surf-inspired short board.", "Quick and nimble, yet loose and playful – it's all about balance with the Family Tree's first super short pow surfer designed specifically for women. Shorter, wider, and boasting a mid-range flex, the Stick Shift is great for speeding around every inch of the mountain, and slashing up a storm in the backcountry. Directional Flat Top delivers a loose, yet stable feel, while an early rise in the nose combines with a unique directional shape to deliver effortless float in fresh snow.");
             sb31.getTechDetails().add(directionalFlatTopBend);
             sb31.getTechDetails().add(allMountainDirectionalShape);
             sb31.getTechDetails().add(directionalFlex);
@@ -1293,7 +1309,7 @@ public class DBDataService {
             sb31.getRiderLevels().add(pro);
             
             // Day Trader
-            Snowboard sb32 = new Snowboard(brand1, "Day Trader", female, -3.75, 4, "Day_Trader.webp", "Throw away the trail map and explore new stashes with the Burton team's favorite for effortless float and confidence-boosting control.", "From exploring the trail map to sneaking away in search of secret stashes, the Burton Day Trader boosts your abilities with a versatile and surfy shape that thrives on all terrain. Developed with freeride maven Kimmy Fasani, this tapered, directional board is designed to perform in fresh snow, yet is just as fun on groomers, too. Directional Flat Top profiling enhances stability and control, while the early rise in the nose adds the effortless float and feeling of rocker. Features like a sustainable FSC™ certified wood core and bio-based Super Sap® resin ensure the board is easy on both you and the environment.");
+            Snowboard sb32 = new Snowboard(brand1, "Day Trader", female, -3.75, 4, "Day_Trader.webp", threeYears, "Throw away the trail map and explore new stashes with the Burton team's favorite for effortless float and confidence-boosting control.", "From exploring the trail map to sneaking away in search of secret stashes, the Burton Day Trader boosts your abilities with a versatile and surfy shape that thrives on all terrain. Developed with freeride maven Kimmy Fasani, this tapered, directional board is designed to perform in fresh snow, yet is just as fun on groomers, too. Directional Flat Top profiling enhances stability and control, while the early rise in the nose adds the effortless float and feeling of rocker. Features like a sustainable FSC™ certified wood core and bio-based Super Sap® resin ensure the board is easy on both you and the environment.");
             sb32.getTechDetails().add(directionalFlatTopBend);
             sb32.getTechDetails().add(freerideDirectionalShape);
             sb32.getTechDetails().add(twinFlex);
@@ -1328,7 +1344,7 @@ public class DBDataService {
             sb32.getRiderLevels().add(pro);
             
             // Feelgood
-            Snowboard sb33 = new Snowboard(brand1, "Feelgood", female, -1.25, 7, "Feelgood.webp", "The most confident and proven deck in women's snowboarding is ready to act its age.", "Backed by Kelly Clark, the Burton Feelgood has been the defining force in women's snowboarding for nearly two decades. Call it a coming of age, or maybe it was just time for a facelift – either way, the Feelgood has donned a whole new look, boasting a unique shape, matched with positively powerful pop for Ferrari-like handing. Directional shaping navigates easily through variable conditions, making this the number one board for conquering all terrain. Available with the stable suspension of camber or the rocker-infused freedom of Flying V™, the Feelgood is a perfect match for aspiring pros or just riders who demand every advantage.");
+            Snowboard sb33 = new Snowboard(brand1, "Feelgood", female, -1.25, 7, "Feelgood.webp", threeYears,"The most confident and proven deck in women's snowboarding is ready to act its age.", "Backed by Kelly Clark, the Burton Feelgood has been the defining force in women's snowboarding for nearly two decades. Call it a coming of age, or maybe it was just time for a facelift – either way, the Feelgood has donned a whole new look, boasting a unique shape, matched with positively powerful pop for Ferrari-like handing. Directional shaping navigates easily through variable conditions, making this the number one board for conquering all terrain. Available with the stable suspension of camber or the rocker-infused freedom of Flying V™, the Feelgood is a perfect match for aspiring pros or just riders who demand every advantage.");
             sb33.getTechDetails().add(camberBend);
             sb33.getTechDetails().add(allMountainDirectionalShape);
             sb33.getTechDetails().add(twinFlex);
@@ -1363,7 +1379,7 @@ public class DBDataService {
             sb33.getRiderLevels().add(pro);
             
             // Rewind
-             Snowboard sb34 = new Snowboard(brand1, "Rewind", female, 0, 2, "Rewind.webp", "Step up your game with the hardest charging \"soft\" board on the mountain.", "With an extra poppy flex, the souped-up Burton Rewind is for riders who charge hard, and like to flaunt a freestyle attitude backed by steady park progression. The flat, ultra-thin, and skate-like profile improves the ride, thanks to Filet-O-Flex design, yet rips harder than any soft board out there. Ramped-up grip and a fast yet low-maintenance sintered base offer control and durability in variable conditions, while the Off-Axis construction perfectly aligns the board's design to your body's stance and positioning for board feel that fits like a glove.");
+             Snowboard sb34 = new Snowboard(brand1, "Rewind", female, 0, 2, "Rewind.webp", threeYears, "Step up your game with the hardest charging \"soft\" board on the mountain.", "With an extra poppy flex, the souped-up Burton Rewind is for riders who charge hard, and like to flaunt a freestyle attitude backed by steady park progression. The flat, ultra-thin, and skate-like profile improves the ride, thanks to Filet-O-Flex design, yet rips harder than any soft board out there. Ramped-up grip and a fast yet low-maintenance sintered base offer control and durability in variable conditions, while the Off-Axis construction perfectly aligns the board's design to your body's stance and positioning for board feel that fits like a glove.");
             sb34.getTechDetails().add(purePopCamberBend);
             sb34.getTechDetails().add(twinShape);
             sb34.getTechDetails().add(twinFlex);
@@ -1398,7 +1414,7 @@ public class DBDataService {
             sb34.getRiderLevels().add(pro);
             
             // Hideaway
-            Snowboard sb35 = new Snowboard(brand1, "Hideaway", female, -2.5, 2, "Hideaway.webp", "Put a creative spin on all terrain with a playful and stable board that charges ahead and inspires confidence.", "A little fun with a lot of function, the Burton Hideaway is the perfect tool for taking a no-limits twin-tipped approach to the whole mountain. Plenty playful, a Flat Top™ Bend offers the forgiving freedom and stability to take on any terrain or condition. Its innovative true twin shape makes it really fun to ride in both directions, while a sintered base keeps it fast, even if you have no time to wax it.");
+            Snowboard sb35 = new Snowboard(brand1, "Hideaway", female, -2.5, 2, "Hideaway.webp", threeYears, "Put a creative spin on all terrain with a playful and stable board that charges ahead and inspires confidence.", "A little fun with a lot of function, the Burton Hideaway is the perfect tool for taking a no-limits twin-tipped approach to the whole mountain. Plenty playful, a Flat Top™ Bend offers the forgiving freedom and stability to take on any terrain or condition. Its innovative true twin shape makes it really fun to ride in both directions, while a sintered base keeps it fast, even if you have no time to wax it.");
             sb35.getTechDetails().add(flatTopBend);
             sb35.getTechDetails().add(allMountainDirectionalShape);
             sb35.getTechDetails().add(twinFlex);
@@ -1435,7 +1451,7 @@ public class DBDataService {
             sb35.getRiderLevels().add(beginner);
             
             // Feelgood FV
-            Snowboard sb36 = new Snowboard(brand1, "Feelgood Flying V", female, -1.25, 4, "Feelgood_Flying_V.webp", "The most confident and proven deck in women's snowboarding is ready to act its age.", "Backed by Kelly Clark, the Burton Feelgood has been the defining force in women's snowboarding for nearly two decades. Call it a coming of age, or maybe it was just time for a facelift – either way, the Feelgood has donned a whole new look, boasting a unique shape, matched with positively powerful pop for Ferrari-like handing. Directional shaping navigates easily through variable conditions, making this the number one board for conquering all terrain. Available with the stable suspension of camber or the rocker-infused freedom of Flying V™, the Feelgood is a perfect match for aspiring pros or just riders who demand every advantage.");
+            Snowboard sb36 = new Snowboard(brand1, "Feelgood Flying V", female, -1.25, 4, "Feelgood_Flying_V.webp", threeYears, "The most confident and proven deck in women's snowboarding is ready to act its age.", "Backed by Kelly Clark, the Burton Feelgood has been the defining force in women's snowboarding for nearly two decades. Call it a coming of age, or maybe it was just time for a facelift – either way, the Feelgood has donned a whole new look, boasting a unique shape, matched with positively powerful pop for Ferrari-like handing. Directional shaping navigates easily through variable conditions, making this the number one board for conquering all terrain. Available with the stable suspension of camber or the rocker-infused freedom of Flying V™, the Feelgood is a perfect match for aspiring pros or just riders who demand every advantage.");
             sb36.getTechDetails().add(flyingVBend);
             sb36.getTechDetails().add(allMountainDirectionalShape);
             sb36.getTechDetails().add(twinFlex);
@@ -1470,7 +1486,7 @@ public class DBDataService {
             sb36.getRiderLevels().add(pro);
             
              // Yeasayer
-            Snowboard sb37 = new Snowboard(brand1, "Yeasayer", female, 0, 3, "Yeasayer.webp", "Make every turn a metaphorical thumbs up with the versatility and catch-free control of a board that's built to expand your horizons.", "From unexplored peaks to your favorite parks, the Burton Yeasayer tames anything that stands in your way. The board's Flat Top profile surfs through deep powder while keeping things stable underfoot, and a true twin design keeps you in control no matter which way you point it. Available in two versions, choose the relaxed and floaty Flying V™ or catch-free control of Flat Top. A laundry list of features all work together to ensure that the ride is as friendly as it is fun, with an energetic FSC™ Certified core, and Scoop tip and tail, which turn up the edges for a catch-free feel whether you're surfing through knee deep pow or sliding a box in the park.");
+            Snowboard sb37 = new Snowboard(brand1, "Yeasayer", female, 0, 3, "Yeasayer.webp", threeYears, "Make every turn a metaphorical thumbs up with the versatility and catch-free control of a board that's built to expand your horizons.", "From unexplored peaks to your favorite parks, the Burton Yeasayer tames anything that stands in your way. The board's Flat Top profile surfs through deep powder while keeping things stable underfoot, and a true twin design keeps you in control no matter which way you point it. Available in two versions, choose the relaxed and floaty Flying V™ or catch-free control of Flat Top. A laundry list of features all work together to ensure that the ride is as friendly as it is fun, with an energetic FSC™ Certified core, and Scoop tip and tail, which turn up the edges for a catch-free feel whether you're surfing through knee deep pow or sliding a box in the park.");
             sb37.getTechDetails().add(flatTopBend);
             sb37.getTechDetails().add(twinShape);
             sb37.getTechDetails().add(twinFlex);
@@ -1504,7 +1520,7 @@ public class DBDataService {
             sb37.getRiderLevels().add(intermediate);
 
              // Yeasayer FV
-            Snowboard sb38 = new Snowboard(brand1, "Yeasayer Flying V", female, 0, 3, "Yeasayer_Flying_V.webp", "Make every turn a metaphorical thumbs up with the versatility and catch-free control of a board that's built to expand your horizons.", "From unexplored peaks to your favorite parks, the Burton Yeasayer tames anything that stands in your way. The board's Flat Top profile surfs through deep powder while keeping things stable underfoot, and a true twin design keeps you in control no matter which way you point it. Available in two versions, choose the relaxed and floaty Flying V™ or catch-free control of Flat Top. A laundry list of features all work together to ensure that the ride is as friendly as it is fun, with an energetic FSC™ Certified core, and Scoop tip and tail, which turn up the edges for a catch-free feel whether you're surfing through knee deep pow or sliding a box in the park.");
+            Snowboard sb38 = new Snowboard(brand1, "Yeasayer Flying V", female, 0, 3, "Yeasayer_Flying_V.webp", threeYears, "Make every turn a metaphorical thumbs up with the versatility and catch-free control of a board that's built to expand your horizons.", "From unexplored peaks to your favorite parks, the Burton Yeasayer tames anything that stands in your way. The board's Flat Top profile surfs through deep powder while keeping things stable underfoot, and a true twin design keeps you in control no matter which way you point it. Available in two versions, choose the relaxed and floaty Flying V™ or catch-free control of Flat Top. A laundry list of features all work together to ensure that the ride is as friendly as it is fun, with an energetic FSC™ Certified core, and Scoop tip and tail, which turn up the edges for a catch-free feel whether you're surfing through knee deep pow or sliding a box in the park.");
             sb38.getTechDetails().add(flyingVBend);
             sb38.getTechDetails().add(twinShape);
             sb38.getTechDetails().add(twinFlex);
@@ -1538,7 +1554,7 @@ public class DBDataService {
             sb38.getRiderLevels().add(intermediate);
             
             //After School Special
-            Snowboard sb39 = new Snowboard(brand1, "After School Special Package", kids, 0, 2, "After_School_Special.webp", "One-stop shopping. Just plug your kid in and go with a setup that's easier than a tricycle with training wheels.", "Even the kids know this is the best deal going. Better than watching hours of cartoons, the Burton After School Special makes learning a cinch with super soft, parent-friendly bindings and a saucer-like snowboard that teaches balance and board control. With the fully adjustable bindings pre-mounted in a beginner-friendly stance, simply grab the package and go. It doesn't get any easier than this.");
+            Snowboard sb39 = new Snowboard(brand1, "After School Special Package", kids, 0, 2, "After_School_Special.webp", twoYears,"One-stop shopping. Just plug your kid in and go with a setup that's easier than a tricycle with training wheels.", "Even the kids know this is the best deal going. Better than watching hours of cartoons, the Burton After School Special makes learning a cinch with super soft, parent-friendly bindings and a saucer-like snowboard that teaches balance and board control. With the fully adjustable bindings pre-mounted in a beginner-friendly stance, simply grab the package and go. It doesn't get any easier than this.");
             sb39.getTechDetails().add(flatTopEasyBevelBend);
             sb39.getTechDetails().add(twinShape);
             sb39.getTechDetails().add(twinFlex);
@@ -1570,7 +1586,7 @@ public class DBDataService {
             sb39.getRiderLevels().add(beginner);
             
             // Chopper
-            Snowboard sb40 = new Snowboard(brand1, "Chopper", kids, 0, 2, "Chopper.webp", "The ultimate tot-friendly deck makes learning to link turns easier than finishing your lima beans.", "The Burton Chopper® is the ticket for boys who want to start snowboarding and quickly learn the basics. What makes it so perfect is the beginner-friendly combo of a convex base with upturned edges and the softest flex possible so that even the lightest weight riders can master turning and stopping. The catch-free feeling continues with a flat profile from nose to tail that’s extra stable for better balance and board control. Attach the Riglet accessory to the nose or tail of the 80-120cm sizes to tow him around and get him comfortable until he's ready to add bindings.");
+            Snowboard sb40 = new Snowboard(brand1, "Chopper", kids, 0, 2, "Chopper.webp", twoYears,"The ultimate tot-friendly deck makes learning to link turns easier than finishing your lima beans.", "The Burton Chopper® is the ticket for boys who want to start snowboarding and quickly learn the basics. What makes it so perfect is the beginner-friendly combo of a convex base with upturned edges and the softest flex possible so that even the lightest weight riders can master turning and stopping. The catch-free feeling continues with a flat profile from nose to tail that’s extra stable for better balance and board control. Attach the Riglet accessory to the nose or tail of the 80-120cm sizes to tow him around and get him comfortable until he's ready to add bindings.");
             sb40.getTechDetails().add(flatTopEasyBevelBend);
             sb40.getTechDetails().add(twinShape);
             sb40.getTechDetails().add(twinFlex);
@@ -1617,7 +1633,7 @@ public class DBDataService {
             sb40.getRiderLevels().add(beginner);
             
             // Kilroy Twin
-            Snowboard sb41 = new Snowboard(brand1, "Kilroy Twin", kids, 0, 3, "Kilroy_Twin.webp", "The workingman's classic: a traditional camber twin, designed to thrive on all terrain.", "The rippers on ground level are looking for a board that can hang without worrying about the cost. The Burton Kilroy Twin is here to give the people what they want with a classic twin shape inspired by the Process, but with a refined construction that focuses on strength, speed, and pop.");
+            Snowboard sb41 = new Snowboard(brand1, "Kilroy Twin", kids, 0, 3, "Kilroy_Twin.webp", threeYears, "The workingman's classic: a traditional camber twin, designed to thrive on all terrain.", "The rippers on ground level are looking for a board that can hang without worrying about the cost. The Burton Kilroy Twin is here to give the people what they want with a classic twin shape inspired by the Process, but with a refined construction that focuses on strength, speed, and pop.");
             sb41.getTechDetails().add(camberBend);
             sb41.getTechDetails().add(twinShape);
             sb41.getTechDetails().add(twinFlex);
@@ -1646,7 +1662,7 @@ public class DBDataService {
             sb41.getRiderLevels().add(beginner);
             
             // Family Tree Role Model
-            Snowboard sb42 = new Snowboard(brand1, "Family Tree Role Model", kids, -5, 6, "Family_Tree_Role_Model.webp", "The ultimate all-terrain board for kids, with a slightly tapered shape that's equally at home flying through powder or the air.", "Because kids are the future. The newest Family Tree addition is here to guide the youngest riders towards the freedom of freeriding, providing directional all-terrain prowess with a heavy list of pro-caliber features to boot. Directional Camber provides snappy power and response, and matches with 15mm of taper for a board that loves to turn both in deep snow and across the whole mountain.");
+            Snowboard sb42 = new Snowboard(brand1, "Family Tree Role Model", kids, -5, 6, "Family_Tree_Role_Model.webp", threeYears, "The ultimate all-terrain board for kids, with a slightly tapered shape that's equally at home flying through powder or the air.", "Because kids are the future. The newest Family Tree addition is here to guide the youngest riders towards the freedom of freeriding, providing directional all-terrain prowess with a heavy list of pro-caliber features to boot. Directional Camber provides snappy power and response, and matches with 15mm of taper for a board that loves to turn both in deep snow and across the whole mountain.");
             sb42.getTechDetails().add(directionalCamberBend);
             sb42.getTechDetails().add(allMountainDirectionalShape);
             sb42.getTechDetails().add(twinFlex);
@@ -1675,7 +1691,7 @@ public class DBDataService {
             sb42.getRiderLevels().add(pro);
             
             // Yeasayer Smalls
-            Snowboard sb43 = new Snowboard(brand1, "Yeasayer Smalls", kids, 0, 4, "Yeasayer_Smalls.webp", "The playful pint-sized sister to the board that opens new doors to all-mountain progression.", "The Burton Yeasayer Smalls is the logical next step for girls who have mastered the basics and are ready to explore the entire mountain. Soft and playful, it features the forgiving performance of our Flat Top™ bend to create the stability and snap you'd expect from camber, but with a floaty, catch-free tip and tail. Filet-O-Flex core profiling makes for a super soft flex that doesn't sacrifice stability – just the thing to make you feel like you've done it all before, only not this awesome.");
+            Snowboard sb43 = new Snowboard(brand1, "Yeasayer Smalls", kids, 0, 4, "Yeasayer_Smalls.webp", threeYears, "The playful pint-sized sister to the board that opens new doors to all-mountain progression.", "The Burton Yeasayer Smalls is the logical next step for girls who have mastered the basics and are ready to explore the entire mountain. Soft and playful, it features the forgiving performance of our Flat Top™ bend to create the stability and snap you'd expect from camber, but with a floaty, catch-free tip and tail. Filet-O-Flex core profiling makes for a super soft flex that doesn't sacrifice stability – just the thing to make you feel like you've done it all before, only not this awesome.");
             sb43.getTechDetails().add(flatTopBend);
             sb43.getTechDetails().add(twinShape);
             sb43.getTechDetails().add(twinFlex);
@@ -1709,7 +1725,7 @@ public class DBDataService {
             sb43.getRiderLevels().add(intermediate); 
             
              // Chicklet
-            Snowboard sb44 = new Snowboard(brand1, "Chicklet", kids, 0, 2, "Chicklet.webp", "When you want to see her succeed, put her on the softest, most stable girl's beginner board in snowboarding.", "The Burton Chicklet™ is the ticket for girls who want to start snowboarding and quickly learn the basics. What makes it so perfect is the beginner-friendly combo of a convex base with upturned edges and the softest flex possible so that even the lightest weight riders can master turning and stopping. The catch-free feeling continues with a flat profile from nose to tail that’s extra stable for better balance and board control. Attach the Riglet accessory to the nose or tail of the 80-120cm sizes to tow her around and get her comfortable until she's ready to add bindings.");
+            Snowboard sb44 = new Snowboard(brand1, "Chicklet", kids, 0, 2, "Chicklet.webp", threeYears, "When you want to see her succeed, put her on the softest, most stable girl's beginner board in snowboarding.", "The Burton Chicklet™ is the ticket for girls who want to start snowboarding and quickly learn the basics. What makes it so perfect is the beginner-friendly combo of a convex base with upturned edges and the softest flex possible so that even the lightest weight riders can master turning and stopping. The catch-free feeling continues with a flat profile from nose to tail that’s extra stable for better balance and board control. Attach the Riglet accessory to the nose or tail of the 80-120cm sizes to tow her around and get her comfortable until she's ready to add bindings.");
             sb44.getTechDetails().add(flatTopEasyBevelBend);
             sb44.getTechDetails().add(twinShape);
             sb44.getTechDetails().add(twinFlex);
@@ -1756,7 +1772,7 @@ public class DBDataService {
             sb44.getRiderLevels().add(beginner);
             
             // Process Smalls
-            Snowboard sb45 = new Snowboard(brand1, "Process Smalls", kids, 0, 4, "Process_Smalls.webp", "Soft flexing and ultra-stable – a pro-caliber ride for young rippers looking to take the next step in freestyle progression.", "Whether they're tooling around the mini park or taking skills to bigger features, groms on the move will love the Burton Process Smalls. Flat Top™ blends the effortless feel of rocker with the quick-thinking control required for launching airs and landing with confidence. Filet-O-Flex creates a super soft board that still rips with maximum stability, durability, and grip. For the rider who has outgrown the Chopper® but isn't quite ready to go big, the Process Smalls hits the sweet spot on freestyle fun. Features The Channel® mounting system to give you the easiest, most adjustable setup with bindings from all major brands (not just Burton's).");
+            Snowboard sb45 = new Snowboard(brand1, "Process Smalls", kids, 0, 4, "Process_Smalls.webp", threeYears, "Soft flexing and ultra-stable – a pro-caliber ride for young rippers looking to take the next step in freestyle progression.", "Whether they're tooling around the mini park or taking skills to bigger features, groms on the move will love the Burton Process Smalls. Flat Top™ blends the effortless feel of rocker with the quick-thinking control required for launching airs and landing with confidence. Filet-O-Flex creates a super soft board that still rips with maximum stability, durability, and grip. For the rider who has outgrown the Chopper® but isn't quite ready to go big, the Process Smalls hits the sweet spot on freestyle fun. Features The Channel® mounting system to give you the easiest, most adjustable setup with bindings from all major brands (not just Burton's).");
             sb45.getTechDetails().add(flatTopBend);
             sb45.getTechDetails().add(twinShape);
             sb45.getTechDetails().add(twinFlex);
@@ -1793,7 +1809,7 @@ public class DBDataService {
             sb45.getRiderLevels().add(intermediate); 
             
             // Custom Smalls
-            Snowboard sb46 = new Snowboard(brand1, "Custom Smalls", kids, 0, 5, "Custom_Smalls.webp", "Rule it all from park laps to pow days in a kid's version of Burton's most versatile board.", "The Burton Custom Smalls has been a highly maneuverable, skill-accelerating ride since its inception, but recent updates make it an even harder charging option for snowboarding's youngest rippers. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands. The Custom Smalls is a step up in performance over the Burton Process Smalls and is designed for kids who shred it all from park to pow and everything in between.");   
+            Snowboard sb46 = new Snowboard(brand1, "Custom Smalls", kids, 0, 5, "Custom_Smalls.webp", threeYears, "Rule it all from park laps to pow days in a kid's version of Burton's most versatile board.", "The Burton Custom Smalls has been a highly maneuverable, skill-accelerating ride since its inception, but recent updates make it an even harder charging option for snowboarding's youngest rippers. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands. The Custom Smalls is a step up in performance over the Burton Process Smalls and is designed for kids who shred it all from park to pow and everything in between.");   
             sb46.getTechDetails().add(purePopCamberBend);
             sb46.getTechDetails().add(twinShape);
             sb46.getTechDetails().add(twinFlex);
@@ -1831,7 +1847,7 @@ public class DBDataService {
             sb46.getRiderLevels().add(pro);
             
             // Feelgood Smalls
-            Snowboard sb47 = new Snowboard(brand1, "Feelgood Smalls", kids, 0, 5, "Feelgood_Smalls.webp", "Experience it all in a girl's version of Burton's most versatile and time-honored board.", "We give the girls their due with a kid-friendly version of the Burton Feelgood™ that heroes like Kelly Clark ride. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. Perfect for the little lady who's ready to charge, this hybrid design gives her the fun twin shape, speed, and weight-savings to support her steady appetite for improvement. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands.");
+            Snowboard sb47 = new Snowboard(brand1, "Feelgood Smalls", kids, 0, 5, "Feelgood_Smalls.webp", threeYears, "Experience it all in a girl's version of Burton's most versatile and time-honored board.", "We give the girls their due with a kid-friendly version of the Burton Feelgood™ that heroes like Kelly Clark ride. Now boasting PurePop Camber, it serves up a balanced blend of flex and pop, perfect for taking a freestyle attitude to the whole mountain. Perfect for the little lady who's ready to charge, this hybrid design gives her the fun twin shape, speed, and weight-savings to support her steady appetite for improvement. The Channel® mounting system means the easiest, most adjustable setup possible with compatibility that works with any binding from most major brands.");
             sb47.getTechDetails().add(purePopCamberBend);
             sb47.getTechDetails().add(twinShape);
             sb47.getTechDetails().add(twinFlex);

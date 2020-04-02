@@ -9,6 +9,7 @@ import boardFinder.demo.event.BoardDisplayedEvent;
 import boardFinder.demo.event.BoardDisplayedEventDispatcher;
 import boardFinder.demo.event.BoardSearchedEvent;
 import boardFinder.demo.event.BoardSearchedEventDispatcher;
+import boardFinder.demo.repository.CustomSnowboardRepository;
 import boardFinder.demo.repository.ShoeSizeRepository;
 import boardFinder.demo.repository.SnowboardRepository;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+ * Service class for the Snowboard Entity class.
  * @author Erik
  */
 @Service
@@ -44,14 +45,20 @@ public class SnowboardService {
     
     private BoardSearchedEventDispatcher eventDispatcher;
     private BoardDisplayedEventDispatcher displayedBoardEventDispatcher;
+    
+    
+   //Testing SQL query
+    private CustomSnowboardRepository customSnowboardRepository;
 
     @Autowired
     public SnowboardService(SnowboardRepository snowboardRepo, ShoeSizeRepository shoeSizeRepository, 
-                final BoardSearchedEventDispatcher eventDispatcher, final BoardDisplayedEventDispatcher displayedBoardEventDispatcher) {
+                final BoardSearchedEventDispatcher eventDispatcher, final BoardDisplayedEventDispatcher displayedBoardEventDispatcher,
+                CustomSnowboardRepository customSnowboardRepository) {
         this.snowboardRepo = snowboardRepo;
         this.shoeSizeRepository = shoeSizeRepository;
         this.eventDispatcher = eventDispatcher;
         this.displayedBoardEventDispatcher = displayedBoardEventDispatcher;
+        this.customSnowboardRepository =  customSnowboardRepository;
     }
 
     @PostConstruct
@@ -61,27 +68,50 @@ public class SnowboardService {
         return currentList;
     }
 
+    /** 
+     * Gets the RiderShoesize by the EU shoesize as double
+     * @param shoeSize as double (EU size)
+     * @return ShoeSize
+     */
     public ShoeSize findRiderShoeSize(double shoeSize) {
         riderShoeSize = null;
         return shoeSizeRepository.findByEuSize(shoeSize);
 
     }
 
+    /** 
+     * Resets the list of Snowboards to filter.
+     * @return list of all Snowboards
+     */
     public List<Snowboard> resetFilteredList() {
         filteredList = new ArrayList<>(currentList);
         return filteredList;
     }
 
+    /** 
+     * Resets the list of Snowboards to filter for alternative filter.
+     * @return list of all Snowboards
+     */
     public List<Snowboard> resetAlternativeFilteredList() {
         alternativeFilteredList = new ArrayList<>(currentList);
         return alternativeFilteredList;
     }
 
+    /** 
+     * Gets a snowboard by it's id. 
+     * @param id as Long
+     * @return Snowboard.
+     */
     public Snowboard filterById(long id) {
         return snowboardRepo.findById(id);
     }
     
-    //This medthod is used for displaying boards in UI client
+    /** 
+     * Gets a snowboard to display in the client by it's id 
+     * and sends stats about the displayed snowboard to the RabbitMQ Message Broker. 
+     * @param id
+     * @return 
+     */
     @Transactional
     public Snowboard findBoardById(long id) {
         Snowboard board = snowboardRepo.findById(id);
@@ -91,7 +121,12 @@ public class SnowboardService {
         return board;
     }
     
-        public List<Snowboard> filterByIds(String[] ids) {
+    /** 
+     * Gets a list of Snowboards by a String array of ids.
+     * @param ids as a String array
+     * @return list of matching Snowboards.
+     */
+     public List<Snowboard> filterByIds(String[] ids) {
             List<Snowboard> snowboards = new ArrayList();
             List<String> idList = Arrays.asList(ids);
             idList.forEach(i -> {
@@ -100,36 +135,63 @@ public class SnowboardService {
             return snowboards;
     }
     
-    
-
+    /** 
+     * Filters a list of Snowboards by rider gender as String. 
+     * @param snowboardList to filter 
+     * @param riderGender to filter by
+     * @return the filtered list of Snowboards. 
+     */
     List<Snowboard> filterByGender(List<Snowboard> snowboardList, String riderGender) {
         snowboardList = snowboardList.stream()
                 .filter(s -> s.getBoardGender().getSex().equalsIgnoreCase(riderGender)).collect(Collectors.toList());
         return snowboardList;
     }
 
+    /** 
+     *  Filters a list of Snowboards by rider weight as int. 
+     * @param snowboardList to filter
+     * @param riderWeight as int
+     * @return the filtered list of Snowboards.
+     */
     List<Snowboard> filterByRiderWeight(List<Snowboard> snowboardList, int riderWeight) {
         snowboardList = snowboardList.stream()
                 .filter((s) -> s.getBoardSizeSpecs().stream().anyMatch(b -> b.getRiderWeightMin() <= riderWeight && b.getRiderWeightMax() >= riderWeight)).collect(Collectors.toList());
         return snowboardList;
     }
 
+    /** 
+     * Filters a list of Snowboards by shoesize as double.
+     * @param snowboardList to filter.
+     * @param shoeSize as double.
+     * @return the filtered list of Snowboards.
+     */
     List<Snowboard> filterByShoeSize(List<Snowboard> snowboardList, double shoeSize) {
-
         riderShoeSize = findRiderShoeSize(shoeSize);
-
         snowboardList = snowboardList.stream()
                 .filter((s) -> s.getBoardSizeSpecs().stream().anyMatch(b -> b.getWaistWidth() <= riderShoeSize.getWaistWidthMax() && b.getWaistWidth() >= riderShoeSize.getWaistWidthMin())).collect(Collectors.toList());
 
         return snowboardList;
     }
 
+    /** 
+     * Filters a list of Snowboards by rider level as String.
+     * @param snowboardList to filter. 
+     * @param riderLevel as String.
+     * @return the filtered list of Snowboards.
+     */
     List<Snowboard> filterByRiderLevel(List<Snowboard> snowboardList, String riderLevel) {
         snowboardList = snowboardList.stream()
                 .filter((b) -> b.getRiderLevels().stream().anyMatch(rl -> rl.getRiderLevel().equalsIgnoreCase(riderLevel))).collect(Collectors.toList());
         return snowboardList;
     }
 
+    /** 
+     * Filters a list of snowboards by riding terrain as String and rider gender as String.
+     * @param snowboardList to filter.
+     * @param ridingType as String.
+     * @param gender as String.
+     * @return the filtered list of Snowboards.
+     */
     List<Snowboard> filterByRidingTerrain(List<Snowboard> snowboardList, String ridingType, String gender) {
         
         if (gender.equalsIgnoreCase("kids")) {
@@ -143,24 +205,49 @@ public class SnowboardService {
         return snowboardList;
     }
 
+    /** 
+     * Filters a list of snowboards by shape name as String.
+     * @param snowboardList to filter.
+     * @param shape name as String.
+     * @return the filtered list of Snowboards.
+     */
     List<Snowboard> filterByShape(List<Snowboard> snowboardList, String shape) {
         snowboardList = snowboardList.stream()
                 .filter(s -> s.getTechDetails().stream().anyMatch(td -> td.getName() .equalsIgnoreCase(shape))).collect(Collectors.toList());
         return snowboardList;
     }
 
+    /** 
+     * Filters a list of snowboards by brand name as String.
+     * @param snowboardList to filter.
+     * @param brand name as String.
+     * @return the filtered list of Snowboards.
+     */
     List<Snowboard> filterByBrand(List<Snowboard> snowboardList, String brand) {
         snowboardList = snowboardList.stream()
                 .filter(s -> s.getBoardBrand().getBrandName().equalsIgnoreCase(brand)).collect(Collectors.toList());
         return snowboardList;
     }
 
+    /** 
+     * Filters a list of snowboards by flex as String.
+     * @param snowboardList to filter
+     * @param flex name as String 
+     * @return the filtered list of Snowboards.
+     */
     List<Snowboard> filterByFlex(List<Snowboard> snowboardList, String flex) {
         snowboardList = snowboardList.stream()
                 .filter(s -> s.getTechDetails().stream().anyMatch(td ->  td.getName() .equalsIgnoreCase(flex))).collect(Collectors.toList());
         return snowboardList;
     }
 
+    /** 
+     * Filters a list of snowboards by bend as String and rider gender as String.
+     * @param snowboardList to filter 
+     * @param bend name as String
+     * @param gender as String.
+     * @return the filtered list of Snowboards.
+     */
     List<Snowboard> filterByBend(List<Snowboard> snowboardList, String bend, String gender) {
        
         if(gender.equalsIgnoreCase("kids") && bend.equalsIgnoreCase("Flat Top™")) {
@@ -241,6 +328,7 @@ public class SnowboardService {
 
     }
 
+    /*
     @Transactional
     public List<Snowboard> filter(Map<String, Object> map) {
         currentList = snowboardRepo.getAllSnowboards();
@@ -262,13 +350,13 @@ public class SnowboardService {
         if (map.get("preferredTerrain") != null) {
             filteredList = filterByRidingTerrain(filteredList, map.get("preferredTerrain").toString(), map.get("gender").toString());
         }
-        if (map.get("shape") != null && !map.get("shape").toString().equalsIgnoreCase("Any")) {
+        if (map.get("shape") != null && !map.get("shape").toString().equalsIgnoreCase("Undecided")) {
             filteredList = filterByShape(filteredList, map.get("shape").toString());
         }
-        if (map.get("flex") != null && !map.get("flex").toString().equalsIgnoreCase("Any")) {
+        if (map.get("flex") != null && !map.get("flex").toString().equalsIgnoreCase("Undecided")) {
             filteredList = filterByFlex(filteredList, map.get("flex").toString());
         }
-        if (map.get("bend") != null && !map.get("bend").toString().equalsIgnoreCase("Any")) {
+        if (map.get("bend") != null && !map.get("bend").toString().equalsIgnoreCase("Undecided")) {
             filteredList = filterByBend(filteredList, map.get("bend").toString(), map.get("gender").toString());
         }
         filteredList = sortFilteredBoardsafterTerrainValue(filteredList, map);
@@ -281,6 +369,55 @@ public class SnowboardService {
         
 
         return filteredList;
+    }
+*/
+    
+    
+    @Transactional
+    public List<Snowboard> filter(Map<String, Object> map) {
+        /*
+        currentList = snowboardRepo.getAllSnowboards();
+        filteredList = new ArrayList<>(currentList);
+        resetFilteredList();
+        
+        if (map.get("gender") != null) {
+            filteredList = filterByGender(filteredList, map.get("gender").toString());
+        }
+        if (map.get("riderWeight") != null) {
+            filteredList = filterByRiderWeight(filteredList, Integer.parseInt(map.get("riderWeight").toString()));
+        }
+        if (map.get("shoeSize") != null) {
+            filteredList = filterByShoeSize(filteredList, Double.parseDouble(map.get("shoeSize").toString()));
+        }
+        if (map.get("riderLevel") != null) {
+            filteredList = filterByRiderLevel(filteredList, map.get("riderLevel").toString());
+        }
+        if (map.get("preferredTerrain") != null) {
+            filteredList = filterByRidingTerrain(filteredList, map.get("preferredTerrain").toString());
+        }
+        if (map.get("shape") != null && !map.get("shape").toString().equalsIgnoreCase("Any")) {
+            filteredList = filterByShape(filteredList, map.get("shape").toString());
+        }
+        if (map.get("flex") != null && !map.get("flex").toString().equalsIgnoreCase("Any")) {
+            filteredList = filterByFlex(filteredList, map.get("flex").toString());
+        }
+        if (map.get("bend") != null && !map.get("bend").toString().equalsIgnoreCase("Any")) {
+            filteredList = filterByBend(filteredList, map.get("bend").toString());
+        }
+        */
+        
+        List<Snowboard> result = customSnowboardRepository.getAllSnowboardsByQueryParamsMap(map);
+        result = sortFilteredBoardsafterTerrainValue(result, map);
+        
+        //Cummunicates the searchedEvent via RabbitMQ to the Stats Microservice
+        eventDispatcher.sendBoardSearchedEvent(
+                new BoardSearchedEvent(map.get("gender").toString(),  Integer.parseInt(map.get("riderWeight").toString()),Double.parseDouble(map.get("shoeSize").toString()), 
+        map.get("riderLevel").toString(), map.get("preferredTerrain").toString(), map.get("shape").toString(),  map.get("flex").toString(), map.get("bend").toString())
+        
+        );
+        
+
+        return result;
     }
 
     public List<Snowboard> filterWithAlternativeBendAndShape(Map<String, Object> map) {
@@ -320,6 +457,11 @@ public class SnowboardService {
         return alternativeFilteredList;
     }
 
+    /** 
+     * Gets the recommended snowboards lengths for a rider (user) based on the parameters in the in parameter map. 
+     * @param map
+     * @return list of recommended snowboard lengths as Strings for a rider 
+     */
     public List<String> getRecommendedBoardLengths(Map<String, Object> map) {
         recommendedLengths.clear();
         riderWeight = 0;
@@ -351,11 +493,16 @@ public class SnowboardService {
             }
             Collections.sort(recommendedLengths);
         }
-        return recommendedLengths;
+        return recommendedLengths.stream().distinct().collect(Collectors.toList());
     }
 
+    /** 
+     * Sorts the snowboard after how well they match the preferred riding terrain. 
+     * @param snowboardList
+     * @param map of the board search
+     * @return sorted list of Snowboards
+     */
     public List<Snowboard> sortFilteredBoardsafterTerrainValue(List<Snowboard> snowboardList, Map<String, Object> map) {
-
         Comparator<Snowboard> compareRiderTerrainValue = (Snowboard s1, Snowboard s2) -> s1.getRiderTerrainValueByName(map.get("preferredTerrain").toString()).compareTo(s2.getRiderTerrainValueByName(map.get("preferredTerrain").toString()));
         Collections.sort(snowboardList, compareRiderTerrainValue.reversed());
 

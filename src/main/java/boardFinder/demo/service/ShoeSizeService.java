@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- *
+ * Service class for the ShoeSize entity class. 
  * @author Erik
  */
 @Service
@@ -26,28 +26,45 @@ public class ShoeSizeService {
         this.shoeSizeRepositoryImpl = shoeSizeRepositoryImpl;
     }
 
+    /** 
+     * Gets all ShoeSizes.
+     * @return list of ShoeSizes.
+     */
     public List<ShoeSize> getAllShoeSizes() {
         return shoeSizeRepository.findAll();
     }
 
+    /** 
+     * Gets a ShoeSize by it's id.
+     * @param id as Long.
+     * @return ShoeSize or Optional if no match.
+     */
     public Optional<ShoeSize> getShoeSizeById(Long id) {
         return shoeSizeRepository.findById(id);
     }
 
+    /** 
+     * Saves a ShoeSize. 
+     * @param shoeSize to save.
+     * @return the saved ShoeSize. 
+     */
     public ShoeSize save(ShoeSize shoeSize) {
         return shoeSizeRepository.save(shoeSize);
     }
     
+    /** 
+     * Gets all ShoeSizes for a gender. 
+     * @param map containing information about gender. 
+     * @return list of ShoeSizes matching the gender. 
+     */
     public List<ShoeSize> getAllShoeSizesByGender(@RequestBody Map<String, Object> map) {
         
-        System.out.println("Gender = " + map.get("gender").toString());
         if("women".equalsIgnoreCase(map.get("gender").toString())) {
                 return shoeSizeRepositoryImpl.findShoeSizeByMinAndMax(34, 42);
         }
         if("kids".equalsIgnoreCase(map.get("gender").toString())) {
                return shoeSizeRepositoryImpl.findShoeSizeByMinAndMax(0, 40);
-        }
-        
+        } 
         return shoeSizeRepositoryImpl.findShoeSizeByMinAndMax(40, 50);
     }
 }

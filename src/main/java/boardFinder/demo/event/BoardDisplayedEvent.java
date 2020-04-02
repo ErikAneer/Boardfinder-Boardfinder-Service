@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.*;
 
 /**
- *
+ * Event class that represents info to store for statistics about a displayed snowboard.
  * @author Erik
  */
 @RequiredArgsConstructor

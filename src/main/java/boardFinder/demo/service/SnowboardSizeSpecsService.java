@@ -1,6 +1,4 @@
-/*
 
- */
 package boardFinder.demo.service;
 
 import boardFinder.demo.domain.SnowboardSizeSpecs;
@@ -11,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * Service class for the SnowboardSizeSpecs entity class. 
  * @author Erik
  */
 @Service
@@ -24,14 +22,28 @@ public class SnowboardSizeSpecsService {
         this.snowboardSizeSpecsRepository = snowboardSizeSpecsRepository;
     }
 
+    /** 
+     * Gets all SnowboardSizeSpecs.
+     * @return list of SnowboardSizeSpecs.
+     */
     public List<SnowboardSizeSpecs> getAllSnowboardSizeSpecs() {
         return snowboardSizeSpecsRepository.findAll();
     }
 
+    /** 
+     * Gets a SnowboardSizeSpecs by it's id. 
+     * @param id as Long. 
+     * @return a SnowboardSizeSpecs or Optional of no match. 
+     */
     public Optional<SnowboardSizeSpecs> getSnowboardSizeSpecsById(Long id) {
         return snowboardSizeSpecsRepository.findById(id);
     }
 
+    /** 
+     * Saves a SnowboardSizeSpecs
+     * @param SnowboardSizeSpecs to save
+     * @return the saved SnowboardSizeSpecs.
+     */
     public SnowboardSizeSpecs save(SnowboardSizeSpecs snowboardSizeSpecs) {
         return snowboardSizeSpecsRepository.save(snowboardSizeSpecs);
     }

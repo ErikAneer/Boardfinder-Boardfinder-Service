@@ -18,7 +18,7 @@ import javax.persistence.SequenceGenerator;
 import org.hibernate.validator.constraints.Length;
 
 /**
- *
+ * Entity class that represents a snowboard. 
  * @author Erik
  */
 @Entity
@@ -27,9 +27,9 @@ public class Snowboard implements Serializable {
     private final static long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "conference_room_s_generator", sequenceName = "conference_room_s",
+    @SequenceGenerator(name = "snowboard_s_generator", sequenceName = "snowboard_s",
             initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conference_room_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "snowboard_s_generator")
     private long id;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
@@ -46,6 +46,10 @@ public class Snowboard implements Serializable {
     private List<Terrain> ridingterrains = new ArrayList<>();
 
     private double stanceSetBack;
+    
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "warranty_id")
+    private Warranty warranty;
 
     private String imagePath;
     @Length(max = 1000)
@@ -76,7 +80,7 @@ public class Snowboard implements Serializable {
     }
 
     public Snowboard(Brand boardBrand, String model, Gender boardGender, double stanceSetBack,
-            int stiffness, String imagePath, String introDescription, String description) {
+            int stiffness, String imagePath, Warranty warranty, String introDescription, String description) {
         this.boardBrand = boardBrand;
         this.name = model;
         this.boardGender = boardGender;
@@ -85,6 +89,7 @@ public class Snowboard implements Serializable {
         this.imagePath = imagePath;
         this.introDescription = introDescription;
         this.description = description;
+        this.warranty = warranty;
     }
 
     public long getId() {
@@ -191,6 +196,19 @@ public class Snowboard implements Serializable {
         this.techDetails = techDetails;
     }
 
+    public Warranty getWarranty() {
+        return warranty;
+    }
+
+    public void setWarranty(Warranty warranty) {
+        this.warranty = warranty;
+    }
+
+    /** 
+     * Gets the riding terrain value for a Snowboard by the riding terrain name. 
+     * @param terrain
+     * @return 
+     */
     public Integer getRiderTerrainValueByName(String terrain) {
         for (Terrain t : this.ridingterrains) {
             if (t.getRidingType().getRidingTypeName().equalsIgnoreCase(terrain)) {

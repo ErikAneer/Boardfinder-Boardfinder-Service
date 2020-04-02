@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 /**
- *
+ * Entity class that represents a snowboard search.
  * @author Erik
  */
 
@@ -19,9 +19,9 @@ public class BoardSearch implements Serializable {
     private final static long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "bend_s_generator", sequenceName = "bend_s",
+    @SequenceGenerator(name = "boardsearch_s_generator", sequenceName = "boardsearch_s",
             initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bend_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "boardsearch_s_generator")
     private long id;
     
     private String gender;

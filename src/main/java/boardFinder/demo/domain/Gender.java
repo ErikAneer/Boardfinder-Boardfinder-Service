@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 /**
- *
+ * Entity class that represents a rider gender (mens, womens, kids).
  * @author Erik
  */
 @Entity
