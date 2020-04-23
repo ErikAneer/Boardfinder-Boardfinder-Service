@@ -19,9 +19,7 @@ import org.hibernate.validator.constraints.Length;
 public class TechDetail implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "techdetail_s_generator", sequenceName = "techdetail_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "techdetail_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String techDetailType;
     private String name;

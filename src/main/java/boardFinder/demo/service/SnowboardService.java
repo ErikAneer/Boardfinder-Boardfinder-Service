@@ -328,7 +328,7 @@ public class SnowboardService {
 
     }
 
-    /*
+    
     @Transactional
     public List<Snowboard> filter(Map<String, Object> map) {
         currentList = snowboardRepo.getAllSnowboards();
@@ -370,12 +370,12 @@ public class SnowboardService {
 
         return filteredList;
     }
-*/
+
     
-    
+    /*
     @Transactional
     public List<Snowboard> filter(Map<String, Object> map) {
-        /*
+        
         currentList = snowboardRepo.getAllSnowboards();
         filteredList = new ArrayList<>(currentList);
         resetFilteredList();
@@ -404,7 +404,7 @@ public class SnowboardService {
         if (map.get("bend") != null && !map.get("bend").toString().equalsIgnoreCase("Any")) {
             filteredList = filterByBend(filteredList, map.get("bend").toString());
         }
-        */
+        
         
         List<Snowboard> result = customSnowboardRepository.getAllSnowboardsByQueryParamsMap(map);
         result = sortFilteredBoardsafterTerrainValue(result, map);
@@ -418,7 +418,7 @@ public class SnowboardService {
         
 
         return result;
-    }
+    } */
 
     public List<Snowboard> filterWithAlternativeBendAndShape(Map<String, Object> map) {
         currentList = snowboardRepo.getAllSnowboards();

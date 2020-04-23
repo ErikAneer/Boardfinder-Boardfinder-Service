@@ -18,9 +18,7 @@ import javax.persistence.SequenceGenerator;
 public class Terrain implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "terrain_s_generator", sequenceName = "terrain_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "terrain_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     private RidingTerrain ridingType;

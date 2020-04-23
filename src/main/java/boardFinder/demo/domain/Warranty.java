@@ -17,9 +17,7 @@ import org.hibernate.validator.constraints.Length;
 public class Warranty implements Serializable {
     
     @Id
-    @SequenceGenerator(name = "warranty_s_generator", sequenceName = "warranty_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "warranty_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     
     private String header;

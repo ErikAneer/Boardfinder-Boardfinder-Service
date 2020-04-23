@@ -27,9 +27,7 @@ public class Snowboard implements Serializable {
     private final static long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "snowboard_s_generator", sequenceName = "snowboard_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "snowboard_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
