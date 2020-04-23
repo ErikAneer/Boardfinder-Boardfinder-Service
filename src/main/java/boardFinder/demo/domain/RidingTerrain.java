@@ -17,9 +17,7 @@ public class RidingTerrain implements Serializable {
     private final static long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "riding_type_s_generator", sequenceName = "riding_type_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "riding_type_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String ridingTypeName;
 

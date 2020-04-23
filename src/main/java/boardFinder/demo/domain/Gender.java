@@ -18,9 +18,7 @@ public class Gender implements Serializable{
         private final static long serialVersionUID = 1L;
     
     @Id
-    @SequenceGenerator(name="gender_s_generator", sequenceName = "gender_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gender_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String sex;
 
