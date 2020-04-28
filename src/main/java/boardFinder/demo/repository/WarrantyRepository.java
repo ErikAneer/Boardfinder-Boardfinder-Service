@@ -1,6 +1,3 @@
-/*
-
- */
 package boardFinder.demo.repository;
 
 import boardFinder.demo.domain.Warranty;

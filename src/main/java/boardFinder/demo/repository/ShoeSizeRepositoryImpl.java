@@ -41,5 +41,4 @@ public class ShoeSizeRepositoryImpl {
     private String queryBuilder(double minSize, double maxSize) {
         return MessageFormat.format("SELECT s FROM ShoeSize s WHERE s.euSize BETWEEN {0} AND {1}", minSize, maxSize);
     }
-
 }

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 public class ShoeSizeService {
 
-    private ShoeSizeRepository shoeSizeRepository;
-    private ShoeSizeRepositoryImpl shoeSizeRepositoryImpl;
+    private final ShoeSizeRepository shoeSizeRepository;
+    private final ShoeSizeRepositoryImpl shoeSizeRepositoryImpl;
 
     @Autowired
     public ShoeSizeService(ShoeSizeRepository shoeSizeRepository, ShoeSizeRepositoryImpl shoeSizeRepositoryImpl) {
@@ -54,15 +54,15 @@ public class ShoeSizeService {
     
     /** 
      * Gets all ShoeSizes for a gender. 
-     * @param map containing information about gender. 
+     * @param gender
      * @return list of ShoeSizes matching the gender. 
      */
-    public List<ShoeSize> getAllShoeSizesByGender(@RequestBody Map<String, Object> map) {
+    public List<ShoeSize> getAllShoeSizesByGender(String gender) {
         
-        if("women".equalsIgnoreCase(map.get("gender").toString())) {
+        if("women".equalsIgnoreCase(gender)) {
                 return shoeSizeRepositoryImpl.findShoeSizeByMinAndMax(34, 42);
         }
-        if("kids".equalsIgnoreCase(map.get("gender").toString())) {
+        if("kids".equalsIgnoreCase(gender)) {
                return shoeSizeRepositoryImpl.findShoeSizeByMinAndMax(0, 40);
         } 
         return shoeSizeRepositoryImpl.findShoeSizeByMinAndMax(40, 50);

@@ -1,6 +1,3 @@
-/*
-
- */
 package boardFinder.demo.domain;
 
 import java.io.Serializable;
@@ -8,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 /**
  * Entity class that represents a snowboard's riding terrain and how well the snowboard perform in that terrain. 

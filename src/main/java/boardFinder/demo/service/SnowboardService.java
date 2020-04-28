@@ -1,17 +1,15 @@
 package boardFinder.demo.service;
 
-import boardFinder.demo.domain.BoardSearch;
 import boardFinder.demo.domain.ShoeSize;
 import boardFinder.demo.domain.Snowboard;
 import boardFinder.demo.domain.SnowboardSizeSpecs;
-import boardFinder.demo.domain.TechDetail;
 import boardFinder.demo.event.BoardDisplayedEvent;
 import boardFinder.demo.event.BoardDisplayedEventDispatcher;
 import boardFinder.demo.event.BoardSearchedEvent;
 import boardFinder.demo.event.BoardSearchedEventDispatcher;
-import boardFinder.demo.repository.CustomSnowboardRepository;
 import boardFinder.demo.repository.ShoeSizeRepository;
 import boardFinder.demo.repository.SnowboardRepository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,28 +36,22 @@ public class SnowboardService {
     private List<Snowboard> filteredList;
     private List<Snowboard> alternativeFilteredList;
 
-    private ShoeSizeRepository shoeSizeRepository;
+    private final ShoeSizeRepository shoeSizeRepository;
     private ShoeSize riderShoeSize;
     private int riderWeight;
     private Snowboard selectedSnowboard;
     List<String> recommendedLengths = new ArrayList();
     
-    private BoardSearchedEventDispatcher eventDispatcher;
-    private BoardDisplayedEventDispatcher displayedBoardEventDispatcher;
-    
-    
-   //Testing SQL query
-    private CustomSnowboardRepository customSnowboardRepository;
+    private final BoardSearchedEventDispatcher eventDispatcher;
+    private final BoardDisplayedEventDispatcher displayedBoardEventDispatcher;
 
     @Autowired
     public SnowboardService(SnowboardRepository snowboardRepo, ShoeSizeRepository shoeSizeRepository, 
-                final BoardSearchedEventDispatcher eventDispatcher, final BoardDisplayedEventDispatcher displayedBoardEventDispatcher,
-                CustomSnowboardRepository customSnowboardRepository) {
+                final BoardSearchedEventDispatcher eventDispatcher, final BoardDisplayedEventDispatcher displayedBoardEventDispatcher) {
         this.snowboardRepo = snowboardRepo;
         this.shoeSizeRepository = shoeSizeRepository;
         this.eventDispatcher = eventDispatcher;
         this.displayedBoardEventDispatcher = displayedBoardEventDispatcher;
-        this.customSnowboardRepository =  customSnowboardRepository;
     }
 
     @PostConstruct
@@ -261,9 +254,13 @@ public class SnowboardService {
         return snowboardList;
     }
 
-    //Alternative filter methods
+        /**
+     * Filters the snowboard List more broadly based on the type of bend.
+     * @param snowboardList
+     * @param shape
+     * @return matching Snowboards as a List
+     */
     List<Snowboard> filterByAlternativeBend(List<Snowboard> snowboardList, String bend) {
-        //Regular Camber, "Pure-Pop Camber, Directional Camber Bend.id 1, 3, 5
         if (bend.equalsIgnoreCase("Regular Camber")) {
             snowboardList = snowboardList.stream()
                     .filter(s -> s.getTechDetails().stream().anyMatch(td -> 
@@ -282,7 +279,6 @@ public class SnowboardService {
                             td.getName().equalsIgnoreCase("Regular Camber")
                     || td.getName().equalsIgnoreCase("Pure-Pop Camber"))).collect(Collectors.toList());
         }
-        //"Flat Top, Flying V / Camber/Rocker, Directional Flat Top 2, 4, 6
         if (bend.equalsIgnoreCase("Flat Top")) {
             snowboardList = snowboardList.stream()
                     .filter(s -> s.getTechDetails().stream().anyMatch(td ->
@@ -305,6 +301,12 @@ public class SnowboardService {
         return snowboardList;
     }
 
+    /**
+     * Filters the snowboard List more broadly based on the type of shape.
+     * @param snowboardList
+     * @param shape
+     * @return matching Snowboards as a List
+     */
     List<Snowboard> filterByAlternativeShape(List<Snowboard> snowboardList, String shape) {
         if (shape.equalsIgnoreCase("All Mountain Directional Shape")) {
             snowboardList = snowboardList.stream()
@@ -328,13 +330,17 @@ public class SnowboardService {
 
     }
 
-    
+    /**
+     * Filters the Snowboard List to find matching snowboards based on the search map.
+     * Does also call the event dispatcher to send the search to the stats application for storage. 
+     * @param map
+     * @return matching Snowboards as a List
+     */
     @Transactional
     public List<Snowboard> filter(Map<String, Object> map) {
         currentList = snowboardRepo.getAllSnowboards();
         filteredList = new ArrayList<>(currentList);
         resetFilteredList();
-        System.out.println("Map: " + map);
         if (map.get("gender") != null) {
             filteredList = filterByGender(filteredList, map.get("gender").toString());
         }
@@ -360,66 +366,19 @@ public class SnowboardService {
             filteredList = filterByBend(filteredList, map.get("bend").toString(), map.get("gender").toString());
         }
         filteredList = sortFilteredBoardsafterTerrainValue(filteredList, map);
-        //Cummunicates the searchedEvent via RabbitMQ to the Stats Microservice
+        // Communicates the searchedEvent via RabbitMQ to the Stats Microservice
         eventDispatcher.sendBoardSearchedEvent(
                 new BoardSearchedEvent(map.get("gender").toString(),  Integer.parseInt(map.get("riderWeight").toString()),Double.parseDouble(map.get("shoeSize").toString()), 
-        map.get("riderLevel").toString(), map.get("preferredTerrain").toString(), map.get("shape").toString(),  map.get("flex").toString(), map.get("bend").toString())
-        
-        );
-        
-
+        map.get("riderLevel").toString(), map.get("preferredTerrain").toString(), map.get("shape").toString(),  map.get("flex").toString(), map.get("bend").toString()));
         return filteredList;
     }
 
-    
-    /*
-    @Transactional
-    public List<Snowboard> filter(Map<String, Object> map) {
-        
-        currentList = snowboardRepo.getAllSnowboards();
-        filteredList = new ArrayList<>(currentList);
-        resetFilteredList();
-        
-        if (map.get("gender") != null) {
-            filteredList = filterByGender(filteredList, map.get("gender").toString());
-        }
-        if (map.get("riderWeight") != null) {
-            filteredList = filterByRiderWeight(filteredList, Integer.parseInt(map.get("riderWeight").toString()));
-        }
-        if (map.get("shoeSize") != null) {
-            filteredList = filterByShoeSize(filteredList, Double.parseDouble(map.get("shoeSize").toString()));
-        }
-        if (map.get("riderLevel") != null) {
-            filteredList = filterByRiderLevel(filteredList, map.get("riderLevel").toString());
-        }
-        if (map.get("preferredTerrain") != null) {
-            filteredList = filterByRidingTerrain(filteredList, map.get("preferredTerrain").toString());
-        }
-        if (map.get("shape") != null && !map.get("shape").toString().equalsIgnoreCase("Any")) {
-            filteredList = filterByShape(filteredList, map.get("shape").toString());
-        }
-        if (map.get("flex") != null && !map.get("flex").toString().equalsIgnoreCase("Any")) {
-            filteredList = filterByFlex(filteredList, map.get("flex").toString());
-        }
-        if (map.get("bend") != null && !map.get("bend").toString().equalsIgnoreCase("Any")) {
-            filteredList = filterByBend(filteredList, map.get("bend").toString());
-        }
-        
-        
-        List<Snowboard> result = customSnowboardRepository.getAllSnowboardsByQueryParamsMap(map);
-        result = sortFilteredBoardsafterTerrainValue(result, map);
-        
-        //Cummunicates the searchedEvent via RabbitMQ to the Stats Microservice
-        eventDispatcher.sendBoardSearchedEvent(
-                new BoardSearchedEvent(map.get("gender").toString(),  Integer.parseInt(map.get("riderWeight").toString()),Double.parseDouble(map.get("shoeSize").toString()), 
-        map.get("riderLevel").toString(), map.get("preferredTerrain").toString(), map.get("shape").toString(),  map.get("flex").toString(), map.get("bend").toString())
-        
-        );
-        
-
-        return result;
-    } */
-
+    /**
+     * Filters a snowboard list wider to broaden the matches. 
+     * Is normally called if filter method produces a small result list. 
+     * @param map
+     * @return matching Snowboards as a List
+     */
     public List<Snowboard> filterWithAlternativeBendAndShape(Map<String, Object> map) {
         currentList = snowboardRepo.getAllSnowboards();
         alternativeFilteredList = new ArrayList<>(currentList);

@@ -33,5 +33,4 @@ public interface SnowboardRepository extends JpaRepository<Snowboard, Long> {
      * @return Snowboard
      */
     Snowboard findById(long id);
-
 }
