@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * Event dispatcher class to dispatch events of displayed snowboards to RabbitMQ Message Broker. 
  * @author Erik
  */
 
@@ -29,6 +29,10 @@ public class BoardDisplayedEventDispatcher {
                 this.boardDisplayedRoutingKey = boardDisplayedRoutingKey;
     }
     
+    /** 
+     * Dispatches a boardDisplayedEvent to the RabbitMQ Message Broker
+     * @param boardDisplayedEvent 
+     */
     public void sendBoardDisplayedEvent(final BoardDisplayedEvent boardDisplayedEvent) {
         rabbitTemplate.convertAndSend(boardDisplayedEventExchange,
                 boardDisplayedRoutingKey,

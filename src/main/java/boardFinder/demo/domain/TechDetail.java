@@ -1,6 +1,3 @@
-/*
-
- */
 package boardFinder.demo.domain;
 
 import java.io.Serializable;
@@ -8,20 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import org.hibernate.validator.constraints.Length;
 
 /**
- *
+ * Genereic entity class that represents a techdetail of a snowboard such as bend, shape or core.
  * @author Erik
  */
 @Entity
 public class TechDetail implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "bend_s_generator", sequenceName = "bend_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bend_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String techDetailType;
     private String name;

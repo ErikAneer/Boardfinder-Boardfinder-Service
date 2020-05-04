@@ -5,10 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 /**
- *
+ * Entity class that represents a shoe size.
  * @author Erik
  */
 @Entity
@@ -17,9 +16,7 @@ public class ShoeSize implements Serializable {
     private final static long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "shoe_size_s_generator", sequenceName = "shoe_size_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shoe_size_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private double euSize;
     private double jpSize;

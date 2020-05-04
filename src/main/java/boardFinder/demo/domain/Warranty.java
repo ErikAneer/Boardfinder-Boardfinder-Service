@@ -1,3 +1,4 @@
+
 package boardFinder.demo.domain;
 
 import java.io.Serializable;
@@ -5,36 +6,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.hibernate.validator.constraints.Length;
 
 /**
- * Entity class that represents a rider level. 
+ * Entity class of a product's warranty 
  * @author Erik
  */
 @Entity
-public class RiderLevel implements Serializable {
-
-    private final static long serialVersionUID = 1L;
-
+public class Warranty implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
-    private String riderLevel;
+    
+    private String header;
+    @Length(max = 1500)
     private String description;
+    private int years;
 
-    public RiderLevel() {
-    }
-
-    public RiderLevel(String riderLevel, String description) {
-        this.riderLevel = riderLevel;
+    public Warranty(String header, String description, int years) {
+        this.header = header;
         this.description = description;
+        this.years = years;
     }
-
-    public String getRiderLevel() {
-        return riderLevel;
-    }
-
-    public void setRiderLevel(String riderLevel) {
-        this.riderLevel = riderLevel;
+    
+    public Warranty() {
     }
 
     public long getId() {
@@ -45,6 +41,14 @@ public class RiderLevel implements Serializable {
         this.id = id;
     }
 
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -52,4 +56,15 @@ public class RiderLevel implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getYears() {
+        return years;
+    }
+
+    public void setYears(int years) {
+        this.years = years;
+    }
+    
+    
+    
 }

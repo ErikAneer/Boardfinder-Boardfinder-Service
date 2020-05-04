@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * Controller class for riderlevels.
  * @author Erik
  */
 @RestController
@@ -26,6 +26,10 @@ public class RiderLevelController {
         this.rLService = rLService;
     }
 
+    /**
+     * Gets all the riderlevels available.
+     * @return list of all the RiderLevels.
+     */
     @GetMapping
     public List<RiderLevel> getAllRiderLevels() {
         return rLService.getAllRiderLevels();

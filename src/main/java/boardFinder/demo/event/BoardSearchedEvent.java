@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.*;
 
 /**
- *
+ * Event class to be dispatched to the RabbitMQ Message Broker that represents the search parameters of a snowboard search. 
  * @author Erik
  */
 @RequiredArgsConstructor

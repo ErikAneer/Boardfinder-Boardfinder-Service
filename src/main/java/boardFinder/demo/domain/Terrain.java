@@ -1,6 +1,3 @@
-/*
-
- */
 package boardFinder.demo.domain;
 
 import java.io.Serializable;
@@ -8,19 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 /**
- *
+ * Entity class that represents a snowboard's riding terrain and how well the snowboard perform in that terrain. 
  * @author Erik
  */
 @Entity
 public class Terrain implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "bend_s_generator", sequenceName = "bend_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bend_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     private RidingTerrain ridingType;

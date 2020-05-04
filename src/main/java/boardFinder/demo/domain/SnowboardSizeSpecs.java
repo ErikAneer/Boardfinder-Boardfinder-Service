@@ -1,6 +1,3 @@
-/*
-
- */
 package boardFinder.demo.domain;
 
 import java.io.Serializable;
@@ -8,10 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 /**
- *
+ * Entity class that represents the size, length, width and other measurements for a certain length of a snowboard. 
  * @author Erik
  */
 
@@ -21,9 +17,7 @@ public class SnowboardSizeSpecs implements Serializable {
         private final static long serialVersionUID = 1L;
     
     @Id
-    @SequenceGenerator(name="conference_room_s_generator", sequenceName = "conference_room_s",
-            initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conference_room_s_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     
     private String boardLength;
